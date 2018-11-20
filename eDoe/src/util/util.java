@@ -5,8 +5,8 @@ package util;
  *
  * @author Antonio Bertino de Vasconcelos Cabral Neto
  * @author Arthur Silva Guedes
- * @author Danilo
- * @author Talita
+ * @author Danilo de Menezes Freitas
+ * @author Talita Galdino Gouveia
  */
 public class util {
     /**
