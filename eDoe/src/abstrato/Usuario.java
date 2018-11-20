@@ -95,4 +95,14 @@ public abstract class Usuario {
 			return false;
 		return true;
 	}
+
+	/**
+	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
+	* 
+	* @return a representação em String do usuario.
+	*/
+	@Override
+	public String toString() {
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.getStatus();
+	}
 }

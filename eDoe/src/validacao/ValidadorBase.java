@@ -45,7 +45,7 @@ public class ValidadorBase {
 	/**
 	* Método auxiliar que valida os parâmetros passados para a construção do usuario.
 	* 
-	*@param id a identificacao do usuario
+	* @param id a identificacao do usuario
 	* @param nome o nome do usuario
 	* @param email o email do usuario
 	* @param celular o numero do celular do usuario
