@@ -43,4 +43,39 @@ public class ValidadorControllers {
 			throw new IllegalArgumentException("Usuario ja existente: " + id);
 		}
 	}
+
+    /**
+     * Metodo auxiliar que valida a saida do pesquisaUsuarioPorId
+     *
+     * @param id de identificacao do usuario.
+     * @param usuarios Mapa de usuario.
+     */
+	public void validaPesquisaUsuarioPorId(String id, Map<String, Usuario> usuarios) {
+	    vb.validaId(id);
+
+	    if (!usuarios.containsKey(id)) {
+	        throw new IllegalArgumentException("Usuario nao encontrado: " + id);
+        }
+    }
+
+    /**
+     * Metodo auxiliar que valida os parametros passados para a pesquisa de usuarios pelo nome.
+     *
+     * @param nome
+     */
+    public void validaPesquisaUsuarioPorNome(String nome) {
+	    vb.validaNome(nome);
+    }
+
+    /**
+     * Metodo auxiliar que valida a saida do metodo de pesquisa por nome do usuario,
+     *
+     * @param saida a ser validada.
+     * @param nome nome do usuario da pesquisa.
+     */
+    public void validaExistenciaPesquisa(String saida, String nome) {
+	    if (saida.equals("")) {
+	        throw new IllegalArgumentException("Usuario nao encontrado: " + nome);
+        }
+    }
 }

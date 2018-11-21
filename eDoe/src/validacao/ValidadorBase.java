@@ -1,5 +1,10 @@
 package validacao;
 
+import util.Util;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
 * Representacao de um validador das classes bases.
 *
@@ -10,7 +15,7 @@ package validacao;
 */
 public class ValidadorBase {
 	
-	private void validaNome(String nome) {
+	public void validaNome(String nome) {
 		if (nome == null || nome.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada ivalida: nome nao pode ser vazio ou nulo.");
 		}
@@ -30,13 +35,19 @@ public class ValidadorBase {
 	
 	private void validaClasse(String classe) {
 		if (classe == null || classe.trim().equals("")) {
-			throw new IllegalArgumentException("Entrada ivalida: classe nao pode ser vazia ou nula.");
-		} else if (classe.equals("EMPRESA")) {
+            throw new IllegalArgumentException("Entrada ivalida: classe nao pode ser vazia ou nula.");
+        }
+
+        // Classes validas para cadastro.
+        final String[] classesValidas = {"PESSOA_FISICA", "IGREJA", "ORGAO_PUBLICO_MUNICIPAL", "ORGAO_PUBLICO_ESTADUAL", "ORGAO_PUBLICO_FEDERAL", "ONG", "ASSOCIACAO", "SOCIEDADE"};
+		final List<String>  classesValidasList = Arrays.asList(classesValidas);
+
+		if (!classesValidasList.contains(classe)) {
 			throw new IllegalArgumentException("Entrada ivalida: classe invalida.");
 		}
 	}
 	
-	private void validaId(String id) {
+	public void validaId(String id) {
 		if (id == null || id.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		}

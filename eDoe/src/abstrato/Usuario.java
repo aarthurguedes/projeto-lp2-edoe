@@ -96,7 +96,11 @@ public abstract class Usuario {
 		return true;
 	}
 
-	/**
+    public String getNome() {
+        return this.nome;
+    }
+
+    /**
 	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
 	* 
 	* @return a representação em String do usuario.
