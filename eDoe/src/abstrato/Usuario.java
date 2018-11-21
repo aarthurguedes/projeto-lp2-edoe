@@ -33,7 +33,7 @@ public abstract class Usuario {
 	*/
 	protected String classe;
 	/**
-	* Objeto validador.
+	* Objeto validador base.
 	*/
 	private ValidadorBase vb = new ValidadorBase();
 	
@@ -103,6 +103,6 @@ public abstract class Usuario {
 	*/
 	@Override
 	public String toString() {
-		return this.nome + "/" + this.id + ", " + this.email + ", " + this.getStatus();
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.getStatus();
 	}
 }

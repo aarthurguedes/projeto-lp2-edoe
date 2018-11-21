@@ -1,7 +1,7 @@
 package validacao;
 
 /**
-* Representação de um validador das classes bases.
+* Representacao de um validador das classes bases.
 *
 * @author Antonio Bertino de Vasconcelos Cabral Neto
 * @author Arthur Silva Lima Guedes
@@ -43,7 +43,7 @@ public class ValidadorBase {
 	}
 	
 	/**
-	* Método auxiliar que valida os parâmetros passados para a construção do usuario.
+	* Metodo auxiliar que valida os parametros passados para a construcao do usuario.
 	* 
 	* @param id a identificacao do usuario
 	* @param nome o nome do usuario
