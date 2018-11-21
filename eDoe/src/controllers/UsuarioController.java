@@ -66,10 +66,9 @@ public class UsuarioController {
      *  Caso haja mais de um usuario cadastrado com o mesmo nome completo, se retorna uma String com os dois nomes, porem ordenados com quem foi cadastrado primeiro..
      *
      * @param nome identificando o nome o qual será procurado
-     * @return String no formato:
-      "Nome/id, email, (xx) yyyy-zzzz, status: status"
+     * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
      */
-    public String  pesquisaUsuarioPorNome(String nome) {
+    public String  pesquisarUsuarioPorNome(String nome) {
 	    vc.validaPesquisaUsuarioPorNome(nome);
 
         List<Usuario> usuariosList = new ArrayList<>(this.usuarios.values());
@@ -91,14 +90,31 @@ public class UsuarioController {
      * Valida os parametros e procura no sistema algum usuario com o id cadastrado. Como o id e unico, so podera existir um usuario com esse id.
      *
      * @param id do usuario  a ser pesquisado
-     * @return String no formato:
-    "Nome/id, email, (xx) yyyy-zzzz, status: status"
-     *
+     * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
      */
-    public String pesquisaUsuarioPorId(String id)  {
+    public String pesquisarUsuarioPorId(String id)  {
         vc.validaPesquisaUsuarioPorId(id, this.usuarios);
 
         return this.usuarios.get(Util.formatString(id)).toString();
     }
-
+    
+    public String atualizarUsuario(String id, String nome, String email, String celular) {
+    	vc.validaExistenciaUsuario(id, usuarios);
+    	
+    	if (nome != null) {
+    		usuarios.get(id).setNome(nome);
+    		return usuarios.get(id).toString();
+    	} else if (email != null) {
+    		usuarios.get(id).setEmail(email);
+    		return usuarios.get(id).toString();
+    	} else {
+    		usuarios.get(id).setCelular(celular);
+    		return usuarios.get(id).toString();
+    	}
+    }
+    
+    public void removerUsuario(String id) {
+    	vc.validaExistenciaUsuario(id, usuarios);
+    	usuarios.remove(id);
+    }
 }

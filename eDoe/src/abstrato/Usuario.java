@@ -55,6 +55,18 @@ public abstract class Usuario {
 		this.classe = classe;
 	}
 	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	/**
 	* @return o status (doador/receptor) do usuario
 	*/

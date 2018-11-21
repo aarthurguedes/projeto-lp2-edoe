@@ -78,4 +78,11 @@ public class ValidadorControllers {
 	        throw new IllegalArgumentException("Usuario nao encontrado: " + nome);
         }
     }
+    
+    public void validaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
+    	if (!usuarios.containsKey(id)) {
+    		throw new IllegalArgumentException("Usuario nao encontrado: " + id);
+    	} 
+    	vb.validaId(id);
+    }
 }
