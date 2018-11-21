@@ -37,7 +37,7 @@ public class ValidadorControllers {
 	* @param classe a classe do usuario doador
 	* @param usuarios o mapa de usuarios
 	*/
-	public void validaCadastramentoDoador(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
+	public void validaCadastramento(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
 		vb.validaUsuario(id, nome, email, celular, classe);
 		if (usuarios.containsKey(id)) {
 			throw new IllegalArgumentException("Usuario ja existente: " + id + ".");

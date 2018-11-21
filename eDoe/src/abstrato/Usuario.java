@@ -66,6 +66,10 @@ public abstract class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public String getId() {
+	    return this.id;
+    }
 	
 	/**
 	* @return o status (doador/receptor) do usuario

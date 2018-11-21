@@ -35,4 +35,8 @@ public class Facade {
 	public void removeUsuario(String id) {
 		this.uc.removerUsuario(id);
 	}
+
+	public void lerReceptores(String caminho) {
+	   this.uc.lerReceptores(caminho);
+    }
 }

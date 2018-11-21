@@ -1,12 +1,12 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 import abstrato.Usuario;
 import eDoe.Doador;
+import eDoe.Receptor;
 import validacao.ValidadorControllers;
 import util.Util;
 
@@ -53,12 +53,29 @@ public class UsuarioController {
 	* @param email o email do usuario
 	* @param celular o numero do celular do usuario
 	* @param classe a classe do usuario
+     * @return String com id de identificao unica do usuario
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
-        vc.validaCadastramentoDoador(id, nome, email, celular, classe, usuarios);
+        vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
         Usuario doador = new Doador(id, nome, email, celular, classe);
         usuarios.put(Util.formatString(id), doador);
-        return id;
+        return this.usuarios.get(Util.formatString(id)).getId();
+    }
+
+    /**
+     * Método criado para cadastro de um receptor no sistema.
+     * @param id a identificacao do usuario
+     * @param nome o nome do usuario
+     * @param email o email do usuario
+     * @param celular o numero do celular do usuario
+     * @param classe a classe do usuario
+     * @return String com id de identificao unica do usuario
+     */
+    public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
+	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
+	    Usuario receptor = new Receptor(id, nome, email, celular, classe);
+	    usuarios.put(Util.formatString(id), receptor);
+        return this.usuarios.get(Util.formatString(id)).getId();
     }
 
     /**
@@ -97,7 +114,16 @@ public class UsuarioController {
 
         return this.usuarios.get(Util.formatString(id)).toString();
     }
-    
+
+    /**
+     * Metodo de atualizacao dos dados do usuario.
+     *
+     * @param id identificao unica do usuario
+     * @param nome do usuario a ser atualizado
+     * @param email email do usuario a ser atualizado
+     * @param celular celular do usuario a ser atualizado
+     * @return toString do usuario.
+     */
     public String atualizarUsuario(String id, String nome, String email, String celular) {
     	vc.validaExistenciaUsuario(id, usuarios);
     	
@@ -112,9 +138,47 @@ public class UsuarioController {
     		return usuarios.get(id).toString();
     	}
     }
-    
+
+    /**
+     *  Metodo para remocao de usuarios do sistema
+     * @param id de identificacao do usuario.
+     */
     public void removerUsuario(String id) {
     	vc.validaExistenciaUsuario(id, usuarios);
     	usuarios.remove(id);
+    }
+
+    /**
+     * Metodo para leitura dos arquivos .csv e decisao de escolhas entre: cadastro de receptores e atualizacao de dados do Usuario
+     * @param caminho do arquvio .csv
+     */
+    public void lerReceptores(String caminho) {
+        String[] pathname = caminho.split("/");
+
+        try {
+            File csvFile = new File(pathname[0] + File.separator + pathname[1]);
+            Scanner sc = new Scanner(csvFile);
+            String linha = sc.nextLine();  //Leitura do Cabeçalho
+
+            while (sc.hasNextLine()) {
+                linha = sc.nextLine();
+                String[] dadosReceptor = linha.split(",");
+                System.out.println(linha);
+                String id = dadosReceptor[0];
+                String nome = dadosReceptor[1];
+                String email = dadosReceptor[2];
+                String celular = dadosReceptor[3];
+                String classe = dadosReceptor[4];
+
+                if (pathname[1].equals("novosReceptores.csv")) {
+                    this.cadastrarReceptor(id, nome, email, celular, classe);
+                } else if (pathname[1].equals("atualizaReceptores.csv")){
+                    this.atualizarUsuario(id, nome, email, celular);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Arquivo nao encontrado");
+        }
     }
 }
