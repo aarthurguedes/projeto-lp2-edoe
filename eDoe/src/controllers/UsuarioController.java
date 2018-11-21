@@ -163,7 +163,6 @@ public class UsuarioController {
             while (sc.hasNextLine()) {
                 linha = sc.nextLine();
                 String[] dadosReceptor = linha.split(",");
-                System.out.println(linha);
                 String id = dadosReceptor[0];
                 String nome = dadosReceptor[1];
                 String email = dadosReceptor[2];
