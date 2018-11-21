@@ -13,6 +13,10 @@ import java.util.List;
 */
 public class ValidadorBase {
 	
+	/**
+	 * Metodo auxiliar que verifica se o parametro nome e nulo ou vazio, caso seja, esse metodo lancara uma excecao
+	 * @param nome representa o nome do usuario
+	 */
 	public void validaNome(String nome) {
 		if (nome == null || nome.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada invalida: nome nao pode ser vazio ou nulo.");
@@ -45,6 +49,10 @@ public class ValidadorBase {
 		}
 	}
 	
+	/**
+	 * Metodo auxiliar que verifica se o parametro id e nulo ou vazio, caso seja, esse metodo lancara uma excecao
+	 * @param id representa a id do usuario
+	 */
 	public void validaId(String id) {
 		if (id == null || id.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");

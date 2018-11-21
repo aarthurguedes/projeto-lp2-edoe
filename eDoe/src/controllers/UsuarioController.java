@@ -184,6 +184,11 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Metodo responsavel pela formatacao da id do usuario, que agora tera o seguinte formato: 000.000.000-00
+     * @param id representa a id do usuario
+     * @return saida que representa a string formatada do id do usuario
+     */
     private String formatID(String id){
         String saida = "";
 

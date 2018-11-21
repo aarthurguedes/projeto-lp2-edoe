@@ -78,6 +78,12 @@ public class ValidadorControllers {
         }
     }
     
+    /**
+     * Metodo auxiliar responsavel por verificar a existencia de um usuario no map, caso o usuario nao exista 
+     * nesse map, e lancada uma excecao
+     * @param id representa a id do usuario
+     * @param usuarios representa o map que contem os usuarios
+     */
     public void validaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
     	vb.validaId(id);
     	if (!usuarios.containsKey(id)) {

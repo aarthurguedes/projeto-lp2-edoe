@@ -54,23 +54,46 @@ public abstract class Usuario {
 		this.celular = celular;
 		this.classe = classe;
 	}
-
+	
+	/**
+	 * Metodo responsavel por retornar o valor atual do atributo id
+	 * @return id do usuario
+	 */
 	public String getId() {
 	    return this.id;
     }
 	
+	/**
+	 * Metodo responsavel por retornar o valor atual do atributo nome
+	 * @return nome do usuario
+	 */
 	public String getNome() {
         return this.nome;
     }
 
+	/**
+	 * Metodo responsavel por mudar o valor do atributo nome, agora esse atributo passa
+	 * a ter o valor recebido como parametro
+	 * @param nome representa o nome do usuario
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
+	/**
+	 * Metodo responsavel por mudar o valor do atributo email, agora esse atributo passa
+	 * a ter o valor recebido como parametro
+	 * @param email representa o email do usuario
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Metodo responsavel por mudar o valor do atributo celular, agora esse atributo passa
+	 * a ter o valor recebido como parametro
+	 * @param celular representa o celular do usuario
+	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
@@ -119,7 +142,7 @@ public abstract class Usuario {
     /**
 	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
 	* 
-	* @return a representação em String do usuario.
+	* @return a representacao em String do usuario.
 	*/
 	@Override
 	public String toString() {
