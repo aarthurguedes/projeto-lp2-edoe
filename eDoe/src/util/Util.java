@@ -1,5 +1,9 @@
 package util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * Classe criada para armazenar utilidades do codigo.
  *
@@ -18,5 +22,21 @@ public class Util {
      */
     public static String formatString(String msg) {
         return msg.toLowerCase().trim();
+    }
+
+public static void readFile(String pasta, String arquivo) {
+    try {
+        File csvFile = new File(pasta + File.separator + arquivo);
+        Scanner sc = new Scanner(csvFile);
+        String linha = sc.nextLine();  //Leitura do Cabeçalho
+
+        while (sc.hasNextLine()) {
+            linha = sc.nextLine();
+            System.out.println(linha);
+        }
+
+    } catch (FileNotFoundException e) {
+        System.err.println("Arquivo nao encontrado");
+    }
     }
 }

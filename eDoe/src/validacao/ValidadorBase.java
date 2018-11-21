@@ -15,25 +15,25 @@ public class ValidadorBase {
 	
 	public void validaNome(String nome) {
 		if (nome == null || nome.trim().equals("")) {
-			throw new IllegalArgumentException("Entrada ivalida: nome nao pode ser vazio ou nulo.");
+			throw new IllegalArgumentException("Entrada invalida: nome nao pode ser vazio ou nulo.");
 		}
 	}
 	
 	private void validaEmail(String email) {
 		if (email == null || email.trim().equals("")) {
-			throw new IllegalArgumentException("Entrada ivalida: email nao pode ser vazio ou nulo.");
+			throw new IllegalArgumentException("Entrada invalida: email nao pode ser vazio ou nulo.");
 		}
 	}
 	
 	private void validaCelular(String celular) {
 		if (celular == null || celular.trim().equals("")) {
-			throw new IllegalArgumentException("Entrada ivalida: celular nao pode ser vazio ou nulo.");
+			throw new IllegalArgumentException("Entrada invalida: celular nao pode ser vazio ou nulo.");
 		}
 	}
 	
 	private void validaClasse(String classe) {
 		if (classe == null || classe.trim().equals("")) {
-            throw new IllegalArgumentException("Entrada ivalida: classe nao pode ser vazia ou nula.");
+            throw new IllegalArgumentException("Entrada invalida: classe nao pode ser vazia ou nula.");
         }
 
         // Classes validas para cadastro.
@@ -41,7 +41,7 @@ public class ValidadorBase {
 		final List<String>  classesValidasList = Arrays.asList(classesValidas);
 
 		if (!classesValidasList.contains(classe)) {
-			throw new IllegalArgumentException("Entrada ivalida: classe invalida.");
+			throw new IllegalArgumentException("Entrada invalida: opcao de classe invalida.");
 		}
 	}
 	

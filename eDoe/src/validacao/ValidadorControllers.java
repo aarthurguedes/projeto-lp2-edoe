@@ -40,7 +40,7 @@ public class ValidadorControllers {
 	public void validaCadastramentoDoador(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
 		vb.validaUsuario(id, nome, email, celular, classe);
 		if (usuarios.containsKey(id)) {
-			throw new IllegalArgumentException("Usuario ja existente: " + id);
+			throw new IllegalArgumentException("Usuario ja existente: " + id + ".");
 		}
 	}
 

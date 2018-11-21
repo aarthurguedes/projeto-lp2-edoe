@@ -1,6 +1,7 @@
 package eDoe;
 
 import controllers.UsuarioController;
+import easyaccept.EasyAccept;
 
 public class Facade {
 	
@@ -9,6 +10,11 @@ public class Facade {
 	public Facade() {
 		this.uc = new UsuarioController();
 	}
+
+    public static void main(String[] args) {
+        args = new String[] {"eDoe.Facade", "acceptance_tests/use_case_1.txt"};
+        EasyAccept.main(args);
+    }
 	
 	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
 		return this.uc.cadastrarDoador(id, nome, email, celular, classe);
