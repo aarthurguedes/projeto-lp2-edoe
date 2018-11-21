@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.*;
 
 import abstrato.Usuario;
@@ -9,6 +10,8 @@ import eDoe.Doador;
 import eDoe.Receptor;
 import validacao.ValidadorControllers;
 import util.Util;
+
+import javax.swing.text.MaskFormatter;
 
 /**
 * Representacao de um controlador de usuarios. 
@@ -57,7 +60,8 @@ public class UsuarioController {
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
-        Usuario doador = new Doador(id, nome, email, celular, classe);
+        String idFormatado = this.formatID(id);
+        Usuario doador = new Doador(idFormatado, nome, email, celular, classe);
         usuarios.put(Util.formatString(id), doador);
         return this.usuarios.get(Util.formatString(id)).getId();
     }
@@ -73,7 +77,8 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
-	    Usuario receptor = new Receptor(id, nome, email, celular, classe);
+	    String idFormatado = this.formatID(id);
+	    Usuario receptor = new Receptor(idFormatado, nome, email, celular, classe);
 	    usuarios.put(Util.formatString(id), receptor);
         return this.usuarios.get(Util.formatString(id)).getId();
     }
@@ -111,8 +116,8 @@ public class UsuarioController {
      */
     public String pesquisarUsuarioPorId(String id)  {
         vc.validaPesquisaUsuarioPorId(id, this.usuarios);
-
-        return this.usuarios.get(Util.formatString(id)).toString();
+        String idFormato = this.formatID(id);
+        return this.usuarios.get(Util.formatString(idFormato)).toString();
     }
 
     /**
@@ -180,4 +185,52 @@ public class UsuarioController {
             System.err.println("Arquivo nao encontrado");
         }
     }
+
+    private String formatID(String id){
+        String saida = "";
+
+        try {
+            if (id.length() == 11) {
+                MaskFormatter mask = new MaskFormatter("###.###.###-##");
+                mask.setValueContainsLiteralCharacters(false);
+                saida += mask.valueToString(id);
+            } else {
+                MaskFormatter mask = new MaskFormatter("##.###.###/####-##");
+                mask.setValueContainsLiteralCharacters(false);
+                saida += mask.valueToString(id);
+            }
+        } catch (ParseException e) {
+            System.err.println("Erro na formatação do ID");
+        }
+
+        return saida;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
