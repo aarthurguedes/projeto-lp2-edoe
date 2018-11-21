@@ -61,10 +61,10 @@ public class ValidadorBase {
 	* @param classe a classe do usuario
 	*/
 	public void validaUsuario(String id, String nome, String email, String celular, String classe) {
+		validaId(id);
 		validaNome(nome);
 		validaEmail(email);
 		validaCelular(celular);
 		validaClasse(classe);
-		validaId(id);
 	}
 }

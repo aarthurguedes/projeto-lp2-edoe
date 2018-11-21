@@ -63,24 +63,24 @@ public class UsuarioController {
         String idFormatado = this.formatID(id);
         Usuario doador = new Doador(idFormatado, nome, email, celular, classe);
         usuarios.put(Util.formatString(id), doador);
-        return this.usuarios.get(Util.formatString(id)).getId();
+        return id;
     }
 
     /**
-     * Método criado para cadastro de um receptor no sistema.
-     * @param id a identificacao do usuario
-     * @param nome o nome do usuario
-     * @param email o email do usuario
-     * @param celular o numero do celular do usuario
-     * @param classe a classe do usuario
-     * @return String com id de identificao unica do usuario
+     * Metodo criado para cadastro de um receptor no sistema.
+     * @param id a identificacao do usuario receptor
+     * @param nome o nome do usuario receptor
+     * @param email o email do usuario receptor
+     * @param celular o numero do celular do usuario receptor
+     * @param classe a classe do usuario receptor
+     * @return String com id de identificao unica do usuario receptor
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
 	    String idFormatado = this.formatID(id);
 	    Usuario receptor = new Receptor(idFormatado, nome, email, celular, classe);
 	    usuarios.put(Util.formatString(id), receptor);
-        return this.usuarios.get(Util.formatString(id)).getId();
+        return id;
     }
 
     /**
@@ -116,8 +116,7 @@ public class UsuarioController {
      */
     public String pesquisarUsuarioPorId(String id)  {
         vc.validaPesquisaUsuarioPorId(id, this.usuarios);
-        String idFormato = this.formatID(id);
-        return this.usuarios.get(Util.formatString(idFormato)).toString();
+        return this.usuarios.get(Util.formatString(id)).toString();
     }
 
     /**
@@ -132,16 +131,15 @@ public class UsuarioController {
     public String atualizarUsuario(String id, String nome, String email, String celular) {
     	vc.validaExistenciaUsuario(id, usuarios);
     	
-    	if (nome != null) {
+    	if (nome != null && !nome.trim().equals("")) {
     		usuarios.get(id).setNome(nome);
-    		return usuarios.get(id).toString();
-    	} else if (email != null) {
+    	} else if (email != null && !email.trim().equals("")) {
     		usuarios.get(id).setEmail(email);
-    		return usuarios.get(id).toString();
-    	} else {
+    	} else if (celular != null && !celular.trim().equals("")){
     		usuarios.get(id).setCelular(celular);
-    		return usuarios.get(id).toString();
     	}
+    	
+    	return usuarios.get(id).toString();
     }
 
     /**
@@ -205,32 +203,4 @@ public class UsuarioController {
 
         return saida;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

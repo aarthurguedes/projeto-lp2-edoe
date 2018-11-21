@@ -38,10 +38,10 @@ public class ValidadorControllers {
 	* @param usuarios o mapa de usuarios
 	*/
 	public void validaCadastramento(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
-		vb.validaUsuario(id, nome, email, celular, classe);
 		if (usuarios.containsKey(id)) {
 			throw new IllegalArgumentException("Usuario ja existente: " + id + ".");
 		}
+		vb.validaUsuario(id, nome, email, celular, classe);
 	}
 
     /**
@@ -52,9 +52,8 @@ public class ValidadorControllers {
      */
 	public void validaPesquisaUsuarioPorId(String id, Map<String, Usuario> usuarios) {
 	    vb.validaId(id);
-
 	    if (!usuarios.containsKey(id)) {
-	        throw new IllegalArgumentException("Usuario nao encontrado: " + id);
+	        throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
         }
     }
 
@@ -75,14 +74,14 @@ public class ValidadorControllers {
      */
     public void validaExistenciaPesquisa(String saida, String nome) {
 	    if (saida.equals("")) {
-	        throw new IllegalArgumentException("Usuario nao encontrado: " + nome);
+	        throw new IllegalArgumentException("Usuario nao encontrado: " + nome + ".");
         }
     }
     
     public void validaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
-    	if (!usuarios.containsKey(id)) {
-    		throw new IllegalArgumentException("Usuario nao encontrado: " + id);
-    	} 
     	vb.validaId(id);
+    	if (!usuarios.containsKey(id)) {
+    		throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
+    	} 
     }
 }

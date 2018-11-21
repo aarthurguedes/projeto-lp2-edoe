@@ -30,7 +30,6 @@ public class Receptor extends Usuario{
 	*/
 	@Override
 	public String getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return "receptor";
 	}
 }

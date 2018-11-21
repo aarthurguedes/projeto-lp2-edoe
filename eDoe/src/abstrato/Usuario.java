@@ -54,6 +54,18 @@ public abstract class Usuario {
 		this.celular = celular;
 		this.classe = classe;
 	}
+
+	public String getId() {
+	    return this.id;
+    }
+	
+	public String getNome() {
+        return this.nome;
+    }
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 	public void setEmail(String email) {
 		this.email = email;
@@ -62,14 +74,6 @@ public abstract class Usuario {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getId() {
-	    return this.id;
-    }
 	
 	/**
 	* @return o status (doador/receptor) do usuario
@@ -111,11 +115,7 @@ public abstract class Usuario {
 			return false;
 		return true;
 	}
-
-    public String getNome() {
-        return this.nome;
-    }
-
+	
     /**
 	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
 	* 
