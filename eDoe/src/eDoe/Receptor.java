@@ -21,8 +21,8 @@ public class Receptor extends Usuario{
 	* @param celular o numero do celular do receptor
 	* @param classe a classe do receptor
 	*/
-	public Receptor(String id, String nome, String email, String celular, String classe) {
-		super(id, nome, email, celular, classe);
+	public Receptor(String id, String nome, String email, String celular, String classe, int idOrdem) {
+		super(id, nome, email, celular, classe, idOrdem);
 	}
 
 	/**

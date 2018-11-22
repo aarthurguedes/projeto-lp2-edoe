@@ -25,14 +25,12 @@ public class UsuarioController {
 	*/
 	private Map<String, Usuario> usuarios;
 
-    /**
-     * Lista de usuarios ordenada pela ordem de cadastro.
-     */
-	private List<Usuario> usuarioList;
 	/**
 	* Objeto validador.
 	*/
 	private ValidadorControllers vc;
+
+	private int idOrdem;
 	
 	/**
 	* Constroi o controlador dos usuarios.
@@ -40,8 +38,8 @@ public class UsuarioController {
 	*/
 	public UsuarioController() {
 		this.usuarios = new HashMap<>();
-		this.usuarioList = new ArrayList<>();
 		this.vc = new ValidadorControllers();
+		this.idOrdem = 0;
 	}
 	
 	/**
@@ -63,8 +61,8 @@ public class UsuarioController {
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
-        Usuario doador = new Doador(id, nome, email, celular, classe);
-        usuarioList.add(doador);
+        Usuario doador = new Doador(id, nome, email, celular, classe, this.idOrdem);
+        this.idOrdem ++;
         usuarios.put(Util.formatString(id), doador);
         
         return id;
@@ -81,8 +79,8 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
-	    Usuario receptor = new Receptor(id, nome, email, celular, classe);
-	    usuarioList.add(receptor);
+	    Usuario receptor = new Receptor(id, nome, email, celular, classe, this.idOrdem);
+	    this.idOrdem ++;
 	    usuarios.put(Util.formatString(id), receptor);
 	    
         return id;
@@ -100,7 +98,11 @@ public class UsuarioController {
 
         String saida = "";
 
-        for (Usuario usuario : this.usuarioList) {
+        List<Usuario> usuarioList = new ArrayList<>(this.usuarios.values());
+        Collections.sort(usuarioList);
+
+
+        for (Usuario usuario : usuarioList) {
             if (Util.formatString(nome).equals(Util.formatString(usuario.getNome()))) {
                 saida += usuario.toString() + " | ";
             }

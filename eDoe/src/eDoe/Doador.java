@@ -21,8 +21,8 @@ public class Doador extends Usuario{
 	* @param celular o numero do celular do doador
 	* @param classe a classe do doador
 	*/
-	public Doador(String id, String nome, String email, String celular, String classe) {
-		super(id, nome, email, celular, classe);
+	public Doador(String id, String nome, String email, String celular, String classe, int idOrdem) {
+		super(id, nome, email, celular, classe, idOrdem);
 	}
 
 	/**

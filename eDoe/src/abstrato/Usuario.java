@@ -14,7 +14,7 @@ import validacao.ValidadorBase;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public abstract class Usuario {
+public abstract class Usuario implements Comparable <Usuario>{
 	
 	/**
 	* Identificacao do usuario.
@@ -36,11 +36,15 @@ public abstract class Usuario {
 	* Classe do usuario.
 	*/
 	protected String classe;
-	/**
+    /**
+     * Inteiro representando a posição na qual o usuario foi cadastrado.
+     */
+    protected int idOrdem;
+    /**
 	* Objeto validador base.
 	*/
 	private ValidadorBase vb = new ValidadorBase();
-	
+
 	private String formatID(String id){
         String saida = "";
 
@@ -70,7 +74,7 @@ public abstract class Usuario {
 	* @param celular o numero do celular do usuario
 	* @param classe a classe do usuario
 	*/
-	public Usuario(String id, String nome, String email, String celular, String classe) {
+	public Usuario(String id, String nome, String email, String celular, String classe, int idOrdem) {
 		vb.validaUsuario(id, nome, email, celular, classe);
 		
 		this.id = this.formatID(id);
@@ -78,6 +82,7 @@ public abstract class Usuario {
 		this.email = email;
 		this.celular = celular;
 		this.classe = classe;
+		this.idOrdem = idOrdem;
 	}
 	
 	/**
@@ -193,4 +198,8 @@ public abstract class Usuario {
 			return false;
 		return true;
 	}
+
+    public int compareTo(Usuario usuario) {
+        return this.idOrdem - usuario.idOrdem;
+    }
 }
