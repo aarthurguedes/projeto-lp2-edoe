@@ -1,5 +1,9 @@
 package abstrato;
 
+import java.text.ParseException;
+
+import javax.swing.text.MaskFormatter;
+
 import validacao.ValidadorBase;
 
 /**
@@ -37,6 +41,26 @@ public abstract class Usuario {
 	*/
 	private ValidadorBase vb = new ValidadorBase();
 	
+	private String formatID(String id){
+        String saida = "";
+
+        try {
+            if (id.length() == 11) {
+                MaskFormatter mask = new MaskFormatter("###.###.###-##");
+                mask.setValueContainsLiteralCharacters(false);
+                saida += mask.valueToString(id);
+            } else {
+                MaskFormatter mask = new MaskFormatter("##.###.###/####-##");
+                mask.setValueContainsLiteralCharacters(false);
+                saida += mask.valueToString(id);
+            }
+        } catch (ParseException e) {
+            System.err.println("Erro na formatação do ID");
+        }
+
+        return saida;
+    }
+	
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
 	*
@@ -48,7 +72,8 @@ public abstract class Usuario {
 	*/
 	public Usuario(String id, String nome, String email, String celular, String classe) {
 		vb.validaUsuario(id, nome, email, celular, classe);
-		this.id = id;
+		
+		this.id = this.formatID(id);
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
@@ -56,46 +81,66 @@ public abstract class Usuario {
 	}
 	
 	/**
-	 * Metodo responsavel por retornar o valor atual do atributo id
-	 * @return id do usuario
+	 * @return o id do usuario
 	 */
 	public String getId() {
-	    return this.id;
-    }
+		return id;
+	}
 	
 	/**
-	 * Metodo responsavel por retornar o valor atual do atributo nome
-	 * @return nome do usuario
+	 * @return o nome do usuario
 	 */
 	public String getNome() {
-        return this.nome;
-    }
-
+		return nome;
+	}
+	
 	/**
-	 * Metodo responsavel por mudar o valor do atributo nome, agora esse atributo passa
-	 * a ter o valor recebido como parametro
-	 * @param nome representa o nome do usuario
+	 * @param nome o novo nome do usuario
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
 	/**
-	 * Metodo responsavel por mudar o valor do atributo email, agora esse atributo passa
-	 * a ter o valor recebido como parametro
-	 * @param email representa o email do usuario
+	 * @return o email do usuario
+	 */
+	public String getEmail() {
+		return email;
+	}
+	
+	/**
+	 * @param email o novo email do usuario
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * Metodo responsavel por mudar o valor do atributo celular, agora esse atributo passa
-	 * a ter o valor recebido como parametro
-	 * @param celular representa o celular do usuario
+	 * @return o numero de celular do usuario
+	 */
+	public String getCelular() {
+		return celular;
+	}
+
+	/**
+	 * @param celular o novo numero de celular do usuario
 	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	/**
+	 * @return a classe do usuario
+	 */
+	public String getClasse() {
+		return classe;
+	}
+	
+	/**
+	 * @param classe a nova classe do usuario
+	 */
+	public void setClasse(String classe) {
+		this.classe = classe;
 	}
 	
 	/**
@@ -103,6 +148,16 @@ public abstract class Usuario {
 	*/
 	public abstract String getStatus();
 
+	/**
+	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
+	* 
+	* @return a representacao em String do usuario.
+	*/
+	@Override
+	public String toString() {
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.getStatus();
+	}
+	
 	/**
 	* Retorna o inteiro que representa a posicao do Usuario na memoria.
 	* 
@@ -137,15 +192,5 @@ public abstract class Usuario {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-    /**
-	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
-	* 
-	* @return a representacao em String do usuario.
-	*/
-	@Override
-	public String toString() {
-		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.getStatus();
 	}
 }

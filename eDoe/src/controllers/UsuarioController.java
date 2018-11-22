@@ -1,17 +1,14 @@
 package controllers;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.util.*;
-
 import abstrato.Usuario;
 import eDoe.Doador;
 import eDoe.Receptor;
 import validacao.ValidadorControllers;
 import util.Util;
 
-import javax.swing.text.MaskFormatter;
 
 /**
 * Representacao de um controlador de usuarios. 
@@ -60,9 +57,10 @@ public class UsuarioController {
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
-        String idFormatado = this.formatID(id);
-        Usuario doador = new Doador(idFormatado, nome, email, celular, classe);
+        
+        Usuario doador = new Doador(id, nome, email, celular, classe);
         usuarios.put(Util.formatString(id), doador);
+        
         return id;
     }
 
@@ -77,9 +75,10 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
-	    String idFormatado = this.formatID(id);
-	    Usuario receptor = new Receptor(idFormatado, nome, email, celular, classe);
+	   
+	    Usuario receptor = new Receptor(id, nome, email, celular, classe);
 	    usuarios.put(Util.formatString(id), receptor);
+	    
         return id;
     }
 
@@ -178,34 +177,9 @@ public class UsuarioController {
                     this.atualizarUsuario(id, nome, email, celular);
                 }
             }
-
+            sc.close();
         } catch (FileNotFoundException e) {
             System.err.println("Arquivo nao encontrado");
         }
-    }
-
-    /**
-     * Metodo responsavel pela formatacao da id do usuario, que agora tera o seguinte formato: 000.000.000-00
-     * @param id representa a id do usuario
-     * @return saida que representa a string formatada do id do usuario
-     */
-    private String formatID(String id){
-        String saida = "";
-
-        try {
-            if (id.length() == 11) {
-                MaskFormatter mask = new MaskFormatter("###.###.###-##");
-                mask.setValueContainsLiteralCharacters(false);
-                saida += mask.valueToString(id);
-            } else {
-                MaskFormatter mask = new MaskFormatter("##.###.###/####-##");
-                mask.setValueContainsLiteralCharacters(false);
-                saida += mask.valueToString(id);
-            }
-        } catch (ParseException e) {
-            System.err.println("Erro na formatação do ID");
-        }
-
-        return saida;
     }
 }
