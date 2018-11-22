@@ -24,6 +24,11 @@ public class UsuarioController {
 	* Mapa de usuarios.
 	*/
 	private Map<String, Usuario> usuarios;
+
+    /**
+     * Lista de usuarios ordenada pela ordem de cadastro.
+     */
+	private List<Usuario> usuarioList;
 	/**
 	* Objeto validador.
 	*/
@@ -35,6 +40,7 @@ public class UsuarioController {
 	*/
 	public UsuarioController() {
 		this.usuarios = new HashMap<>();
+		this.usuarioList = new ArrayList<>();
 		this.vc = new ValidadorControllers();
 	}
 	
@@ -57,8 +63,8 @@ public class UsuarioController {
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
-        
         Usuario doador = new Doador(id, nome, email, celular, classe);
+        usuarioList.add(doador);
         usuarios.put(Util.formatString(id), doador);
         
         return id;
@@ -75,8 +81,8 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
-	   
 	    Usuario receptor = new Receptor(id, nome, email, celular, classe);
+	    usuarioList.add(receptor);
 	    usuarios.put(Util.formatString(id), receptor);
 	    
         return id;
@@ -92,18 +98,17 @@ public class UsuarioController {
     public String  pesquisarUsuarioPorNome(String nome) {
 	    vc.validaPesquisaUsuarioPorNome(nome);
 
-        List<Usuario> usuariosList = new ArrayList<>(this.usuarios.values());
         String saida = "";
 
-        for (Usuario usuario : usuariosList) {
+        for (Usuario usuario : this.usuarioList) {
             if (Util.formatString(nome).equals(Util.formatString(usuario.getNome()))) {
-                saida += usuario.toString() + ", ";
+                saida += usuario.toString() + " | ";
             }
         }
 
         vc.validaExistenciaPesquisa(saida, nome);
 
-        return saida.substring(0, saida.length() - 2);
+        return saida.substring(0, saida.length() - 3);
     }
 
 
@@ -129,15 +134,16 @@ public class UsuarioController {
      */
     public String atualizarUsuario(String id, String nome, String email, String celular) {
     	vc.validaExistenciaUsuario(id, usuarios);
-    	
+
     	if (nome != null && !nome.trim().equals("")) {
     		usuarios.get(id).setNome(nome);
-    	} else if (email != null && !email.trim().equals("")) {
-    		usuarios.get(id).setEmail(email);
-    	} else if (celular != null && !celular.trim().equals("")){
-    		usuarios.get(id).setCelular(celular);
     	}
-    	
+    	if (email != null && !email.trim().equals("")) {
+    		usuarios.get(id).setEmail(email);
+        }
+        if (celular != null && !celular.trim().equals("")) {
+            usuarios.get(id).setCelular(celular);
+    	}
     	return usuarios.get(id).toString();
     }
 
