@@ -80,4 +80,4 @@ expectError "Entrada invalida: id do usuario nao pode ser vazio ou nulo." remove
 expectError "Entrada invalida: id do usuario nao pode ser vazio ou nulo." removeItemParaDoacao id=${idItem9} idDoador=""
 expectError "Usuario nao encontrado: "${id10}"." removeItemParaDoacao id=${idItem9} idDoador=${id10}
 expectError "Item nao encontrado: "${idItem9}"." removeItemParaDoacao id=${idItem9} idDoador=${id9}
-expectError "O Usuário não possui itens cadastrados." removeItemParaDoacao id=${idItem9} idDoador=${id11}
+expectError "O Usuario nao possui itens cadastrados." removeItemParaDoacao id=${idItem9} idDoador=${id11}

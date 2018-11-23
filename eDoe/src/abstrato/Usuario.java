@@ -1,9 +1,5 @@
 package abstrato;
 
-import java.text.ParseException;
-
-import javax.swing.text.MaskFormatter;
-
 import validacao.ValidadorBase;
 
 /**
@@ -44,26 +40,6 @@ public abstract class Usuario implements Comparable <Usuario>{
 	* Objeto validador base.
 	*/
 	private ValidadorBase vb = new ValidadorBase();
-
-	private String formatID(String id){
-        String saida = "";
-
-        try {
-            if (id.length() == 11) {
-                MaskFormatter mask = new MaskFormatter("###.###.###-##");
-                mask.setValueContainsLiteralCharacters(false);
-                saida += mask.valueToString(id);
-            } else {
-                MaskFormatter mask = new MaskFormatter("##.###.###/####-##");
-                mask.setValueContainsLiteralCharacters(false);
-                saida += mask.valueToString(id);
-            }
-        } catch (ParseException e) {
-            System.err.println("Erro na formatação do ID");
-        }
-
-        return saida;
-    }
 	
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
@@ -77,7 +53,7 @@ public abstract class Usuario implements Comparable <Usuario>{
 	public Usuario(String id, String nome, String email, String celular, String classe, int idOrdem) {
 		vb.validaUsuario(id, nome, email, celular, classe);
 		
-		this.id = this.formatID(id);
+		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
