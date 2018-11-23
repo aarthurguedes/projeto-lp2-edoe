@@ -29,7 +29,9 @@ public class UsuarioController {
 	* Objeto validador.
 	*/
 	private ValidadorControllers vc;
-
+	/**
+	* Inteiro representando a posição na qual o usuario foi cadastrado.
+	*/
 	private int idOrdem;
 	
 	/**

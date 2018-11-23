@@ -11,7 +11,7 @@ class DoadorTest {
 
 	@BeforeEach
 	public void criaDoador() {
-		d = new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA");
+		d = new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0);
 	}
 	
 	@Test
@@ -21,36 +21,37 @@ class DoadorTest {
 		assertEquals("elizabethcalamity@deadlock.com", d.getEmail());
 		assertEquals("(83) 92918-0211", d.getCelular());
 		assertEquals("PESSOA_FISICA", d.getClasse());
+		assertEquals(0, d.getIdOrdem());
 	}
 	
 	@Test
 	public void testIdInvalido() {
-		assertThrows(IllegalArgumentException.class, () -> new Doador(null, "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA"));
-		assertThrows(IllegalArgumentException.class, () -> new Doador("", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA"));
+		assertThrows(IllegalArgumentException.class, () -> new Doador(null, "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0));
 	}
 	
 	@Test
 	public void testNomeInvalido() {
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", null, "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA"));
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA"));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", null, "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0));
 	}
 	
 	@Test
 	public void testEmailInvalido() {
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", null, "(83) 92918-0211", "PESSOA_FISICA"));
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "", "(83) 92918-0211", "PESSOA_FISICA"));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", null, "(83) 92918-0211", "PESSOA_FISICA", 0));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "", "(83) 92918-0211", "PESSOA_FISICA", 0));
 	}
 	
 	@Test
 	public void testCelularInvalido() {
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", null, "PESSOA_FISICA"));
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "", "PESSOA_FISICA"));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", null, "PESSOA_FISICA", 0));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "", "PESSOA_FISICA", 0));
 	}
 	
 	@Test
 	public void testClasseInvalida() {
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", null));
-		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", ""));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", null, 0));
+		assertThrows(IllegalArgumentException.class, () -> new Doador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "", 0));
 	}
 	
 	@Test
@@ -60,13 +61,13 @@ class DoadorTest {
 	
 	@Test
 	public void testDoadoresIguais() {
-		Doador d2 = new Doador("70513372911", "Satya Vaswani", "satya@vishkarcorp.com", "(83) 99221-2571", "PESSOA_FISICA");
+		Doador d2 = new Doador("70513372911", "Satya Vaswani", "satya@vishkarcorp.com", "(83) 99221-2571", "PESSOA_FISICA", 1);
 		assertTrue(d.equals(d2));
 	}
 	
 	@Test
 	public void testDoadoresDiferentes() {
-		Doador d2 = new Doador("70513372912", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA");
+		Doador d2 = new Doador("70513372912", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA", 0);
 		assertFalse(d.equals(d2));
 	}
 }

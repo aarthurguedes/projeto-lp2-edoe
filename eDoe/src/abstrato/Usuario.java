@@ -149,6 +149,13 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 	
 	/**
+	 * @return o id que representa a ordem de cadastro do usuario
+	 */
+	public int getIdOrdem() {
+		return idOrdem;
+	}
+	
+	/**
 	* @return o status (doador/receptor) do usuario
 	*/
 	public abstract String getStatus();
