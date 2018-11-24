@@ -3,6 +3,8 @@ package validacao;
 import java.util.Map;
 
 import abstrato.Usuario;
+import eDoe.Doador;
+import eDoe.Item;
 
 /**
 * Representacao de um validador dos controladores.
@@ -37,7 +39,7 @@ public class ValidadorControllers {
 	* @param classe a classe do usuario doador
 	* @param usuarios o mapa de usuarios
 	*/
-	public void validaCadastramento(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
+	public void validaCadastramentoUsuario(String id, String nome, String email, String celular, String classe, Map<String, Usuario> usuarios) {
 		if (usuarios.containsKey(id)) {
 			throw new IllegalArgumentException("Usuario ja existente: " + id + ".");
 		}
@@ -72,7 +74,7 @@ public class ValidadorControllers {
      * @param saida a ser validada.
      * @param nome nome do usuario da pesquisa.
      */
-    public void validaExistenciaPesquisa(String saida, String nome) {
+    public void verificaExistenciaPesquisa(String saida, String nome) {
 	    if (saida.equals("")) {
 	        throw new IllegalArgumentException("Usuario nao encontrado: " + nome + ".");
         }
@@ -84,10 +86,45 @@ public class ValidadorControllers {
      * @param id representa a id do usuario
      * @param usuarios representa o map que contem os usuarios
      */
-    public void validaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
+    public void verificaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
     	vb.validaId(id);
     	if (!usuarios.containsKey(id)) {
     		throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
     	} 
+    }
+    
+    public void validaCadastramentoItem(Map<String, Usuario> usuarios, String idDoador, String descricao, int quantidade, String tags) {
+    	vb.validaDescricaoItem(descricao);
+    	vb.validaQuantidadeItens(quantidade);
+    	vb.validaId(idDoador);
+    	
+    	if (!usuarios.containsKey(idDoador)) {
+    		throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
+    	}
+    }
+    
+    public void verificaExistenciaItem(int id, Map<Integer, Item> itens) {
+    	if (!itens.containsKey(id)) {
+    		throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+    	}
+    }
+    
+    public void validaAtualizacaoItem(int id, Map<Integer, Item> itens, Map<String, Usuario> usuarios, String idDoador) {
+    	vb.validaIdItem(id);
+    	vb.validaId(idDoador);
+    	verificaExistenciaUsuario(idDoador, usuarios);
+    	verificaExistenciaItem(id, itens);
+    }
+    
+    public void validaRemocaoItem(int id, Map<Integer, Item> itens, Map<String, Usuario> usuarios, String idDoador) {
+    	verificaExistenciaItem(id, itens);
+    	vb.validaIdItem(id);
+    	vb.validaId(idDoador);
+    	verificaExistenciaUsuario(idDoador, usuarios);
+    	
+    	Doador d = (Doador) usuarios.get(idDoador);
+    	if (d.getItens().size() == 0) {
+    		throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
+    	}
     }
 }

@@ -1,10 +1,7 @@
 package util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Classe criada para armazenar utilidades do codigo.
@@ -48,7 +45,7 @@ public class Util {
      * @param mapa que possui id para comparação, a modo de criar uma identificação unica.
      * @return String representando um id unico.
      */
-    public static String CriaIDUnico(Map<String, Object> mapa) {
+    public static String criaIDUnico(Map<String, Object> mapa) {
         boolean possui = true;
 
         String id = "";

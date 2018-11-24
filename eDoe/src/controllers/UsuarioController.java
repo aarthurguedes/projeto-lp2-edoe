@@ -9,7 +9,6 @@ import eDoe.Receptor;
 import validacao.ValidadorControllers;
 import util.Util;
 
-
 /**
 * Representacao de um controlador de usuarios. 
 *
@@ -62,7 +61,7 @@ public class UsuarioController {
      * @return String com id de identificao unica do usuario
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
-        vc.validaCadastramento(id, nome, email, celular, classe, usuarios);
+        vc.validaCadastramentoUsuario(id, nome, email, celular, classe, usuarios);
         Usuario doador = new Doador(id, nome, email, celular, classe, this.idOrdem);
         this.idOrdem ++;
         usuarios.put(Util.formatString(id), doador);
@@ -80,7 +79,7 @@ public class UsuarioController {
      * @return String com id de identificao unica do usuario receptor
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
-	    vc.validaCadastramento(id, nome, email, celular, classe, this.usuarios) ;
+	    vc.validaCadastramentoUsuario(id, nome, email, celular, classe, this.usuarios) ;
 	    Usuario receptor = new Receptor(id, nome, email, celular, classe, this.idOrdem);
 	    this.idOrdem ++;
 	    usuarios.put(Util.formatString(id), receptor);
@@ -110,7 +109,7 @@ public class UsuarioController {
             }
         }
 
-        vc.validaExistenciaPesquisa(saida, nome);
+        vc.verificaExistenciaPesquisa(saida, nome);
 
         return saida.substring(0, saida.length() - 3);
     }
@@ -137,7 +136,7 @@ public class UsuarioController {
      * @return toString do usuario.
      */
     public String atualizarUsuario(String id, String nome, String email, String celular) {
-    	vc.validaExistenciaUsuario(id, usuarios);
+    	vc.verificaExistenciaUsuario(id, usuarios);
 
     	if (nome != null && !nome.trim().equals("")) {
     		usuarios.get(id).setNome(nome);
@@ -156,7 +155,7 @@ public class UsuarioController {
      * @param id de identificacao do usuario.
      */
     public void removerUsuario(String id) {
-    	vc.validaExistenciaUsuario(id, usuarios);
+    	vc.verificaExistenciaUsuario(id, usuarios);
     	usuarios.remove(id);
     }
 

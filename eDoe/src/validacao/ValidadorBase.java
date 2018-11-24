@@ -75,4 +75,28 @@ public class ValidadorBase {
 		validaCelular(celular);
 		validaClasse(classe);
 	}
+	
+	public void validaDescricaoItem(String descricao) {
+		if (descricao == null || descricao.trim().equals("")) {
+    		throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+    	}
+	}
+	
+	public void validaIdItem(int id) {
+		if (id < 1) {
+    		throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
+    	}
+	}
+	
+	public void validaQuantidadeItens(int quantidade) {
+		if (quantidade <= 0) {
+    		throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
+		}
+	}
+	
+	public void validaItem(int id, String descricao, int quantidade, String tags) {
+		validaIdItem(id);
+		validaDescricaoItem(descricao);
+		validaQuantidadeItens(quantidade);
+	}
 }
