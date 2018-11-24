@@ -57,6 +57,13 @@ public class Doador extends Usuario{
 		itens.put(this.numItem, item);
 		this.numItem++;
 	}
+
+	public boolean containsItem(Integer id) {
+		if (!this.itens.containsKey(id)) {
+			return false;
+		}
+		return true;
+	}
 	
 	public String exibirItens(int id) {
 		return "";

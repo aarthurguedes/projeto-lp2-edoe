@@ -1,5 +1,7 @@
 package util;
 
+import abstrato.Usuario;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -21,41 +23,6 @@ public class Util {
      */
     public static String formatString(String msg) {
         return msg.toLowerCase().trim();
-    }
-
-    /**
-     * Criado para gerar uma String aleatoria de 7 digitos;
-     * @return String aleatoria com de tamanho 7.
-     */
-    private static String randomString() {
-        Random random = new Random();
-        String[] letras = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"};
-
-        String aleatorio = "";
-        for (int i = 0; i < 7; i++) {
-            int randomPos = random.nextInt(36);
-            aleatorio += letras[randomPos];
-        }
-        return aleatorio;
-    }
-
-    /**
-     * Criado para retornar id unico para adicionar em um mapa.
-     *
-     * @param mapa que possui id para comparação, a modo de criar uma identificação unica.
-     * @return String representando um id unico.
-     */
-    public static String criaIDUnico(Map<String, Object> mapa) {
-        boolean possui = true;
-
-        String id = "";
-        while (possui) {
-            id = randomString();
-            if (!mapa.containsKey(id)) {
-                possui = false;
-            }
-        }
-        return id;
     }
 }
 

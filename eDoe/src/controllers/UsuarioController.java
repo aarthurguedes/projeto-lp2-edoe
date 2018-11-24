@@ -71,6 +71,7 @@ public class UsuarioController {
 
     /**
      * Metodo criado para cadastro de um receptor no sistema.
+     *
      * @param id a identificacao do usuario receptor
      * @param nome o nome do usuario receptor
      * @param email o email do usuario receptor
@@ -114,6 +115,18 @@ public class UsuarioController {
         return saida.substring(0, saida.length() - 3);
     }
 
+    public Doador getDoador(String id) {
+        if (!this.usuarios.containsKey(id)) {
+            throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
+        } else if (!this.usuarios.get(id).getClass().equals(Doador.class)) {
+            throw new IllegalArgumentException();
+        }
+
+        Usuario usuario = this.usuarios.get(id);
+        Doador doador = (Doador) usuario;
+
+        return doador;
+    }
 
     /**
      * Valida os parametros e procura no sistema algum usuario com o id cadastrado. Como o id e unico, so podera existir um usuario com esse id.

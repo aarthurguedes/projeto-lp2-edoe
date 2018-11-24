@@ -35,6 +35,6 @@ public class EDoeController {
     }
 	
 	public int adicionarItem(String idDoador, String descricao, int quantidade, String tags) {
-		return this.ic.cadastrarItem(uc.getUsuarios(), idDoador, descricao, quantidade, tags);
+		return this.ic.cadastrarItem(uc.getDoador(idDoador),descricao, quantidade, tags);
 	}
 }
