@@ -1,10 +1,10 @@
 package validacao;
 
 import java.util.Map;
+import java.util.Set;
 
 import abstrato.Usuario;
 import eDoe.Doador;
-import eDoe.Item;
 
 /**
 * Representacao de um validador dos controladores.
@@ -53,7 +53,7 @@ public class ValidadorControllers {
      * @param usuarios Mapa de usuario.
      */
 	public void validaPesquisaUsuarioPorId(String id, Map<String, Usuario> usuarios) {
-	    vb.validaId(id);
+	    vb.validaIdUsuario(id);
 	    if (!usuarios.containsKey(id)) {
 	        throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
         }
@@ -87,34 +87,53 @@ public class ValidadorControllers {
      * @param usuarios representa o map que contem os usuarios
      */
     public void verificaExistenciaUsuario(String id, Map<String, Usuario> usuarios) {
-    	vb.validaId(id);
+    	vb.validaIdUsuario(id);
     	if (!usuarios.containsKey(id)) {
     		throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
     	}
     }
 
-	public void validaCadastramentoItem(String descricao, int quantidade, String tags) {
+	private void contemDescritor(String descricao, Set<String> descritores) {
+		for (String s: descritores) {
+			if (s.toLowerCase().equals(descricao)) {
+				throw new IllegalArgumentException("Descritor de Item ja existente: " + s.toLowerCase() + ".");
+			}
+		}
+	}
+    
+    public void validaCadastramentoDescritor(String descricao, Set<String> descritores) {
+		vb.validaDescricaoItem(descricao);
+		contemDescritor(descricao, descritores);
+	}
+    
+    public void validaCadastramentoItem(String descricao, int quantidade, String tags) {
     	vb.validaDescricaoItem(descricao);
     	vb.validaQuantidadeItens(quantidade);
 
     }
     
-    public void verificaExistenciaItem(int id, Doador doador) {
-    	if (!doador.containsItem(id)) {
+    public void verificaExistenciaItem(int id, String idDoador, Map<String, Usuario> usuarios) {
+    	Doador d = (Doador) usuarios.get(idDoador);
+    	if (!d.containsItem(id)) {
     		throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
     	}
     }
     
-    public void validaAtualizacaoItem(int id, Doador doador) {
+    public void validaAtualizacaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	vb.validaIdItem(id);
-    	verificaExistenciaItem(id, doador);
+    	vb.validaIdUsuario(idDoador);
+    	verificaExistenciaUsuario(idDoador, usuarios);
+    	verificaExistenciaItem(id, idDoador, usuarios);
     }
     
-    public void validaRemocaoItem(int id,Doador doador) {
-    	verificaExistenciaItem(id, doador);
+    public void validaRemocaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
+    	verificaExistenciaItem(id, idDoador, usuarios);
     	vb.validaIdItem(id);
-
-    	if (doador.getItens().size() == 0) {
+    	vb.validaIdUsuario(idDoador);
+    	verificaExistenciaUsuario(idDoador,usuarios);
+    	
+    	Doador d = (Doador) usuarios.get(idDoador);
+    	if (d.getItens().size() == 0) {
     		throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
     	}
     }

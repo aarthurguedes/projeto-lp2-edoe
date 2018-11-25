@@ -1,10 +1,5 @@
 package util;
 
-import abstrato.Usuario;
-
-import java.util.Map;
-import java.util.Random;
-
 /**
  * Classe criada para armazenar utilidades do codigo.
  *

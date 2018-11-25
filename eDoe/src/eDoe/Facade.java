@@ -35,12 +35,28 @@ public class Facade {
 	   this.ec.lerReceptores(caminho);
     }
 	
+	public void adicionaDescritor(String descricao) {
+		this.ec.adicionarDescritor(descricao);
+	}
+	
 	public int adicionaItemParaDoacao(String idDoador, String descricao, int quantidade, String tags) {
-		return this.ec.adicionarItem(idDoador, descricao, quantidade, tags);
+		return this.ec.adicionarItem(idDoador,descricao, quantidade, tags);
+	}
+	
+	public String exibeItem(int idItem, String idDoador) {
+		return this.ec.exibirItem(idItem, idDoador);
+	}
+	
+	public String atualizaItemParaDoacao(int idItem, String idDoador, int quantidade, String tags) {
+		return this.ec.atualizarItem(idItem, idDoador, quantidade, tags);
+	}
+	
+	public void removeItemParaDoacao(int idItem, String idDoador) {
+		this.ec.removerItem(idItem, idDoador);
 	}
 	
     public static void main(String[] args) {
-        args = new String[] {"eDoe.Facade", "acceptance_tests/use_case_1.txt"};
+        args = new String[] {"eDoe.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt"};
         EasyAccept.main(args);
     }
 }

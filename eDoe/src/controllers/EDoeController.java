@@ -34,7 +34,23 @@ public class EDoeController {
 	   this.uc.lerReceptores(caminho);
     }
 	
+	public void adicionarDescritor(String descricao) {
+		this.ic.adicionaDescritor(descricao);
+	}
+	
 	public int adicionarItem(String idDoador, String descricao, int quantidade, String tags) {
 		return this.ic.cadastrarItem(uc.getDoador(idDoador),descricao, quantidade, tags);
+	}
+	
+	public String exibirItem(int idItem, String idDoador) {
+		return this.ic.exibirItem(idItem, idDoador, uc.getUsuarios());
+	}
+	
+	public String atualizarItem(int idItem, String idDoador, int quantidade, String tags) {
+		return this.ic.atualizarItem(idItem, idDoador, uc.getUsuarios(), quantidade, tags);
+	}
+	
+	public void removerItem(int idItem, String idDoador) {
+		this.ic.removerItem(idDoador, uc.getUsuarios(), idItem);
 	}
 }

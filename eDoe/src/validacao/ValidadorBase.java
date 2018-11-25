@@ -2,6 +2,9 @@ package validacao;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import eDoe.Item;
 
 /**
 * Representacao de um validador das classes bases.
@@ -53,7 +56,7 @@ public class ValidadorBase {
 	 * Metodo auxiliar que verifica se o parametro id e nulo ou vazio, caso seja, esse metodo lancara uma excecao
 	 * @param id representa a id do usuario
 	 */
-	public void validaId(String id) {
+	public void validaIdUsuario(String id) {
 		if (id == null || id.trim().equals("")) {
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		}
@@ -69,7 +72,7 @@ public class ValidadorBase {
 	* @param classe a classe do usuario
 	*/
 	public void validaUsuario(String id, String nome, String email, String celular, String classe) {
-		validaId(id);
+		validaIdUsuario(id);
 		validaNome(nome);
 		validaEmail(email);
 		validaCelular(celular);
@@ -98,5 +101,11 @@ public class ValidadorBase {
 		validaIdItem(id);
 		validaDescricaoItem(descricao);
 		validaQuantidadeItens(quantidade);
+	}
+	
+	public void verificaExistenciaItem(Map<Integer, Item> itens, int idItem) {
+		if (!itens.containsKey(idItem)) {
+			throw new IllegalArgumentException("Item nao encontrado: " + idItem + ".");
+		}
 	}
 }

@@ -65,15 +65,31 @@ public class Doador extends Usuario{
 		return true;
 	}
 	
-	public String exibirItens(int id) {
-		return "";
+	public String exibirItem(int id) {
+		vb.validaIdItem(id);
+		vb.verificaExistenciaItem(itens, id);
+		
+		return itens.get(id).toString();
 	}
 	
-	public String atualizarItem(int id) {
-		return "";
+	public String atualizarItem(int id, int quantidade, String tags) {
+		vb.validaIdItem(id);
+		vb.verificaExistenciaItem(itens, id);
+		
+		if (quantidade > 0) {
+    		itens.get(id).setQuantidade(quantidade);
+		}
+		if (tags != null && tags.trim().equals("")) {
+			itens.get(id).setTags(tags);
+		}
+		
+		return itens.get(id).toString();
 	}
 	
 	public void removerItem(int id) {
+		vb.validaIdItem(id);
+		vb.verificaExistenciaItem(itens, id);
 		
+		itens.remove(id);
 	}
 }
