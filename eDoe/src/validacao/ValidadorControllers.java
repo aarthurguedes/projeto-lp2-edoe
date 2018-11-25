@@ -101,24 +101,47 @@ public class ValidadorControllers {
 		}
 	}
     
+	/**
+	 * Metodo auxiliar responsavel por validar o cadastro de um descritor
+	 * @param descricao representa a descricao a ser cadastrada
+	 * @param descritores representa o set de descricoes cadastradas
+	 */
     public void validaCadastramentoDescritor(String descricao, Set<String> descritores) {
 		vb.validaDescricaoItem(descricao);
 		contemDescritor(descricao, descritores);
 	}
     
+    /**
+     * Metodo auxiliar responsavel por validar o cadastro de um item
+     * @param descricao representa a descricao do item
+     * @param quantidade representa a quantidade do item
+     * @param tags representa as tags do item
+     */
     public void validaCadastramentoItem(String descricao, int quantidade, String tags) {
     	vb.validaDescricaoItem(descricao);
     	vb.validaQuantidadeItens(quantidade);
 
     }
     
+    /**
+     * Metodo auxiliar responsavel por verificar a existencia de um item 
+     * @param id representa a identificacao do item
+     * @param idDoador representa a identificacao do doador
+     * @param usuarios representa o map de usuarios
+     */
     public void verificaExistenciaItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	Doador d = (Doador) usuarios.get(idDoador);
-    	if (!d.containsItem(id)) {
+    	if (!d.contemItem(id)) {
     		throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
     	}
     }
     
+    /**
+     * Metodo auxiliar responsavel por validar um item para a atualizacao
+     * @param id representa a identificacao do item
+     * @param idDoador representa a identificacao do doador
+     * @param usuarios representa o map de usuarios
+     */
     public void validaAtualizacaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	vb.validaIdItem(id);
     	vb.validaIdUsuario(idDoador);
@@ -126,6 +149,12 @@ public class ValidadorControllers {
     	verificaExistenciaItem(id, idDoador, usuarios);
     }
     
+    /**
+     * Metodo auxiliar responsavel por validar a remocao de um item
+     * @param id representa a identificacao do item
+     * @param idDoador representa a identificacao do doador
+     * @param usuarios representa o map de usuarios 
+     */
     public void validaRemocaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	verificaExistenciaItem(id, idDoador, usuarios);
     	vb.validaIdItem(id);

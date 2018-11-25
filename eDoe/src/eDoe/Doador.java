@@ -50,6 +50,12 @@ public class Doador extends Usuario{
 		return "doador";
 	}
 	
+	/**
+	 * Metodo responsavel por cadastrar o item no usuario
+	 * @param descricao representa a descricao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 */
 	public void cadastrarItem(String descricao, int quantidade, String tags) {
 		vb.validaItem(this.numItem, descricao, quantidade, tags);
 		
@@ -58,13 +64,23 @@ public class Doador extends Usuario{
 		this.numItem++;
 	}
 
-	public boolean containsItem(Integer id) {
+	/**
+	 * Metodo auxiliar que verifica se o item passado como parametro existe no map de itens
+	 * @param id representa a identificacao do item
+	 * @return retorna true caso o item exista no map e false caso nao exista
+	 */
+	public boolean contemItem(Integer id) {
 		if (!this.itens.containsKey(id)) {
 			return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * Metodo responsavel por exibir um item
+	 * @param id representa a identificacao do item a ser exibido
+	 * @return string que representa o item
+	 */
 	public String exibirItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -72,6 +88,13 @@ public class Doador extends Usuario{
 		return itens.get(id).toString();
 	}
 	
+	/**
+	 * Metodo responsavel por atualizar um item
+	 * @param id representa a identificacao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 * @return string que representa o item atualizado
+	 */
 	public String atualizarItem(int id, int quantidade, String tags) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -86,6 +109,10 @@ public class Doador extends Usuario{
 		return itens.get(id).toString();
 	}
 	
+	/**
+	 * Metodo responsavel por remover um item
+	 * @param id representa a identificacao do item
+	 */
 	public void removerItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);

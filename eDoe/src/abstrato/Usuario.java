@@ -62,20 +62,21 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 	
 	/**
-	 * @return o id do usuario
+	 * @return o atual id do usuario
 	 */
 	public String getId() {
 		return id;
 	}
 	
 	/**
-	 * @return o nome do usuario
+	 * @return o atual nome do usuario
 	 */
 	public String getNome() {
 		return nome;
 	}
 	
 	/**
+	 * Metodo responsavel por alterar o nome do usuario
 	 * @param nome o novo nome do usuario
 	 */
 	public void setNome(String nome) {
@@ -83,13 +84,14 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 	
 	/**
-	 * @return o email do usuario
+	 * @return o atual email do usuario
 	 */
 	public String getEmail() {
 		return email;
 	}
 	
 	/**
+	 * Metodo responsavel por alterar o email do usuario
 	 * @param email o novo email do usuario
 	 */
 	public void setEmail(String email) {
@@ -97,13 +99,14 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 
 	/**
-	 * @return o numero de celular do usuario
+	 * @return o atual numero de celular do usuario
 	 */
 	public String getCelular() {
 		return celular;
 	}
 
 	/**
+	 * Metodo responsavel por mudar o numero do celular do usuario
 	 * @param celular o novo numero de celular do usuario
 	 */
 	public void setCelular(String celular) {
@@ -111,13 +114,14 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 
 	/**
-	 * @return a classe do usuario
+	 * @return a atual classe do usuario
 	 */
 	public String getClasse() {
 		return classe;
 	}
 	
 	/**
+	 * Metodo responsavel por mudar a classe do usuario
 	 * @param classe a nova classe do usuario
 	 */
 	public void setClasse(String classe) {
@@ -132,7 +136,7 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 	
 	/**
-	* @return o status (doador/receptor) do usuario
+	* @return o status atual (doador/receptor) do usuario
 	*/
 	public abstract String getStatus();
 
@@ -163,7 +167,7 @@ public abstract class Usuario implements Comparable <Usuario>{
 	* Retorna o boolean que representa se dois usuarios sao iguais, ou seja, se possuem o mesmo id.
 	* 
 	* @param obj o objeto que representa o outro usuario
-	* @return o valor boolean da igualdade (ou nao) entre dois clientes. 
+	* @return o valor boolean da igualdade (ou nao) entre dois usuarios. 
 	*/
 	@Override
 	public boolean equals(Object obj) {
