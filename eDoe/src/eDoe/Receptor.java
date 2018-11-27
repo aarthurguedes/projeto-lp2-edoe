@@ -1,7 +1,5 @@
 package eDoe;
 
-import abstrato.Usuario;
-
 /**
 * Representacao de um receptor, que possui nome, email, celular, classe e id. 
 *

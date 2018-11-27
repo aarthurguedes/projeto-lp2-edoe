@@ -3,9 +3,10 @@ package controllers;
 import java.io.File; 
 import java.io.FileNotFoundException;
 import java.util.*;
-import abstrato.Usuario;
+
 import eDoe.Doador;
 import eDoe.Receptor;
+import eDoe.Usuario;
 import validacao.ValidadorControllers;
 import util.Util;
 
@@ -40,7 +41,7 @@ public class UsuarioController {
 	public UsuarioController() {
 		this.usuarios = new HashMap<>();
 		this.vc = new ValidadorControllers();
-		this.idOrdem = 0;
+		this.idOrdem = 1;
 	}
 	
 	/**

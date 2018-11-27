@@ -1,6 +1,7 @@
-package abstrato;
+package eDoe;
 
-import validacao.ValidadorBase;
+import enums.Classe;
+import util.Validador;
 
 /**
 * Representacao de um usuario, que possui nome, email, celular, classe e id. 
@@ -10,36 +11,40 @@ import validacao.ValidadorBase;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public abstract class Usuario implements Comparable <Usuario>{
+public class Usuario implements Comparable <Usuario> {
 	
 	/**
 	* Identificacao do usuario.
 	*/
-	protected String id;
+	private String id;
 	/**
 	* Nome do usuario.
 	*/
-	protected String nome;
+	private String nome;
 	/**
 	* Email do usuario.
 	*/
-	protected String email;
+	private String email;
 	/**
 	* Celular do usuario.
 	*/
-	protected String celular;
+	private String celular;
+	/**
+	* Status do usuario.
+	*/
+	private String status;
 	/**
 	* Classe do usuario.
 	*/
-	protected String classe;
+	private Classe classe;
     /**
      * Inteiro representando a posição na qual o usuario foi cadastrado.
      */
-    protected int idOrdem;
+	private int idOrdem;
     /**
-	* Objeto validador base.
+	* Objeto validador.
 	*/
-	private ValidadorBase vb = new ValidadorBase();
+	private Validador validador = new Validador();
 	
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
@@ -50,14 +55,17 @@ public abstract class Usuario implements Comparable <Usuario>{
 	* @param celular o numero do celular do usuario
 	* @param classe a classe do usuario
 	*/
-	public Usuario(String id, String nome, String email, String celular, String classe, int idOrdem) {
-		vb.validaUsuario(id, nome, email, celular, classe);
+	public Usuario(String id, String nome, String email, String celular, Classe classe, String status, int idOrdem) {
+		validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
+		validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
+		validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
 		
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
-		this.classe = classe;
+		this.status = status;
 		this.idOrdem = idOrdem;
 	}
 	
@@ -109,20 +117,6 @@ public abstract class Usuario implements Comparable <Usuario>{
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
-	/**
-	 * @return a classe do usuario
-	 */
-	public String getClasse() {
-		return classe;
-	}
-	
-	/**
-	 * @param classe a nova classe do usuario
-	 */
-	public void setClasse(String classe) {
-		this.classe = classe;
-	}
 	
 	/**
 	 * @return o id que representa a ordem de cadastro do usuario
@@ -132,18 +126,13 @@ public abstract class Usuario implements Comparable <Usuario>{
 	}
 	
 	/**
-	* @return o status (doador/receptor) do usuario
-	*/
-	public abstract String getStatus();
-
-	/**
 	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
 	* 
 	* @return a representacao em String do usuario.
 	*/
 	@Override
 	public String toString() {
-		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.getStatus();
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + "STATUS AQUI";
 	}
 	
 	/**

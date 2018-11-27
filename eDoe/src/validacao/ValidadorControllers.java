@@ -3,9 +3,9 @@ package validacao;
 import java.util.Map;
 import java.util.Set;
 
-import abstrato.Usuario;
 import eDoe.Doador;
 import eDoe.Item;
+import eDoe.Usuario;
 
 /**
 * Representacao de um validador dos controladores.

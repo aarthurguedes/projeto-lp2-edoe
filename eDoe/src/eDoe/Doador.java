@@ -3,7 +3,6 @@ package eDoe;
 import java.util.HashMap;
 import java.util.Map;
 
-import abstrato.Usuario;
 import validacao.ValidadorBase;
 
 /**
