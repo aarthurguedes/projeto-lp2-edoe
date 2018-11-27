@@ -2,6 +2,8 @@ package eDoe;
 
 import enums.Classe;
 import util.Validador;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 * Representacao de um usuario, que possui nome, email, celular, classe e id. 
@@ -12,7 +14,6 @@ import util.Validador;
 * @author Talita Galdino Gouveia
 */
 public class Usuario implements Comparable <Usuario> {
-	
 	/**
 	* Identificacao do usuario.
 	*/
@@ -45,7 +46,13 @@ public class Usuario implements Comparable <Usuario> {
 	* Objeto validador.
 	*/
 	private Validador validador = new Validador();
-	
+
+	/**
+	 * TODO
+	 */
+	private Map<Integer, Item> itens;
+
+
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
 	*
@@ -60,13 +67,16 @@ public class Usuario implements Comparable <Usuario> {
 		validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
 		validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
 		validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
-		
+		validador.validarString(classe.getClasse(), "Entrada invalida: classe nao pode ser vazia ou nula.");
+
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
+		this.classe = classe;
 		this.status = status;
 		this.idOrdem = idOrdem;
+		this.itens = new HashMap<>();
 	}
 	
 	/**
@@ -89,14 +99,7 @@ public class Usuario implements Comparable <Usuario> {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	/**
-	 * @return o email do usuario
-	 */
-	public String getEmail() {
-		return email;
-	}
-	
+
 	/**
 	 * @param email o novo email do usuario
 	 */
@@ -117,14 +120,7 @@ public class Usuario implements Comparable <Usuario> {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-	
-	/**
-	 * @return o id que representa a ordem de cadastro do usuario
-	 */
-	public int getIdOrdem() {
-		return idOrdem;
-	}
-	
+
 	/**
 	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
 	* 
@@ -132,7 +128,12 @@ public class Usuario implements Comparable <Usuario> {
 	*/
 	@Override
 	public String toString() {
-		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + "STATUS AQUI";
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.status;
+
+	}
+
+	public Map<Integer, Item> getItens() {
+		return this.itens;
 	}
 	
 	/**
@@ -171,6 +172,95 @@ public class Usuario implements Comparable <Usuario> {
 		return true;
 	}
 
+	/**
+	 * Metodo responsavel por cadastrar um item.
+	 * @param id representa a identificacao do item
+	 * @param descricao representa a descricao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 */
+	public void cadastrarItem(int id, String descricao, int quantidade, String tags) {
+		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
+		validador.validarString(tags, "Entrada invalida: tags nao podem ser vazias ou nulas.");
+
+		Item item = new Item(id, descricao, quantidade, tags);
+		itens.put(id, item);
+	}
+
+	/**
+	 * Metodo responsavel por verificar a existencia de um item no map de itens do doador.
+	 * @param id representa a identificacao do item
+	 * @return o boolean que representa a existencia (ou nao) do item
+	 */
+	public boolean containsItem(int id) {
+		if (!this.itens.containsKey(id)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por exibir um item.
+	 * @param id representa a identificacao do item
+	 * @return string que representa o item
+	 */
+	public String exibirItem(int id) {
+		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+
+		if (!itens.containsKey(id)) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}
+
+		return itens.get(id).toString();
+	}
+
+	/**
+	 * Metodo responsavel por atualizar um item
+	 * @param id representa a identificacao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 * @return string que representa o tem atualizado
+	 */
+	public String atualizarItem(int id, int quantidade, String tags) {
+		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+
+		if (!itens.containsKey(id)) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}
+
+		if (quantidade > 0) {
+			itens.get(id).setQuantidade(quantidade);
+		}
+		if (tags != null && !tags.trim().equals("")) {
+			itens.get(id).setTags(tags);
+		}
+
+		return this.itens.get(id).toString();
+	}
+
+	/**
+	 * Metodo responsavel por remover um item
+	 * @param id representa a identificacao do item
+	 */
+	public void removerItem(int id) {
+		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+
+		if (!itens.containsKey(id)) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}
+
+		this.itens.remove(id);
+	}
+
+
+	/**
+	 * Método usado para comparar os usuarios com base no idOrdem.
+	 *
+	 * @param usuario Objeto usuario para comparação
+	 * @return inteiro usado para comparação.
+	 */
     public int compareTo(Usuario usuario) {
         return this.idOrdem - usuario.idOrdem;
     }

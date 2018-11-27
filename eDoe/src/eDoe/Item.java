@@ -1,9 +1,10 @@
 package eDoe;
 
+import util.Validador;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import validacao.ValidadorBase;
 /**
 * Representacao de um item que possui identificacao, descricao, quantidade e tags. 
 *
@@ -37,8 +38,8 @@ public class Item {
 	/**
 	 * Objeto de validacao
 	 */
-	private ValidadorBase vb = new ValidadorBase();
-	
+	private Validador validador = new Validador();
+
 	/**
 	 * Constroi um item
 	 * @param id representa a identificacao do item
@@ -47,7 +48,10 @@ public class Item {
 	 * @param tags representa as tags do item
 	 */
 	public Item(int id, String descricao, int quantidade, String tags) {
-		vb.validaItem(id, descricao, quantidade, tags);
+		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
+
 		this.id = id;
 		this.descricao = descricao;
 		this.quantidade = quantidade;

@@ -3,12 +3,9 @@ package controllers;
 public class EDoeController {
 	
 	private UsuarioController uc;
-	
-	private ItemController ic;
-	
+
 	public EDoeController() {
 		this.uc = new UsuarioController();
-		this.ic = new ItemController();
 	}
 
 	public String adicionarDoador(String id, String nome, String email, String celular, String classe) {
@@ -36,22 +33,22 @@ public class EDoeController {
     }
 	
 	public void adicionarDescritor(String descricao) {
-		this.ic.adicionaDescritor(descricao);
+		this.uc.adicionaDescritor(descricao);
 	}
 	 
 	public int adicionarItem(String idDoador, String descricao, int quantidade, String tags) {
-		return this.ic.cadastrarItem(idDoador, uc.getUsuarios(), descricao, quantidade, tags);
+		return this.uc.cadastrarItem(idDoador, descricao, quantidade, tags);
 	}
 	
 	public String exibirItem(int idItem, String idDoador) {
-		return this.ic.exibirItem(idItem, idDoador, uc.getUsuarios());
+		return this.uc.exibirItem(idItem, idDoador);
 	}
 	
 	public String atualizarItem(int idItem, String idDoador, int quantidade, String tags) {
-		return this.ic.atualizarItem(idItem, idDoador, uc.getUsuarios(), quantidade, tags);
+		return this.uc.atualizarItem(idItem, idDoador, quantidade, tags);
 	}
 	
 	public void removerItem(int idItem, String idDoador) {
-		this.ic.removerItem(idDoador, uc.getUsuarios(), idItem);
+		this.uc.removerItem(idDoador, idItem);
 	}
 }
