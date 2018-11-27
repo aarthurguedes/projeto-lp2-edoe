@@ -138,7 +138,7 @@ public class ValidadorControllers {
     	verificaExistenciaItem(id, idDoador, usuarios);
     }
     
-    public int getIdItemIgual(Doador doador, String descricaoItem, String tagsItem) {
+    public int validaItensIguais(Doador doador, String descricaoItem, String tagsItem) {
     	for (Item i: doador.getItens().values()) {
     		if (i.getDescricao().equals(descricaoItem) && i.getTags().equals(tagsItem)) {
     			return i.getId();

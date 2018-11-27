@@ -49,7 +49,7 @@ public class Doador extends Usuario{
 	}
 	
 	/**
-	 * Metodo responsavel por cadastrar um item
+	 * Metodo responsavel por cadastrar um item.
 	 * @param id representa a identificacao do item
 	 * @param descricao representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
@@ -62,6 +62,11 @@ public class Doador extends Usuario{
 		itens.put(id, item);
 	}
 
+	/**
+	 * Metodo responsavel por verificar a existencia de um item no map de itens do doador. 
+	 * @param id representa a identificacao do item
+	 * @return o boolean que representa a existencia (ou nao) do item
+	 */
 	public boolean containsItem(int id) {
 		if (!this.itens.containsKey(id)) {
 			return false;
@@ -70,7 +75,7 @@ public class Doador extends Usuario{
 	}
 	
 	/**
-	 * Metodo responsavel por exibir um item
+	 * Metodo responsavel por exibir um item.
 	 * @param id representa a identificacao do item
 	 * @return string que representa o item
 	 */

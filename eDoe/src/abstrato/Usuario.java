@@ -10,7 +10,7 @@ import validacao.ValidadorBase;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public abstract class Usuario implements Comparable <Usuario>{
+public abstract class Usuario implements Comparable <Usuario> {
 	
 	/**
 	* Identificacao do usuario.

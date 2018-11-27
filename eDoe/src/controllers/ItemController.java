@@ -19,22 +19,20 @@ import validacao.ValidadorControllers;
 public class ItemController {
 
 	/**
-	 * Set de descricoes que os itens devem ter 
+	 * Set de descricoes que os itens podem ter. 
 	 */
 	private Set<String> descritores;
-	
 	/**
-	 * Objeto do controlador de validador
+	 * Objeto validador de controllers.
 	 */
 	private ValidadorControllers vc;
-	
 	/**
 	 * Identificacao do item
 	 */
 	private int idItem;
 	
 	/**
-	 * Constroi o controlador de itens
+	 * Constroi o controlador de itens.
 	 */
 	public ItemController() {
 		this.descritores = new HashSet<>();
@@ -43,14 +41,14 @@ public class ItemController {
 	}
 
 	/**
-	 * @return o set atualizado de descritores
+	 * @return o set de descritores
 	 */
 	public Set<String> getDescritores() {
 		return descritores;
 	}
 
 	/**
-	 * Metodo responsavel por validar uma descricao e adicionar ela ao set de descritores
+	 * Metodo responsavel por validar uma descricao e adicionar ela ao set de descritores.
 	 * @param descricao representa a descricao que sera adicionada
 	 */
 	public void adicionaDescritor(String descricao) {
@@ -59,8 +57,8 @@ public class ItemController {
 	}
 	
 	/**
-	 * Metodo responsavel por cadastrar um item e validar seus parametros
-	 * @param idDoador representa o doador do item
+	 * Metodo responsavel por cadastrar um item e validar seus parametros.
+	 * @param idDoador representa o id do doador do item
 	 * @param usuarios representa o map de usuarios
 	 * @param descricao representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
@@ -71,11 +69,10 @@ public class ItemController {
 		vc.validaCadastramentoItem(idDoador, usuarios, 	descricao, quantidade, tags);
 		
 		Doador d = (Doador) usuarios.get(idDoador);
-		
-		if (vc.getIdItemIgual(d, descricao, tags) == 0) {
+		if (vc.validaItensIguais(d, descricao, tags) == 0) {
 			d.cadastrarItem(this.idItem, descricao, quantidade, tags);
 		} else {
-			d.cadastrarItem(vc.getIdItemIgual(d, descricao, tags), descricao, quantidade, tags);
+			d.cadastrarItem(vc.validaItensIguais(d, descricao, tags), descricao, quantidade, tags);
 		}
 		
 		this.idItem++;
@@ -83,7 +80,7 @@ public class ItemController {
 	}
 	
 	/**
-	 * Metodo responsavel por exibir um item
+	 * Metodo responsavel por exibir um item.
 	 * @param idItem representa a identificacao do item
 	 * @param idDoador representa a identificacao do doador
 	 * @param usuarios representa o map de usuarios
@@ -95,11 +92,10 @@ public class ItemController {
 		
 		Doador d = (Doador) usuarios.get(idDoador);
 		return d.exibirItem(idItem);
-		
 	}
 	
 	/**
-	 * Metodo responsavel por atualizar um item
+	 * Metodo responsavel por atualizar um item.
 	 * @param idItem representa a identificacao do item
 	 * @param idDoador representa a identificacao do doador
 	 * @param usuarios representa o map de usuarios
@@ -115,13 +111,14 @@ public class ItemController {
 	}
 	
 	/**
-	 * Metodo responsavel por remover um item
+	 * Metodo responsavel por remover um item.
 	 * @param idDoador representa a identificacao do doador
 	 * @param usuarios representa o map de usuarios
 	 * @param idItem representa a identificacao do item
 	 */
 	public void removerItem(String idDoador, Map<String, Usuario> usuarios, int idItem) {
 		vc.validaRemocaoItem(idItem, idDoador, usuarios);
+		
 		Doador d = (Doador) usuarios.get(idDoador);
 		d.removerItem(idItem);
 	}

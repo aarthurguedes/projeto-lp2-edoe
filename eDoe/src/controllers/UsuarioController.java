@@ -25,7 +25,7 @@ public class UsuarioController {
 	private Map<String, Usuario> usuarios;
 
 	/**
-	* Objeto validador.
+	* Objeto validador de controllers.
 	*/
 	private ValidadorControllers vc;
 	/**
@@ -58,19 +58,20 @@ public class UsuarioController {
 	* @param email o email do usuario
 	* @param celular o numero do celular do usuario
 	* @param classe a classe do usuario
-     * @return String com id de identificao unica do usuario
+    * @return String com id de identificao unica do usuario
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         vc.validaCadastramentoUsuario(id, nome, email, celular, classe, usuarios);
+        
         Usuario doador = new Doador(id, nome, email, celular, classe, this.idOrdem);
-        this.idOrdem ++;
         usuarios.put(Util.formatString(id), doador);
+        this.idOrdem ++;
         
         return id;
     }
 
     /**
-     * Metodo criado para cadastro de um receptor no sistema.
+     * Cadastra um receptor no sistema.
      *
      * @param id a identificacao do usuario receptor
      * @param nome o nome do usuario receptor
@@ -81,16 +82,17 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramentoUsuario(id, nome, email, celular, classe, this.usuarios) ;
+	    
 	    Usuario receptor = new Receptor(id, nome, email, celular, classe, this.idOrdem);
-	    this.idOrdem ++;
 	    usuarios.put(Util.formatString(id), receptor);
+	    this.idOrdem ++;
 	    
         return id;
     }
 
     /**
-     *  Valida os parametros e procura no sistema, usuarios cadastrados com o nome passado no parametro.
-     *  Caso haja mais de um usuario cadastrado com o mesmo nome completo, se retorna uma String com os dois nomes, porem ordenados com quem foi cadastrado primeiro..
+     * Valida os parametros e procura no sistema usuarios cadastrados com o nome passado no parametro.
+     * Caso haja mais de um usuario cadastrado com o mesmo nome completo, retorna uma String com os dois nomes, porem ordenados com quem foi cadastrado primeiro.
      *
      * @param nome identificando o nome o qual será procurado
      * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
@@ -98,12 +100,10 @@ public class UsuarioController {
     public String  pesquisarUsuarioPorNome(String nome) {
 	    vc.validaPesquisaUsuarioPorNome(nome);
 
-        String saida = "";
-
         List<Usuario> usuarioList = new ArrayList<>(this.usuarios.values());
         Collections.sort(usuarioList);
 
-
+        String saida = "";
         for (Usuario usuario : usuarioList) {
             if (Util.formatString(nome).equals(Util.formatString(usuario.getNome()))) {
                 saida += usuario.toString() + " | ";
@@ -111,12 +111,12 @@ public class UsuarioController {
         }
 
         vc.verificaExistenciaPesquisa(saida, nome);
-
+        
         return saida.substring(0, saida.length() - 3);
     }
 
     /**
-     * Valida os parametros e procura no sistema algum usuario com o id cadastrado. Como o id e unico, so podera existir um usuario com esse id.
+     * Valida os parametros e procura no sistema um usuario com o id cadastrado. Como o id e unico, so deve existir um usuario com esse id.
      *
      * @param id do usuario  a ser pesquisado
      * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
@@ -127,13 +127,13 @@ public class UsuarioController {
     }
 
     /**
-     * Metodo de atualizacao dos dados do usuario.
+     * Atualiza os dados do usuario.
      *
      * @param id identificao unica do usuario
      * @param nome do usuario a ser atualizado
      * @param email email do usuario a ser atualizado
      * @param celular celular do usuario a ser atualizado
-     * @return toString do usuario.
+     * @return o toString do usuario.
      */
     public String atualizarUsuario(String id, String nome, String email, String celular) {
     	vc.verificaExistenciaUsuario(id, usuarios);
@@ -147,11 +147,12 @@ public class UsuarioController {
         if (celular != null && !celular.trim().equals("")) {
             usuarios.get(id).setCelular(celular);
     	}
+        
     	return usuarios.get(id).toString();
     }
 
     /**
-     *  Metodo para remocao de usuarios do sistema
+     * Remove o usuario com o id passado como parametro do sistema
      * @param id de identificacao do usuario.
      */
     public void removerUsuario(String id) {

@@ -124,26 +124,20 @@ public class Item {
 	}
 	
 	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * PAREI OS COMENTÁRIOS AQUI, TERMINAR DEPOIS
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+	* Retorna a String que representa o item. Formato: Id - descricao, tags, quantidade.
+	* 
+	* @return a representacao em String do usuario.
+	*/
 	@Override
 	public String toString() {
 		return this.id + " - " + this.descricao + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	/**
+	* Retorna o inteiro que representa a posicao do Item na memoria.
+	* 
+	* @return a representacao numerica do Item.  
+	*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,9 +147,12 @@ public class Item {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	/**
+	* Retorna o boolean que representa se dois itens sao iguais, ou seja, se possuem a mesma descricao e tags.
+	* 
+	* @param obj o objeto que representa o outro item
+	* @return o valor boolean da igualdade (ou nao) entre dois itens. 
+	*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
