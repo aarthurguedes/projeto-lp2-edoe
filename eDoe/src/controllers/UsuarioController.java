@@ -49,6 +49,7 @@ public class UsuarioController {
         this.validador = new Validador();
         this.idOrdem = 1;
         this.idItem = 1;
+        this.descritores = new HashSet<>();
     }
 
     /**
@@ -300,10 +301,14 @@ public class UsuarioController {
      * @return string que representa o item atualizado
      */
     public String atualizarItem(int idItem, String idDoador, int quantidade, String tags) {
-        Usuario usuario = this.usuarios.get(idDoador);
 
-        validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
         validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+        if (quantidade  <= 0) {
+            throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
+        }
+//        validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
+
+        Usuario usuario = this.usuarios.get(idDoador);
 
         if (!usuarios.containsKey(idDoador)) {
             throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
