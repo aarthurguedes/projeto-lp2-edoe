@@ -3,12 +3,12 @@ package controllers;
 import java.io.File; 
 import java.io.FileNotFoundException;
 import java.util.*;
-
+import abstrato.Usuario;
 import eDoe.Doador;
 import eDoe.Receptor;
-import eDoe.Usuario;
 import validacao.ValidadorControllers;
 import util.Util;
+import enums.Classe;
 
 /**
 * Representacao de um controlador de usuarios. 
@@ -41,7 +41,7 @@ public class UsuarioController {
 	public UsuarioController() {
 		this.usuarios = new HashMap<>();
 		this.vc = new ValidadorControllers();
-		this.idOrdem = 1;
+		this.idOrdem = 0;
 	}
 	
 	/**
@@ -62,10 +62,10 @@ public class UsuarioController {
      * @return String com id de identificao unica do usuario
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
-        vc.validaCadastramentoUsuario(id, nome, email, celular, classe, usuarios);
-        Usuario doador = new Doador(id, nome, email, celular, classe, this.idOrdem);
+        //vc.validaCadastramentoUsuario(id, nome, email, celular, classe, usuarios);
+        Usuario usuario = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), this.idOrdem);
         this.idOrdem ++;
-        usuarios.put(Util.formatString(id), doador);
+        usuarios.put(Util.formatString(id), usuario);
         
         return id;
     }
