@@ -48,6 +48,13 @@ public class Doador extends Usuario{
 		return "doador";
 	}
 	
+	/**
+	 * Metodo responsavel por cadastrar um item
+	 * @param id representa a identificacao do item
+	 * @param descricao representa a descricao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 */
 	public void cadastrarItem(int id, String descricao, int quantidade, String tags) {
 		vb.validaItem(id, descricao, quantidade, tags);
 		
@@ -62,6 +69,11 @@ public class Doador extends Usuario{
 		return true;
 	}
 	
+	/**
+	 * Metodo responsavel por exibir um item
+	 * @param id representa a identificacao do item
+	 * @return string que representa o item
+	 */
 	public String exibirItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -69,6 +81,13 @@ public class Doador extends Usuario{
 		return itens.get(id).toString();
 	}
 	
+	/**
+	 * Metodo responsavel por atualizar um item
+	 * @param id representa a identificacao do item
+	 * @param quantidade representa a quantidade daquele item
+	 * @param tags representa as tags do item
+	 * @return string que representa o tem atualizado
+	 */
 	public String atualizarItem(int id, int quantidade, String tags) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -83,6 +102,10 @@ public class Doador extends Usuario{
 		return itens.get(id).toString();
 	}
 	
+	/**
+	 * Metodo responsavel por remover um item
+	 * @param id representa a identificacao do item
+	 */
 	public void removerItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
