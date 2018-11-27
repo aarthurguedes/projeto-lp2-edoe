@@ -3,9 +3,7 @@ package controllers;
 import java.io.File; 
 import java.io.FileNotFoundException;
 import java.util.*;
-import abstrato.Usuario;
-import eDoe.Doador;
-import eDoe.Receptor;
+import eDoe.Usuario;
 import validacao.ValidadorControllers;
 import util.Util;
 import enums.Classe;
@@ -63,7 +61,7 @@ public class UsuarioController {
 	*/
 	public String cadastrarDoador(String id, String nome, String email, String celular, String classe) {
         //vc.validaCadastramentoUsuario(id, nome, email, celular, classe, usuarios);
-        Usuario usuario = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), this.idOrdem);
+        Usuario usuario = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), "doador", this.idOrdem);
         this.idOrdem ++;
         usuarios.put(Util.formatString(id), usuario);
         
@@ -82,7 +80,7 @@ public class UsuarioController {
      */
     public String cadastrarReceptor(String id, String nome, String email, String celular, String classe) {
 	    vc.validaCadastramentoUsuario(id, nome, email, celular, classe, this.usuarios) ;
-	    Usuario receptor = new Receptor(id, nome, email, celular, classe, this.idOrdem);
+	    Usuario receptor = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe),"receptor", this.idOrdem);
 	    this.idOrdem ++;
 	    usuarios.put(Util.formatString(id), receptor);
 	    

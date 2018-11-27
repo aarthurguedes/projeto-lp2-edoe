@@ -34,7 +34,7 @@ public enum Classe {
         validarClasse(classeUsuario, "Entrada invalida: classe nao pode ser vazia ou nula.");
     	
     	for(Classe classe : Classe.values()) {
-        	if (classe.getClasse().equals(classe)) {
+        	if (classe.getClasse().equals(classeUsuario)) {
 				return classe;
 			}
         }

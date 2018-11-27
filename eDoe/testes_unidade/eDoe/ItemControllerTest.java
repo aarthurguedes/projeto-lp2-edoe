@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import controllers.ItemController;
 import controllers.UsuarioController;
+import temp.Doador;
 
 class ItemControllerTest {
 	

@@ -3,7 +3,7 @@ package validacao;
 import java.util.Map;
 import java.util.Set;
 
-import eDoe.Doador;
+import temp.Doador;
 import eDoe.Item;
 import eDoe.Usuario;
 
