@@ -5,6 +5,7 @@ import java.util.Set;
 
 import abstrato.Usuario;
 import eDoe.Doador;
+import eDoe.Item;
 
 /**
 * Representacao de um validador dos controladores.
@@ -95,53 +96,34 @@ public class ValidadorControllers {
 
 	private void contemDescritor(String descricao, Set<String> descritores) {
 		for (String s: descritores) {
-			if (s.toLowerCase().equals(descricao)) {
+			if (s.toLowerCase().equals(descricao.toLowerCase())) {
 				throw new IllegalArgumentException("Descritor de Item ja existente: " + s.toLowerCase() + ".");
 			}
 		}
 	}
     
-	/**
-	 * Metodo auxiliar responsavel por validar o cadastro de um descritor
-	 * @param descricao representa a descricao a ser cadastrada
-	 * @param descritores representa o set de descricoes cadastradas
-	 */
     public void validaCadastramentoDescritor(String descricao, Set<String> descritores) {
 		vb.validaDescricaoItem(descricao);
 		contemDescritor(descricao, descritores);
 	}
     
-    /**
-     * Metodo auxiliar responsavel por validar o cadastro de um item
-     * @param descricao representa a descricao do item
-     * @param quantidade representa a quantidade do item
-     * @param tags representa as tags do item
-     */
-    public void validaCadastramentoItem(String descricao, int quantidade, String tags) {
+    public void validaCadastramentoItem(String idDoador, Map<String, Usuario> usuarios, String descricao, int quantidade, String tags) {
     	vb.validaDescricaoItem(descricao);
     	vb.validaQuantidadeItens(quantidade);
+    	vb.validaIdUsuario(idDoador);
+    	verificaExistenciaUsuario(idDoador, usuarios);
 
     }
     
-    /**
-     * Metodo auxiliar responsavel por verificar a existencia de um item 
-     * @param id representa a identificacao do item
-     * @param idDoador representa a identificacao do doador
-     * @param usuarios representa o map de usuarios
-     */
     public void verificaExistenciaItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	Doador d = (Doador) usuarios.get(idDoador);
-    	if (!d.contemItem(id)) {
+    	if (d.getItens().size() == 0) {
+    		throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
+    	} else if (!d.containsItem(id)) {
     		throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
     	}
     }
     
-    /**
-     * Metodo auxiliar responsavel por validar um item para a atualizacao
-     * @param id representa a identificacao do item
-     * @param idDoador representa a identificacao do doador
-     * @param usuarios representa o map de usuarios
-     */
     public void validaAtualizacaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
     	vb.validaIdItem(id);
     	vb.validaIdUsuario(idDoador);
@@ -149,21 +131,19 @@ public class ValidadorControllers {
     	verificaExistenciaItem(id, idDoador, usuarios);
     }
     
-    /**
-     * Metodo auxiliar responsavel por validar a remocao de um item
-     * @param id representa a identificacao do item
-     * @param idDoador representa a identificacao do doador
-     * @param usuarios representa o map de usuarios 
-     */
     public void validaRemocaoItem(int id, String idDoador, Map<String, Usuario> usuarios) {
-    	verificaExistenciaItem(id, idDoador, usuarios);
     	vb.validaIdItem(id);
     	vb.validaIdUsuario(idDoador);
     	verificaExistenciaUsuario(idDoador,usuarios);
-    	
-    	Doador d = (Doador) usuarios.get(idDoador);
-    	if (d.getItens().size() == 0) {
-    		throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
-    	}
+    	verificaExistenciaItem(id, idDoador, usuarios);
     }
+    
+    public int getIdItemIgual(Doador doador, String descricaoItem, String tagsItem) {
+    	for (Item i: doador.getItens().values()) {
+    		if (i.getDescricao().equals(descricaoItem) && i.getTags().equals(tagsItem)) {
+    			return i.getId();
+    		}
+    	}
+    	return 0;
+     }
 }

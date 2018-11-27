@@ -79,54 +79,30 @@ public class ValidadorBase {
 		validaClasse(classe);
 	}
 	
-	/**
-	 * Metodo auxiliar que verifica se a descricao passada como parametro e nula ou vazia, caso seja, lanca uma excecao
-	 * @param descricao representa a descricao do item
-	 */
 	public void validaDescricaoItem(String descricao) {
 		if (descricao == null || descricao.trim().equals("")) {
     		throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
     	}
 	}
 	
-	/**
-	 * Metodo auxiliar responsavel por verificar se a identificacao do item e menor que 1, caso seja, lanca uma excecao
-	 * @param id representa a identificacao do item
-	 */
 	public void validaIdItem(int id) {
 		if (id < 1) {
     		throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
     	}
 	}
 	
-	/**
-	 * Metodo auxiliar responsavel por verificar se a quantidade de itens e negativa, caso seja, lanca uma excecao
-	 * @param quantidade representa a quantidade de itens
-	 */
 	public void validaQuantidadeItens(int quantidade) {
 		if (quantidade <= 0) {
     		throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
 		}
 	}
 	
-	/**
-	 * Metodo auxiliar responsavel por validar um item, verificando se seus parametros sao nulos ou vazios, caso sejam, lanca uma excecao
-	 * @param id representa a identificacao do item
-	 * @param descricao representa a descricao do item
-	 * @param quantidade representa a quantidade do item
-	 * @param tags representa as tags do item
-	 */
 	public void validaItem(int id, String descricao, int quantidade, String tags) {
 		validaIdItem(id);
 		validaDescricaoItem(descricao);
 		validaQuantidadeItens(quantidade);
 	}
 	
-	/**
-	 * Metodo auxiliar responsavel por verificar se um determinado item existe no map de itens, caso nao exista, lanca uma excecao
-	 * @param itens representa o map de itens
-	 * @param idItem representa a identificacao do item que se procura
-	 */
 	public void verificaExistenciaItem(Map<Integer, Item> itens, int idItem) {
 		if (!itens.containsKey(idItem)) {
 			throw new IllegalArgumentException("Item nao encontrado: " + idItem + ".");

@@ -17,7 +17,6 @@ import validacao.ValidadorBase;
 public class Doador extends Usuario{
 	
 	private Map<Integer, Item> itens;
-	private int numItem;
 	private ValidadorBase vb = new ValidadorBase();
 
 	/**
@@ -32,7 +31,6 @@ public class Doador extends Usuario{
 	public Doador(String id, String nome, String email, String celular, String classe, int idOrdem) {
 		super(id, nome, email, celular, classe, idOrdem);
 		this.itens = new HashMap<>();
-		this.numItem = 1;
 	}
 	
 	/**
@@ -50,37 +48,20 @@ public class Doador extends Usuario{
 		return "doador";
 	}
 	
-	/**
-	 * Metodo responsavel por cadastrar o item no usuario
-	 * @param descricao representa a descricao do item
-	 * @param quantidade representa a quantidade daquele item
-	 * @param tags representa as tags do item
-	 */
-	public void cadastrarItem(String descricao, int quantidade, String tags) {
-		vb.validaItem(this.numItem, descricao, quantidade, tags);
+	public void cadastrarItem(int id, String descricao, int quantidade, String tags) {
+		vb.validaItem(id, descricao, quantidade, tags);
 		
-		Item item = new Item(this.numItem, descricao, quantidade, tags);
-		itens.put(this.numItem, item);
-		this.numItem++;
+		Item item = new Item(id, descricao, quantidade, tags);
+		itens.put(id, item);
 	}
 
-	/**
-	 * Metodo auxiliar que verifica se o item passado como parametro existe no map de itens
-	 * @param id representa a identificacao do item
-	 * @return retorna true caso o item exista no map e false caso nao exista
-	 */
-	public boolean contemItem(Integer id) {
+	public boolean containsItem(int id) {
 		if (!this.itens.containsKey(id)) {
 			return false;
 		}
 		return true;
 	}
 	
-	/**
-	 * Metodo responsavel por exibir um item
-	 * @param id representa a identificacao do item a ser exibido
-	 * @return string que representa o item
-	 */
 	public String exibirItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -88,13 +69,6 @@ public class Doador extends Usuario{
 		return itens.get(id).toString();
 	}
 	
-	/**
-	 * Metodo responsavel por atualizar um item
-	 * @param id representa a identificacao do item
-	 * @param quantidade representa a quantidade daquele item
-	 * @param tags representa as tags do item
-	 * @return string que representa o item atualizado
-	 */
 	public String atualizarItem(int id, int quantidade, String tags) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);
@@ -102,17 +76,13 @@ public class Doador extends Usuario{
 		if (quantidade > 0) {
     		itens.get(id).setQuantidade(quantidade);
 		}
-		if (tags != null && tags.trim().equals("")) {
+		if (tags != null && !tags.trim().equals("")) {
 			itens.get(id).setTags(tags);
 		}
 		
 		return itens.get(id).toString();
 	}
 	
-	/**
-	 * Metodo responsavel por remover um item
-	 * @param id representa a identificacao do item
-	 */
 	public void removerItem(int id) {
 		vb.validaIdItem(id);
 		vb.verificaExistenciaItem(itens, id);

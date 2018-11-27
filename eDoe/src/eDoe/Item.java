@@ -1,51 +1,18 @@
 package eDoe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import validacao.ValidadorBase;
-
-
-/**
-* Representacao de um item, que id, descricao, quantidade e tags 
-*
-* @author Antonio Bertino de Vasconcelos Cabral Neto
-* @author Arthur Silva Lima Guedes
-* @author Danilo de Menezes Freitas
-* @author Talita Galdino Gouveia
-*/
 
 public class Item {
 	
-	/**
-	 * Identificacao do item
-	 */
 	private int id;
-	
-	/**
-	 * Descricao do item
-	 */
 	private String descricao;
-	
-	/**
-	 * Quantidade do item
-	 */
 	private int quantidade;
-	
-	/**
-	 * Tags do item
-	 */
 	private String tags;
-	
-	/**
-	 * Objeto validador
-	 */
 	private ValidadorBase vb = new ValidadorBase();
 	
-	/**
-	 * Construcao de um item
-	 * @param id representa a identificacao do item
-	 * @param descricao representa a descricao do item
-	 * @param quantidade representa a quantidade do item
-	 * @param tags representa as tags do item
-	 */
 	public Item(int id, String descricao, int quantidade, String tags) {
 		vb.validaItem(id, descricao, quantidade, tags);
 		this.id = id;
@@ -55,71 +22,77 @@ public class Item {
 	}
 	
 	/**
-	 * @return a atual identificacao do item
+	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * @return a atual descricao do item 
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the descricao
 	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
 	/**
-	 * Metodo responsavel por alterar a descricao do item
-	 * @param descricao representa a nova descricao do item
+	 * @param descricao the descricao to set
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
 	/**
-	 * @return a atual quantidade do item
+	 * @return the quantidade
 	 */
 	public int getQuantidade() {
 		return quantidade;
 	}
 	
 	/**
-	 * Metodo responsavel por alterar a quantidade do item
-	 * @param quantidade representa a nova quantidade de item
+	 * @param quantidade the quantidade to set
 	 */
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 
 	/**
-	 * @return a atual tags de item
+	 * @return the tags
 	 */
 	public String getTags() {
 		return tags;
 	}
 
 	/**
-	 * Metodo responsavel por alterar as tags do item
-	 * @param tags representa as novas tags do item
+	 * @param tags the tags to set
 	 */
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
 	
-	/**
-	 * Retorna a string que representa um item, no formato:
-	 * "id - descricao, tags, quantidade: "
-	 */
-	@Override
-	public String toString() {
-		return this.id + " - " + this.descricao + ", " + this.tags.split(",") + ", quantidade: " + this.quantidade;
+	private void adicionaTagsEmLista(List<String> listaTags, String tags) {
+		for (String s: tags.split(",")) {
+			listaTags.add(s);
+		}
 	}
 	
-	/**
-	* Retorna o inteiro que representa a posicao do item na memoria.
-	* 
-	* @return a representacao numerica do item.  
-	*/
+	@Override
+	public String toString() {
+		List<String> listaTags = new ArrayList<String>();
+		adicionaTagsEmLista(listaTags, this.tags);
+		return this.id + " - " + this.descricao + ", tags: " + listaTags + ", quantidade: " + this.quantidade;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,12 +102,9 @@ public class Item {
 		return result;
 	}
 
-	/**
-	* Retorna o boolean que representa se dois itens sao iguais, ou seja, se possuem o mesmo id ou as mesmas tags
-	* 
-	* @param obj o objeto que representa o outro item
-	* @return o valor boolean da igualdade (ou nao) entre dois itens. 
-	*/
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
