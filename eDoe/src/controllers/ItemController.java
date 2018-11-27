@@ -19,7 +19,14 @@ public class ItemController {
 		this.vc = new ValidadorControllers();
 		this.idItem = 1;
 	}
-	
+
+	/**
+	 * @return the descritores
+	 */
+	public Set<String> getDescritores() {
+		return descritores;
+	}
+
 	public void adicionaDescritor(String descricao) {
 		vc.validaCadastramentoDescritor(descricao, descritores);
 		descritores.add(descricao);

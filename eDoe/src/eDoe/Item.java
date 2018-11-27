@@ -77,17 +77,17 @@ public class Item {
 		this.tags = tags;
 	}
 	
-	private void adicionaTagsEmLista(List<String> listaTags, String tags) {
+	private List<String> listaTags(String tags) {
+		List<String> listaTags = new ArrayList<String>();
 		for (String s: tags.split(",")) {
 			listaTags.add(s);
 		}
+		return listaTags;
 	}
 	
 	@Override
 	public String toString() {
-		List<String> listaTags = new ArrayList<String>();
-		adicionaTagsEmLista(listaTags, this.tags);
-		return this.id + " - " + this.descricao + ", tags: " + listaTags + ", quantidade: " + this.quantidade;
+		return this.id + " - " + this.descricao + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
 	}
 
 	/* (non-Javadoc)

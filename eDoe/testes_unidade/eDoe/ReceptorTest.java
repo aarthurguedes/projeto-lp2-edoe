@@ -16,7 +16,7 @@ class ReceptorTest {
 	
 	@Test
 	public void testConstrutor() {
-		assertEquals("844.737.120-44", r.getId());
+		assertEquals("84473712044", r.getId());
 		assertEquals("Murilo Luiz Brito", r.getNome());
 		assertEquals("muriloluizbrito-81@ipmmi.org.br", r.getEmail());
 		assertEquals("(31) 99776-7434", r.getCelular());
@@ -56,7 +56,7 @@ class ReceptorTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("Murilo Luiz Brito/844.737.120-44, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", r.toString());
+		assertEquals("Murilo Luiz Brito/84473712044, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", r.toString());
 	}
 	
 	@Test

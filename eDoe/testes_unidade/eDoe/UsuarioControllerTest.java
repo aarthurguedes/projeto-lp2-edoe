@@ -32,25 +32,25 @@ class UsuarioControllerTest {
 	
 	@Test
 	public void testPesquisarUsuarioPorNome() {
-		assertEquals("Elizabeth Ashe/705.133.729-11, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador", uc.pesquisarUsuarioPorNome("Elizabeth Ashe")); // Pesquisando o doador cadastrado pelo nome
-		assertEquals("Murilo Luiz Brito/844.737.120-44, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", uc.pesquisarUsuarioPorNome("Murilo Luiz Brito")); // Pesquisando o receptor cadastrado pelo nome
+		assertEquals("Elizabeth Ashe/70513372911, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador", uc.pesquisarUsuarioPorNome("Elizabeth Ashe")); // Pesquisando o doador cadastrado pelo nome
+		assertEquals("Murilo Luiz Brito/84473712044, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", uc.pesquisarUsuarioPorNome("Murilo Luiz Brito")); // Pesquisando o receptor cadastrado pelo nome
 	}
 	
 	@Test
 	public void testPesquisarUsuarioPorId() {
-		assertEquals("Elizabeth Ashe/705.133.729-11, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador", uc.pesquisarUsuarioPorId("70513372911")); // Pesquisando o doador cadastrado pelo id
-		assertEquals("Murilo Luiz Brito/844.737.120-44, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", uc.pesquisarUsuarioPorId("84473712044")); // Pesquisando o receptor cadastrado pelo id
+		assertEquals("Elizabeth Ashe/70513372911, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador", uc.pesquisarUsuarioPorId("70513372911")); // Pesquisando o doador cadastrado pelo id
+		assertEquals("Murilo Luiz Brito/84473712044, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor", uc.pesquisarUsuarioPorId("84473712044")); // Pesquisando o receptor cadastrado pelo id
 	}
 	
 	@Test
 	public void testAtualizarUsuario() {
 		//Atualizando o doador cadastrado
 		uc.atualizarUsuario("70513372911", "Matheus", "matheus@ccc.ufcg.edu.br", "(00) 0011-2233");
-		assertEquals("Matheus/705.133.729-11, matheus@ccc.ufcg.edu.br, (00) 0011-2233, status: doador", uc.pesquisarUsuarioPorId("70513372911"));
+		assertEquals("Matheus/70513372911, matheus@ccc.ufcg.edu.br, (00) 0011-2233, status: doador", uc.pesquisarUsuarioPorId("70513372911"));
 		
 		//Atualizando o receptor cadastrado
 		uc.atualizarUsuario("84473712044", "Pedro", "pedro@ccc.ufcg.edu.br", "(11) 4455-6677");
-		assertEquals("Pedro/844.737.120-44, pedro@ccc.ufcg.edu.br, (11) 4455-6677, status: receptor", uc.pesquisarUsuarioPorId("84473712044"));
+		assertEquals("Pedro/84473712044, pedro@ccc.ufcg.edu.br, (11) 4455-6677, status: receptor", uc.pesquisarUsuarioPorId("84473712044"));
 	}
 	
 	@Test
