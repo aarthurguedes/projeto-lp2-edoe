@@ -14,13 +14,13 @@ public enum Classe {
     }
     
     private static void validarClasseNaoNula(String classe, String msgErro) {
-    	if(classe == null) {
+    	if (classe == null) {
     		throw new IllegalArgumentException(msgErro);
     	}
     }
     
     private static void validarClasseNaoVazia(String classe, String msgErro) {
-    	if(classe.trim().equals("")) {
+    	if (classe.trim().equals("")) {
     		throw new IllegalArgumentException(msgErro);
     	}
     }
@@ -33,12 +33,13 @@ public enum Classe {
     public static Classe getClassePorString(String classeUsuario) {
         validarClasse(classeUsuario, "Entrada invalida: classe nao pode ser vazia ou nula.");
     	
-    	for(Classe classe : Classe.values()) {
+    	for (Classe classe : Classe.values()) {
         	if (classe.getClasse().equals(classeUsuario)) {
 				return classe;
 			}
         }
-        throw new IllegalArgumentException("Entrada invalida: opcao de classe invalida.");
+       
+    	throw new IllegalArgumentException("Entrada invalida: opcao de classe invalida.");
     }
 }
 

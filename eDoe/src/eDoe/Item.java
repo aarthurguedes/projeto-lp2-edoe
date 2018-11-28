@@ -16,32 +16,28 @@ import java.util.List;
 public class Item {
 	
 	/**
-	 * Identificacao do item
+	 * Identificacao do item.
 	 */
 	private int id;
-	
 	/**
-	 * Descricao do item
+	 * Descricao do item.
 	 */
 	private String descricao;
-	
 	/**
-	 * Quantidade daquele item
+	 * Quantidade do item.
 	 */
 	private int quantidade;
-	
 	/**
 	 * Tags dos itens
 	 */
 	private String tags;
-	
 	/**
-	 * Objeto de validacao
+	 * Objeto validador.
 	 */
 	private Validador validador = new Validador();
 
 	/**
-	 * Constroi um item
+	 * Constroi um item.
 	 * @param id representa a identificacao do item
 	 * @param descricao representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
@@ -63,13 +59,6 @@ public class Item {
 	 */
 	public int getId() {
 		return id;
-	}
-
-	/**
-	 * @param id representa a nova identificacao do item
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**

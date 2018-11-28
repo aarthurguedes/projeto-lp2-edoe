@@ -14,6 +14,7 @@ import java.util.Map;
 * @author Talita Galdino Gouveia
 */
 public class Usuario implements Comparable <Usuario> {
+	
 	/**
 	* Identificacao do usuario.
 	*/
@@ -38,20 +39,18 @@ public class Usuario implements Comparable <Usuario> {
 	* Classe do usuario.
 	*/
 	private Classe classe;
+	/**
+	 * Mapa de itens do usuario.
+	 */
+	private Map<Integer, Item> itens;
     /**
-     * Inteiro representando a posição na qual o usuario foi cadastrado.
-     */
+    * Inteiro representando a posição na qual o usuario foi cadastrado.
+    */
 	private int idOrdem;
     /**
 	* Objeto validador.
 	*/
 	private Validador validador = new Validador();
-
-	/**
-	 * TODO
-	 */
-	private Map<Integer, Item> itens;
-
 
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
@@ -99,19 +98,40 @@ public class Usuario implements Comparable <Usuario> {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	/**
+	 * @return o email do usuario
+	 */
+	public String getEmail() {
+		return email;
+	}
 
 	/**
 	 * @param email o novo email do usuario
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
+	}	
+	
 	/**
-	 * @return o numero de celular do usuario
+	 * @return o celular do usuario
 	 */
 	public String getCelular() {
 		return celular;
+	}
+	
+	/**
+	 * @return a classe do usuario
+	 */
+	public String getClasse() {
+		return classe.getClasse();
+	}
+	
+	/**
+	 * @return a ordem do cadastro do usuario
+	 */
+	public int getIdOrdem() {
+		return idOrdem;
 	}
 
 	/**
@@ -120,60 +140,13 @@ public class Usuario implements Comparable <Usuario> {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
-	/**
-	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
-	* 
-	* @return a representacao em String do usuario.
-	*/
-	@Override
-	public String toString() {
-		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.status;
-
-	}
-
+	
 	public Map<Integer, Item> getItens() {
 		return this.itens;
 	}
 	
 	/**
-	* Retorna o inteiro que representa a posicao do Usuario na memoria.
-	* 
-	* @return a representacao numerica do Usuario.  
-	*/
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	/**
-	* Retorna o boolean que representa se dois usuarios sao iguais, ou seja, se possuem o mesmo id.
-	* 
-	* @param obj o objeto que representa o outro usuario
-	* @return o valor boolean da igualdade (ou nao) entre dois clientes. 
-	*/
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-	/**
-	 * Metodo responsavel por cadastrar um item.
+	 * Cadastra um item para o usuario.
 	 * @param id representa a identificacao do item
 	 * @param descricao representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
@@ -182,10 +155,7 @@ public class Usuario implements Comparable <Usuario> {
 	public void cadastrarItem(int id, String descricao, int quantidade, String tags) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 		validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
-
-		if (quantidade  <= 0) {
-			throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
-		}
+		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		Item item = new Item(id, descricao, quantidade, tags);
 		itens.put(id, item);
@@ -266,4 +236,51 @@ public class Usuario implements Comparable <Usuario> {
     public int compareTo(Usuario usuario) {
         return this.idOrdem - usuario.idOrdem;
     }
+
+	/**
+	* Retorna a String que representa o usuario. Formato: Nome/Id, email, celular, status.
+	* 
+	* @return a representacao em String do usuario.
+	*/
+	@Override
+	public String toString() {
+		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.status;
+
+	}
+	
+	/**
+	* Retorna o inteiro que representa a posicao do Usuario na memoria.
+	* 
+	* @return a representacao numerica do Usuario.  
+	*/
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/**
+	* Retorna o boolean que representa se dois usuarios sao iguais, ou seja, se possuem o mesmo id.
+	* 
+	* @param obj o objeto que representa o outro usuario
+	* @return o valor boolean da igualdade (ou nao) entre dois clientes. 
+	*/
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

@@ -20,19 +20,12 @@ public class Validador {
 	}
 	
 	private static void validarInteiroPositivo(int inteiro, String msgErro) {
-		if (inteiro < 0 ) {
-			throw new IllegalArgumentException(msgErro);
-		}
-	}
-	
-	private static void validarInteiroMaiorQue0(int inteiro, String msgErro) {
-		if (inteiro == 0) {
+		if (inteiro <= 0 ) {
 			throw new IllegalArgumentException(msgErro);
 		}
 	}
 	
 	public void validarInteiro(int inteiro, String msgErro) {
 		validarInteiroPositivo(inteiro, msgErro);
-		validarInteiroMaiorQue0(inteiro, msgErro);
 	}
 }
