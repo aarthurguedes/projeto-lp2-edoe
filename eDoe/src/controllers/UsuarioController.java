@@ -279,10 +279,8 @@ public class UsuarioController {
         Usuario usuario = this.usuarios.get(idDoador);
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
             usuario.cadastrarItem(this.idItem, descritor, quantidade, tags);
-            this.descritores.get(Util.formatString(descricao)).setQuantidade(quantidade);
         } else {
             usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descritor, quantidade, tags);
-            this.descritores.get(Util.formatString(descricao)).setQuantidade(quantidade);
         }
         this.idItem++;
         
