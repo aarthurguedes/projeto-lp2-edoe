@@ -236,8 +236,8 @@ public class UsuarioController {
         validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
 
         for (Descritor descritor: this.descritores.values()) {
-            if (descritor.getDescritor().toLowerCase().equals(descricao.toLowerCase())) {
-                throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescritor().toLowerCase() + ".");
+            if (descritor.getDescricao().toLowerCase().equals(descricao.toLowerCase())) {
+                throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescricao().toLowerCase() + ".");
             }
         }
 
@@ -279,10 +279,10 @@ public class UsuarioController {
         Usuario usuario = this.usuarios.get(idDoador);
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
             usuario.cadastrarItem(this.idItem, descritor, quantidade, tags);
-            this.descritores.get(Util.formatString(descricao)).contaUm();
+            this.descritores.get(Util.formatString(descricao)).setQuantidade(quantidade);
         } else {
             usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descritor, quantidade, tags);
-            this.descritores.get(Util.formatString(descricao)).contaUm();
+            this.descritores.get(Util.formatString(descricao)).setQuantidade(quantidade);
         }
         this.idItem++;
         
@@ -322,7 +322,7 @@ public class UsuarioController {
         validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(idDoador);
         this.validarExistenciaItem(this.usuarios.get(idDoador), idItem);
-        
+
         return this.usuarios.get(idDoador).atualizarItem(idItem, quantidade, tags);
     }
 
@@ -343,4 +343,27 @@ public class UsuarioController {
          
          this.usuarios.get(idDoador).removerItem(idItem);
     }
+
+    public String listaDescritorDeItensParaDoacao() {
+        List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
+        Collections.sort(descritorList);
+
+        String listaDescritores = "";
+        for (Usuario usuario: this.usuarios.values()) {
+            for (Descritor descritor : descritorList) {
+                for (Item item : usuario.getItens().values()) {
+                    if(Util.formatString(item.getDescricao()).equals(Util.formatString(descritor.getDescricao()))) {
+                        descritor.setQuantidade(item.getQuantidade());
+                    }
+                }
+            }
+        }
+
+        for (Descritor descritor : descritorList) {
+            listaDescritores += descritor.toString() + " | ";
+        }
+        return listaDescritores.substring(0, listaDescritores.length() - 3);
+    }
+
+
 }

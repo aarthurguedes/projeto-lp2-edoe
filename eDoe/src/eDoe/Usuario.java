@@ -140,6 +140,10 @@ public class Usuario implements Comparable <Usuario> {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
+
+	public Item getItem(int idItem) {
+		return this.itens.get(idItem);
+	}
 	
 	public Map<Integer, Item> getItens() {
 		return this.itens;
@@ -154,7 +158,7 @@ public class Usuario implements Comparable <Usuario> {
 	 */
 	public void cadastrarItem(int id, Descritor descricao, int quantidade, String tags) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
-		validador.validarString(descricao.getDescritor(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		Item item = new Item(id, descricao, quantidade, tags);

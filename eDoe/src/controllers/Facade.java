@@ -1,6 +1,5 @@
 package controllers;
 
-import eDoe.Descritor;
 import easyaccept.EasyAccept;
 
 public class Facade {
@@ -54,9 +53,13 @@ public class Facade {
 	public void removeItemParaDoacao(int idItem, String idDoador) {
 		this.usuarioController.removerItem(idItem, idDoador);
 	}
+
+	public String listaDescritorDeItensParaDoacao() {
+		return this.usuarioController.listaDescritorDeItensParaDoacao();
+	}
 	
     public static void main(String[] args) {
-        args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt"};
+        args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt"};
         EasyAccept.main(args);
     }
 }

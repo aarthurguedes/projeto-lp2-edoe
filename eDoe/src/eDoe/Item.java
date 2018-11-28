@@ -46,7 +46,7 @@ public class Item {
 	 */
 	public Item(int id, Descritor descricao, int quantidade, String tags) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
-		validador.validarString(descricao.getDescritor(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		this.id = id;
@@ -66,14 +66,14 @@ public class Item {
 	 * @return valor atual da descricao do item
 	 */
 	public String getDescricao() {
-		return descricao.getDescritor();
+		return descricao.getDescricao();
 	}
 
 	/**
 	 * @param descricao representa a nova descricao do item
 	 */
 	public void setDescricao(String descricao) {
-		this.descricao.setDescritor(Util.formatString(descricao));
+		this.descricao.setDescricao(Util.formatString(descricao));
 	}
 
 	/**
@@ -95,6 +95,10 @@ public class Item {
 	 */
 	public String getTags() {
 		return tags;
+	}
+
+	public Descritor getDescritor() {
+		return this.descricao;
 	}
 
 	/**
@@ -124,7 +128,7 @@ public class Item {
 	*/
 	@Override
 	public String toString() {
-		return this.id + " - " + this.descricao.getDescritor() + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
+		return this.id + " - " + this.descricao.getDescricao() + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
 	}
 
 	/**
