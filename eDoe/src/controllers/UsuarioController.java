@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import eDoe.Descritor;
 import eDoe.Item;
 import eDoe.Usuario;
 import util.Validador;
@@ -27,7 +28,7 @@ public class UsuarioController {
     /**
      * Set de descricoes que os itens podem ter.
      */
-    private Set<String> descritores;
+    private Map<String,Descritor> descritores;
     /**
      * Objeto validador.
      */
@@ -46,7 +47,7 @@ public class UsuarioController {
      */
     public UsuarioController() {
         this.usuarios = new HashMap<>();
-        this.descritores = new HashSet<>();
+        this.descritores = new HashMap<>();
         this.validador = new Validador();
         this.idOrdem = 1;
         this.idItem = 1;
@@ -234,13 +235,15 @@ public class UsuarioController {
     public void adicionarDescritor(String descricao) {
         validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
 
-        for (String s: this.descritores) {
-            if (s.toLowerCase().equals(descricao.toLowerCase())) {
-                throw new IllegalArgumentException("Descritor de Item ja existente: " + s.toLowerCase() + ".");
+        for (Descritor descritor: this.descritores.values()) {
+            if (descritor.getDescritor().toLowerCase().equals(descricao.toLowerCase())) {
+                throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescritor().toLowerCase() + ".");
             }
         }
 
-        descritores.add(descricao);
+        Descritor descritor = new Descritor(descricao);
+
+        descritores.put(Util.formatString(descricao),descritor);
     }
 
     private int getIdItensIguais(Usuario usuario, String descricao, String tags) {
@@ -270,8 +273,10 @@ public class UsuarioController {
         Usuario usuario = this.usuarios.get(idDoador);
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
             usuario.cadastrarItem(this.idItem, descricao, quantidade, tags);
+            this.descritores.get(Util.formatString(descricao)).contaUm();
         } else {
             usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descricao, quantidade, tags);
+            this.descritores.get(Util.formatString(descricao)).contaUm();
         }
         this.idItem++;
         
