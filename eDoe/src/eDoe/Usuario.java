@@ -152,9 +152,9 @@ public class Usuario implements Comparable <Usuario> {
 	 * @param quantidade representa a quantidade daquele item
 	 * @param tags representa as tags do item
 	 */
-	public void cadastrarItem(int id, String descricao, int quantidade, String tags) {
+	public void cadastrarItem(int id, Descritor descricao, int quantidade, String tags) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
-		validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarString(descricao.getDescritor(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		Item item = new Item(id, descricao, quantidade, tags);

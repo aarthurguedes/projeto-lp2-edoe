@@ -1,6 +1,7 @@
 package controllers;
 
-import easyaccept.EasyAccept; 
+import eDoe.Descritor;
+import easyaccept.EasyAccept;
 
 public class Facade {
 	

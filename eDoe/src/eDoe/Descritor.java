@@ -23,6 +23,10 @@ public class Descritor {
         return this.descritor;
     }
 
+    public void setDescritor(String descritor) {
+        this.descritor = descritor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

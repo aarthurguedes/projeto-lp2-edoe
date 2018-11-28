@@ -241,7 +241,7 @@ public class UsuarioController {
             }
         }
 
-        Descritor descritor = new Descritor(descricao);
+        Descritor descritor = new Descritor(Util.formatString(descricao));
 
         descritores.put(Util.formatString(descricao),descritor);
     }
@@ -270,12 +270,18 @@ public class UsuarioController {
         validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(idDoador);
 
+        Descritor descritor = new Descritor(Util.formatString(descricao));
+
+        if (!this.descritores.containsKey(Util.formatString(descricao))) {
+            this.descritores.put(Util.formatString(descricao), new Descritor(Util.formatString(descricao)));
+        }
+
         Usuario usuario = this.usuarios.get(idDoador);
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
-            usuario.cadastrarItem(this.idItem, descricao, quantidade, tags);
+            usuario.cadastrarItem(this.idItem, descritor, quantidade, tags);
             this.descritores.get(Util.formatString(descricao)).contaUm();
         } else {
-            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descricao, quantidade, tags);
+            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descritor, quantidade, tags);
             this.descritores.get(Util.formatString(descricao)).contaUm();
         }
         this.idItem++;

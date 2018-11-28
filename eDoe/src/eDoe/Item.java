@@ -1,5 +1,6 @@
 package eDoe;
 
+import util.Util;
 import util.Validador;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Item {
 	/**
 	 * Descricao do item.
 	 */
-	private String descricao;
+	private Descritor descricao;
 	/**
 	 * Quantidade do item.
 	 */
@@ -43,9 +44,9 @@ public class Item {
 	 * @param quantidade representa a quantidade daquele item
 	 * @param tags representa as tags do item
 	 */
-	public Item(int id, String descricao, int quantidade, String tags) {
+	public Item(int id, Descritor descricao, int quantidade, String tags) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
-		validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		validador.validarString(descricao.getDescritor(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		this.id = id;
@@ -65,14 +66,14 @@ public class Item {
 	 * @return valor atual da descricao do item
 	 */
 	public String getDescricao() {
-		return descricao;
+		return descricao.getDescritor();
 	}
 
 	/**
 	 * @param descricao representa a nova descricao do item
 	 */
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao.setDescritor(Util.formatString(descricao));
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class Item {
 	*/
 	@Override
 	public String toString() {
-		return this.id + " - " + this.descricao + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
+		return this.id + " - " + this.descricao.getDescritor() + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
 	}
 
 	/**
