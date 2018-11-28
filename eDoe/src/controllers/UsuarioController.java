@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import Comparators.ComparadorPelaDescricaoItem;
+import Comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
 import eDoe.Descritor;
 import eDoe.Item;
 import eDoe.Usuario;
@@ -370,6 +372,7 @@ public class UsuarioController {
     }
     public String listaItensParaDoacao() {
         List<Item> itensCadastrados = this.getTodosItensCadastrados();
+        Collections.sort(itensCadastrados, new ComparadorPelaQuantidadeEDescricaoDoItem());
 
         String itensListados = "";
         for (Item item2 : itensCadastrados) {
@@ -389,7 +392,21 @@ public class UsuarioController {
             }
         }
 
-        Collections.sort(itensCadastrados);
         return itensCadastrados;
+    }
+
+    public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
+        validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
+
+        List<Item> itensCadastrados = this.getTodosItensCadastrados();
+        Collections.sort(itensCadastrados, new ComparadorPelaDescricaoItem());
+
+        String saida = "";
+        for (Item item : itensCadastrados) {
+            if(Util.formatString(item.getDescricao()).contains(Util.formatString(descricao))) {
+                saida += item.toString() + " | ";
+            }
+        }
+        return saida.substring(0, saida.length() -3);
     }
 }

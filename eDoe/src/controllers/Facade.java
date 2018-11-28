@@ -60,6 +60,10 @@ public class Facade {
     public String listaItensParaDoacao() {
 	    return this.usuarioController.listaItensParaDoacao();
     }
+
+    public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
+        return this.usuarioController.pesquisaItemParaDoacaoPorDescricao(descricao);
+    }
 	
     public static void main(String[] args) {
         args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt"};

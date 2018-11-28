@@ -14,7 +14,7 @@ import java.util.List;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public class Item implements Comparable<Item> {
+public class Item {
 	/**
 	 * Identificacao do item.
 	 */
@@ -181,11 +181,4 @@ public class Item implements Comparable<Item> {
 		return true;
 	}
 
-	@Override
-	public int compareTo(Item o) {
-		if (this.quantidade == o.quantidade) {
-			return Util.formatString(this.getDescricao()).compareTo(Util.formatString(o.getDescricao()));
-		}
-		return o.quantidade - this.quantidade;
-	}
 }
