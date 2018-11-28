@@ -343,10 +343,21 @@ public class UsuarioController {
     }
 
     public String listaDescritorDeItensParaDoacao() {
+        this.atualiazaQuantidadeDescritores();
         List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
         String listaDescritores = "";
+        for (Descritor descritor : descritorList) {
+            listaDescritores += descritor.toString() + " | ";
+        }
+        return listaDescritores.substring(0, listaDescritores.length() - 3);
+    }
+
+    private void atualiazaQuantidadeDescritores() {
+        List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
+        Collections.sort(descritorList);
+
         for (Usuario usuario: this.usuarios.values()) {
             for (Descritor descritor : descritorList) {
                 for (Item item : usuario.getItens().values()) {
@@ -357,11 +368,5 @@ public class UsuarioController {
             }
         }
 
-        for (Descritor descritor : descritorList) {
-            listaDescritores += descritor.toString() + " | ";
-        }
-        return listaDescritores.substring(0, listaDescritores.length() - 3);
     }
-
-
 }
