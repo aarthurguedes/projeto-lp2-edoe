@@ -13,6 +13,16 @@ No eDoe.com usuários de toda a região envolvida podem cadastrar itens a serem 
 * Danilo de Menezes Freitas
 * Talita Galdino Gouveia
 
+### Acompanhamento
+
+### Monitor
+
+* Matheus Alves dos Santos
+
+### Professor(a)
+
+* Lívia Campos
+
 ![logo-topo2](https://user-images.githubusercontent.com/38543529/49182850-22a9b480-f33a-11e8-88a3-930378d5f10b.png)
 
 
