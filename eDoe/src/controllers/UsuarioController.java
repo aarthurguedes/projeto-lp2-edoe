@@ -343,7 +343,7 @@ public class UsuarioController {
     }
 
     public String listaDescritorDeItensParaDoacao() {
-        this.atualiazaQuantidadeDescritores();
+        this.atualizaQuantidadeDescritores();
         List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
@@ -354,7 +354,7 @@ public class UsuarioController {
         return listaDescritores.substring(0, listaDescritores.length() - 3);
     }
 
-    private void atualiazaQuantidadeDescritores() {
+    private void atualizaQuantidadeDescritores() {
         List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
@@ -367,6 +367,29 @@ public class UsuarioController {
                 }
             }
         }
+    }
+    public String listaItensParaDoacao() {
+        List<Item> itensCadastrados = this.getTodosItensCadastrados();
 
+        String itensListados = "";
+        for (Item item2 : itensCadastrados) {
+            itensListados += item2.toString() + ", doador: " + this.usuarios.get(item2.getIdDoador()).getNomeEiD() + " | ";
+        }
+
+        return itensListados.substring(0, itensListados.length() -3);
+
+    }
+
+    private List<Item> getTodosItensCadastrados() {
+        List<Item> itensCadastrados = new ArrayList<>();
+
+        for (Usuario usuario : this.usuarios.values()) {
+            for (Item item : usuario.getItens().values()) {
+                itensCadastrados.add(item);
+            }
+        }
+
+        Collections.sort(itensCadastrados);
+        return itensCadastrados;
     }
 }

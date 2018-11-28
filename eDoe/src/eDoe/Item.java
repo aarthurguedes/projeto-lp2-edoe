@@ -14,8 +14,7 @@ import java.util.List;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public class Item {
-	
+public class Item implements Comparable<Item> {
 	/**
 	 * Identificacao do item.
 	 */
@@ -37,14 +36,17 @@ public class Item {
 	 */
 	private Validador validador = new Validador();
 
+	private String idDoador;
+
 	/**
 	 * Constroi um item.
-	 * @param id representa a identificacao do item
-	 * @param descricao representa a descricao do item
+	 *
+	 * @param id         representa a identificacao do item
+	 * @param descricao  representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
-	 * @param tags representa as tags do item
+	 * @param tags       representa as tags do item
 	 */
-	public Item(int id, Descritor descricao, int quantidade, String tags) {
+	public Item(int id, Descritor descricao, int quantidade, String tags, String idDoador) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
@@ -53,13 +55,18 @@ public class Item {
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.tags = tags;
+		this.idDoador = idDoador;
 	}
-	
+
 	/**
 	 * @return retorna o valor atual da identificacao do item
 	 */
 	public int getId() {
 		return id;
+	}
+
+	public String getIdDoador() {
+		return this.idDoador;
 	}
 
 	/**
@@ -82,7 +89,7 @@ public class Item {
 	public int getQuantidade() {
 		return quantidade;
 	}
-	
+
 	/**
 	 * @param quantidade representa a nova quantidade do item
 	 */
@@ -107,35 +114,36 @@ public class Item {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-	
+
 	/**
 	 * Metodo responsavel por criar uma lista com as tags de um item
+	 *
 	 * @param tags representa as tags do item
 	 * @return lista com as tags
 	 */
 	private List<String> listaTags(String tags) {
 		List<String> listaTags = new ArrayList<String>();
-		for (String s: tags.split(",")) {
+		for (String s : tags.split(",")) {
 			listaTags.add(s);
 		}
 		return listaTags;
 	}
-	
+
 	/**
-	* Retorna a String que representa o item. Formato: Id - descricao, tags, quantidade.
-	* 
-	* @return a representacao em String do usuario.
-	*/
+	 * Retorna a String que representa o item. Formato: Id - descricao, tags, quantidade.
+	 *
+	 * @return a representacao em String do usuario.
+	 */
 	@Override
 	public String toString() {
 		return this.id + " - " + this.descricao.getDescricao() + ", tags: " + listaTags(this.tags) + ", quantidade: " + this.quantidade;
 	}
 
 	/**
-	* Retorna o inteiro que representa a posicao do Item na memoria.
-	* 
-	* @return a representacao numerica do Item.  
-	*/
+	 * Retorna o inteiro que representa a posicao do Item na memoria.
+	 *
+	 * @return a representacao numerica do Item.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -146,11 +154,11 @@ public class Item {
 	}
 
 	/**
-	* Retorna o boolean que representa se dois itens sao iguais, ou seja, se possuem a mesma descricao e tags.
-	* 
-	* @param obj o objeto que representa o outro item
-	* @return o valor boolean da igualdade (ou nao) entre dois itens. 
-	*/
+	 * Retorna o boolean que representa se dois itens sao iguais, ou seja, se possuem a mesma descricao e tags.
+	 *
+	 * @param obj o objeto que representa o outro item
+	 * @return o valor boolean da igualdade (ou nao) entre dois itens.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -171,5 +179,13 @@ public class Item {
 		} else if (!tags.equals(other.tags))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Item o) {
+		if (this.quantidade == o.quantidade) {
+			return Util.formatString(this.getDescricao()).compareTo(Util.formatString(o.getDescricao()));
+		}
+		return o.quantidade - this.quantidade;
 	}
 }

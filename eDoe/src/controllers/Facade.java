@@ -3,7 +3,6 @@ package controllers;
 import easyaccept.EasyAccept;
 
 public class Facade {
-	
 	UsuarioController usuarioController;
 	
 	public Facade() {
@@ -57,6 +56,10 @@ public class Facade {
 	public String listaDescritorDeItensParaDoacao() {
 		return this.usuarioController.listaDescritorDeItensParaDoacao();
 	}
+
+    public String listaItensParaDoacao() {
+	    return this.usuarioController.listaItensParaDoacao();
+    }
 	
     public static void main(String[] args) {
         args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt"};

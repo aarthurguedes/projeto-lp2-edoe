@@ -161,7 +161,7 @@ public class Usuario implements Comparable <Usuario> {
 		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
-		Item item = new Item(id, descricao, quantidade, tags);
+		Item item = new Item(id, descricao, quantidade, tags, this.id);
 		itens.put(id, item);
 	}
 
@@ -250,6 +250,10 @@ public class Usuario implements Comparable <Usuario> {
 	public String toString() {
 		return this.nome + "/" + this.id + ", " + this.email + ", " + this.celular + ", status: " + this.status;
 
+	}
+
+	public String getNomeEiD() {
+		return this.nome + "/" + this.id;
 	}
 	
 	/**
