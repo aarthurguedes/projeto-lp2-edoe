@@ -6,3 +6,8 @@ No eDoe.com usuários de toda a região envolvida podem cadastrar itens a serem 
 ### Integrantes
 
 * Antonio Bertino de Vasconcelos Cabral Neto
+* Arthur Silva Lima Guedes
+* Danilo de Menezes Freitas
+* Talita Galdino Gouveia
+
+
