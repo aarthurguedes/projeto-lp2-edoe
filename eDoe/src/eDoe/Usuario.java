@@ -121,6 +121,10 @@ public class Usuario implements Comparable <Usuario> {
 	public Map<Integer, Item> getItens() {
 		return this.itens;
 	}
+
+	public String getStatus() {
+	    return this.status;
+    }
 	
 	/**
 	 * Cadastra um item para o usuario.

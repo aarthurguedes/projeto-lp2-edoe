@@ -61,15 +61,30 @@ public class EdoeController {
     }
 
     public String listaDescritorDeItensParaDoacao() {
-        return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastrados());
+        return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastradosEmDoador());
     }
-    
-    private List<Item> getTodosItensCadastrados() {
+
+    private List<Item> getTodosItensCadastradosEmDoador() {
         List<Item> itensCadastrados = new ArrayList<>();
 
         for (Usuario usuario : this.usuarioController.getUsuarios().values()) {
-            for (Item item : usuario.getItens().values()) {
-                itensCadastrados.add(item);
+            if (usuario.getStatus().equals("doador")) {
+                for (Item item : usuario.getItens().values()) {
+                    itensCadastrados.add(item);
+                }
+            }
+        }
+
+        return itensCadastrados;
+    }
+    private List<Item> getTodosItensCadastradosEmReceptor() {
+        List<Item> itensCadastrados = new ArrayList<>();
+
+        for (Usuario usuario : this.usuarioController.getUsuarios().values()) {
+            if (usuario.getStatus().equals("receptor")) {
+                for (Item item : usuario.getItens().values()) {
+                    itensCadastrados.add(item);
+                }
             }
         }
 
@@ -77,10 +92,10 @@ public class EdoeController {
     }
 
     public String listaItensParaDoacao() {
-        return this.itemController.listarItensParaDoacao(this.getTodosItensCadastrados());
+        return this.itemController.listarItensParaDoacao(this.getTodosItensCadastradosEmDoador());
     }
 
     public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
-        return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastrados());
+        return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastradosEmDoador());
     }
 }
