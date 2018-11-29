@@ -61,6 +61,13 @@ public class UsuarioController {
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
     }
+
+    public Usuario getUsuario(String idUsuario) {
+        validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+        this.validarExistenciaUsuario(idUsuario);
+
+        return this.usuarios.get(idUsuario);
+    }
     
     private void validarInexistenciaUsuario(String id) {
     	if (usuarios.containsKey(id)) {
@@ -232,181 +239,5 @@ public class UsuarioController {
         } catch (FileNotFoundException e) {
             System.err.println("Arquivo nao encontrado");
         }
-    }
-
-    public void adicionarDescritor(String descricao) {
-        validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
-
-        for (Descritor descritor: this.descritores.values()) {
-            if (descritor.getDescricao().toLowerCase().equals(descricao.toLowerCase())) {
-                throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescricao().toLowerCase() + ".");
-            }
-        }
-
-        Descritor descritor = new Descritor(Util.formatString(descricao));
-
-        descritores.put(Util.formatString(descricao),descritor);
-    }
-
-    private int getIdItensIguais(Usuario usuario, String descricao, String tags) {
-        for (Item i : usuario.getItens().values()) {
-            if (i.getDescricao().equals(descricao) && i.getTags().equals(tags)) {
-                return i.getId();
-            }
-        }
-        return 0;
-    }
-    
-    /**
-     * Metodo responsavel por cadastrar um item e validar seus parametros.
-     *
-     * @param idDoador representa o id do usuario doador do item
-     * @param descricao representa a descricao do item
-     * @param quantidade representa a quantidade daquele item
-     * @param tags representa as tags do item
-     * @return inteiro que representa a identificacao do item
-     */
-    public int cadastrarItem(String idDoador, String descricao, int quantidade, String tags) {
-        validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
-        validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
-        validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-        this.validarExistenciaUsuario(idDoador);
-
-        Descritor descritor = new Descritor(Util.formatString(descricao));
-
-        if (!this.descritores.containsKey(Util.formatString(descricao))) {
-            this.descritores.put(Util.formatString(descricao), new Descritor(Util.formatString(descricao)));
-        }
-
-        Usuario usuario = this.usuarios.get(idDoador);
-        if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
-            usuario.cadastrarItem(this.idItem, descritor, quantidade, tags);
-        } else {
-            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descritor, quantidade, tags);
-        }
-        this.idItem++;
-        
-        return (this.idItem - 1);
-    }
-
-    private void validarExistenciaItem(Usuario usuario, int id) {
-    	if (!usuario.containsItem(id)) {
-            throw new IllegalArgumentException("Item nao encontrado: " + id + ".");  
-        
-    	}
-    }
-    
-    /**
-     * Metodo responsavel por exibir um item.
-     * @param idItem representa a identificacao do item
-     * @param idDoador representa a identificacao do doador
-     * @return String que representa o item a ser exibido
-     */
-    public String exibirItem(int idItem, String idDoador) {
-    	this.validarExistenciaUsuario(idDoador);
-    	this.validarExistenciaItem(this.usuarios.get(idDoador), idItem);
-    	
-    	return this.usuarios.get(idDoador).exibirItem(idItem);
-    }	
-
-    /**
-     * Metodo responsavel por atualizar um item.
-     * @param idItem representa a identificacao do item
-     * @param idDoador representa a identificacao do doador
-     * @param quantidade representa a nova quantidade daquele item
-     * @param tags representa as novas tags do item
-     * @return string que representa o item atualizado
-     */
-    public String atualizarItem(int idItem, String idDoador, int quantidade, String tags) {
-    	validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
-        validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-        this.validarExistenciaUsuario(idDoador);
-        this.validarExistenciaItem(this.usuarios.get(idDoador), idItem);
-
-        return this.usuarios.get(idDoador).atualizarItem(idItem, quantidade, tags);
-    }
-
-    /**
-     * Metodo responsavel por remover um item.
-     * @param idDoador representa a identificacao do doador
-     * @param idItem representa a identificacao do item
-     */
-    public void removerItem(int idItem, String idDoador) {
-    	 validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
-         validador.validarString(idDoador, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-         this.validarExistenciaUsuario(idDoador);
-        
-         if (this.usuarios.get(idDoador).getItens().size() == 0) {
-            throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
-         }
-         this.validarExistenciaItem(this.usuarios.get(idDoador), idItem);
-         
-         this.usuarios.get(idDoador).removerItem(idItem);
-    }
-
-    public String listaDescritorDeItensParaDoacao() {
-        this.atualizaQuantidadeDescritores();
-        List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
-        Collections.sort(descritorList);
-
-        String listaDescritores = "";
-        for (Descritor descritor : descritorList) {
-            listaDescritores += descritor.toString() + " | ";
-        }
-        return listaDescritores.substring(0, listaDescritores.length() - 3);
-    }
-
-    private void atualizaQuantidadeDescritores() {
-        List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
-        Collections.sort(descritorList);
-
-        for (Usuario usuario: this.usuarios.values()) {
-            for (Descritor descritor : descritorList) {
-                for (Item item : usuario.getItens().values()) {
-                    if(Util.formatString(item.getDescricao()).equals(Util.formatString(descritor.getDescricao()))) {
-                        descritor.setQuantidade(item.getQuantidade());
-                    }
-                }
-            }
-        }
-    }
-    public String listaItensParaDoacao() {
-        List<Item> itensCadastrados = this.getTodosItensCadastrados();
-        Collections.sort(itensCadastrados, new ComparadorPelaQuantidadeEDescricaoDoItem());
-
-        String itensListados = "";
-        for (Item item2 : itensCadastrados) {
-            itensListados += item2.toString() + ", doador: " + this.usuarios.get(item2.getIdDoador()).getNomeEiD() + " | ";
-        }
-
-        return itensListados.substring(0, itensListados.length() -3);
-
-    }
-
-    private List<Item> getTodosItensCadastrados() {
-        List<Item> itensCadastrados = new ArrayList<>();
-
-        for (Usuario usuario : this.usuarios.values()) {
-            for (Item item : usuario.getItens().values()) {
-                itensCadastrados.add(item);
-            }
-        }
-
-        return itensCadastrados;
-    }
-
-    public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
-        validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
-
-        List<Item> itensCadastrados = this.getTodosItensCadastrados();
-        Collections.sort(itensCadastrados, new ComparadorPelaDescricaoItem());
-
-        String saida = "";
-        for (Item item : itensCadastrados) {
-            if(Util.formatString(item.getDescricao()).contains(Util.formatString(descricao))) {
-                saida += item.toString() + " | ";
-            }
-        }
-        return saida.substring(0, saida.length() -3);
     }
 }
