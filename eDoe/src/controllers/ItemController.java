@@ -118,8 +118,8 @@ public class ItemController {
         usuario.removerItem(idItem);
     }
 
-    public String listarDescritorDeItensParaDoacao(Map<String, Usuario> usuarios) {
-    	this.atualizarQuantidadeDescritores(usuarios);
+    public String listarDescritorDeItensParaDoacao(List<Item> itensCadastrados) {
+    	this.atualizarQuantidadeDescritores(itensCadastrados);
         
     	List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
@@ -132,16 +132,14 @@ public class ItemController {
         return listaDescritores.substring(0, listaDescritores.length() - 3);
     }
 
-    private void atualizarQuantidadeDescritores(Map<String, Usuario> usuarios) {
+    private void atualizarQuantidadeDescritores(List<Item> itensCadastrados) {
         List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
-        for (Usuario usuario: usuarios.values()) {
-            for (Descritor descritor : descritorList) {
-                for (Item item : usuario.getItens().values()) {
-                    if(Util.formatString(item.getDescricao()).equals(Util.formatString(descritor.getDescricao()))) {
-                        descritor.setQuantidade(item.getQuantidade());
-                    }
+        for (Descritor descritor : descritorList) {
+            for (Item item : itensCadastrados) {
+                if(Util.formatString(item.getDescricao()).equals(Util.formatString(descritor.getDescricao()))) {
+                    descritor.setQuantidade(item.getQuantidade());
                 }
             }
         }

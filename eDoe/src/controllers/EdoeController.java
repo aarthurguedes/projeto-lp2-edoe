@@ -61,7 +61,7 @@ public class EdoeController {
     }
 
     public String listaDescritorDeItensParaDoacao() {
-        return this.itemController.listarDescritorDeItensParaDoacao(this.usuarioController.getUsuarios());
+        return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastrados());
     }
     
     private List<Item> getTodosItensCadastrados() {
