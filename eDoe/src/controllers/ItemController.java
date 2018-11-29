@@ -157,6 +157,18 @@ public class ItemController {
     }
 
 
+    public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
+        Collections.sort(itensCadastradosParaReceptor, new ComparadorPelaQuantidadeEDescricaoDoItem());
+
+        String itensListados = "";
+        for (Item item2 : itensCadastradosParaReceptor) {
+            itensListados += item2.toString() + ", receptor: " + item2.getIdUsuario() + " | ";
+        }
+
+        return itensListados.substring(0, itensListados.length() -3);
+    }
+
+
     public String pesquisarItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
         validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 

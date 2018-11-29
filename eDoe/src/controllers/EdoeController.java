@@ -142,4 +142,8 @@ public class EdoeController {
     	this.validarReceptor(idReceptor);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }
+
+    public String listaItensNecessarios() {
+        return itemController.listarItensNecessarios(this.getTodosItensCadastradosEmReceptor());
+    }
 }

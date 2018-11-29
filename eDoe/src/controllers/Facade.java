@@ -65,9 +65,25 @@ public class Facade {
     public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
         return this.edoeController.pesquisaItemParaDoacaoPorDescricao(descricao);
     }
+
+    public int adicionaItemNecessario(String idReceptor, String descricao, int quantidade, String tags) {
+        return this.edoeController.adicionaItemNecessario(idReceptor, descricao, quantidade, tags);
+    }
+
+    public String atualizaItemNecessario(int idItem, String idReceptor, int quantidade, String tags) {
+        return this.edoeController.atualizaItemNecessario(idItem, idReceptor, quantidade, tags);
+    }
+
+    public void removeItemNecessario(int idItem, String idReceptor) {
+        this.edoeController.removeItemNecessario(idItem, idReceptor);
+    }
+
+    public String listaItensNecessarios() {
+	    return edoeController.listaItensNecessarios();
+    }
 	
     public static void main(String[] args) {
-        args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt"};
+        args = new String[] {"controllers.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt"};
         EasyAccept.main(args);
     }
 }
