@@ -4,8 +4,9 @@ import util.Util;
 
 import java.util.Objects;
 
-public class Descritor implements Comparable<Descritor>{
-    private String descricao;
+public class Descritor implements Comparable<Descritor> {
+   
+	private String descricao;
     private int quantidade;
 
     public Descritor(String descricao) {

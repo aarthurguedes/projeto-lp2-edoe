@@ -15,41 +15,14 @@ import java.util.Map;
 */
 public class Usuario implements Comparable <Usuario> {
 	
-	/**
-	* Identificacao do usuario.
-	*/
 	private String id;
-	/**
-	* Nome do usuario.
-	*/
 	private String nome;
-	/**
-	* Email do usuario.
-	*/
 	private String email;
-	/**
-	* Celular do usuario.
-	*/
 	private String celular;
-	/**
-	* Status do usuario.
-	*/
 	private String status;
-	/**
-	* Classe do usuario.
-	*/
 	private Classe classe;
-	/**
-	 * Mapa de itens do usuario.
-	 */
 	private Map<Integer, Item> itens;
-    /**
-    * Inteiro representando a posição na qual o usuario foi cadastrado.
-    */
-	private int idOrdem;
-    /**
-	* Objeto validador.
-	*/
+	private int posicao;
 	private Validador validador = new Validador();
 
 	/**
@@ -74,7 +47,7 @@ public class Usuario implements Comparable <Usuario> {
 		this.celular = celular;
 		this.classe = classe;
 		this.status = status;
-		this.idOrdem = idOrdem;
+		this.posicao = idOrdem;
 		this.itens = new HashMap<>();
 	}
 	
@@ -131,7 +104,7 @@ public class Usuario implements Comparable <Usuario> {
 	 * @return a ordem do cadastro do usuario
 	 */
 	public int getIdOrdem() {
-		return idOrdem;
+		return posicao;
 	}
 
 	/**
@@ -230,7 +203,6 @@ public class Usuario implements Comparable <Usuario> {
 		this.itens.remove(id);
 	}
 
-
 	/**
 	 * Método usado para comparar os usuarios com base no idOrdem.
 	 *
@@ -238,7 +210,7 @@ public class Usuario implements Comparable <Usuario> {
 	 * @return inteiro usado para comparação.
 	 */
     public int compareTo(Usuario usuario) {
-        return this.idOrdem - usuario.idOrdem;
+        return this.posicao - usuario.posicao;
     }
 
 	/**
@@ -252,7 +224,7 @@ public class Usuario implements Comparable <Usuario> {
 
 	}
 
-	public String getNomeEiD() {
+	public String getNomeEId() {
 		return this.nome + "/" + this.id;
 	}
 	

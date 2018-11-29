@@ -1,13 +1,13 @@
 package controllers;
 
-import eDoe.Item;
+import eDoe.Item; 
 import eDoe.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EdoeController {
+	
     private ItemController itemController;
     private UsuarioController usuarioController;
 
@@ -61,17 +61,9 @@ public class EdoeController {
     }
 
     public String listaDescritorDeItensParaDoacao() {
-        return this.itemController.listaDescritorDeItensParaDoacao(this.usuarioController.getUsuarios());
+        return this.itemController.listarDescritorDeItensParaDoacao(this.usuarioController.getUsuarios());
     }
-
-    public String listaItensParaDoacao() {
-        return this.itemController.listaItensParaDoacao(this.getTodosItensCadastrados());
-    }
-
-    public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
-        return this.itemController.pesquisaItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastrados());
-    }
-
+    
     private List<Item> getTodosItensCadastrados() {
         List<Item> itensCadastrados = new ArrayList<>();
 
@@ -84,4 +76,11 @@ public class EdoeController {
         return itensCadastrados;
     }
 
+    public String listaItensParaDoacao() {
+        return this.itemController.listarItensParaDoacao(this.getTodosItensCadastrados());
+    }
+
+    public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
+        return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastrados());
+    }
 }

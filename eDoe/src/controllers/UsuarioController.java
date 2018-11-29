@@ -1,13 +1,8 @@
 package controllers;
 
-import java.io.File; 
+import java.io.File;   
 import java.io.FileNotFoundException;
 import java.util.*;
-
-import Comparators.ComparadorPelaDescricaoItem;
-import Comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
-import eDoe.Descritor;
-import eDoe.Item;
 import eDoe.Usuario;
 import util.Validador;
 import util.Util;
@@ -23,36 +18,17 @@ import enums.Classe;
 */
 public class UsuarioController {
 
-    /**
-     * Mapa de usuarios.
-     */
     private Map<String, Usuario> usuarios;
-    /**
-     * Set de descricoes que os itens podem ter.
-     */
-    private Map<String,Descritor> descritores;
-    /**
-     * Objeto validador.
-     */
     private Validador validador;
-    /**
-     * Inteiro representando a posição na qual o usuario foi cadastrado.
-     */
-    private int idOrdem;
-    /**
-     * Inteiro representando o id do item no mapa de itens do usuario.
-     */
-    private int idItem;
+    private int posicaoUsuario;
     
     /**
      * Constroi o controlador dos usuarios.
      */
     public UsuarioController() {
         this.usuarios = new HashMap<>();
-        this.descritores = new HashMap<>();
         this.validador = new Validador();
-        this.idOrdem = 1;
-        this.idItem = 1;
+        this.posicaoUsuario = 1;
     }
 
     /**
@@ -97,9 +73,9 @@ public class UsuarioController {
     	this.validarInexistenciaUsuario(id);
     	this.validarCadastroUsuario(id, nome, email, celular, classe);
 
-        Usuario usuario = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), "doador", this.idOrdem);
+        Usuario usuario = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), "doador", this.posicaoUsuario);
         usuarios.put(Util.formatString(id), usuario);
-        this.idOrdem++;
+        this.posicaoUsuario++;
         
         return this.usuarios.get(id).getId();
     }
@@ -118,9 +94,9 @@ public class UsuarioController {
     	this.validarInexistenciaUsuario(id);
     	this.validarCadastroUsuario(id, nome, email, celular, classe);
 
-        Usuario receptor = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), "receptor", this.idOrdem);
+        Usuario receptor = new Usuario(id, nome, email, celular, Classe.getClassePorString(classe), "receptor", this.posicaoUsuario);
         usuarios.put(Util.formatString(id), receptor);
-        this.idOrdem++;
+        this.posicaoUsuario++;
         
         return id;
     }

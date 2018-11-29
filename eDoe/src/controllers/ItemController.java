@@ -11,7 +11,8 @@ import util.Validador;
 import java.util.*;
 
 public class ItemController {
-    private Map<String, Descritor> descritores;
+    
+	private Map<String, Descritor> descritores;
     private Validador validador;
     private int idItem;
 
@@ -19,6 +20,10 @@ public class ItemController {
         this.descritores = new HashMap<>();
         this.validador = new Validador();
         this.idItem = 1;
+    }
+    
+    public Map<String, Descritor> getDescritores() {
+    	return this.descritores;
     }
 
     public void adicionarDescritor(String descricao) {
@@ -29,10 +34,8 @@ public class ItemController {
                 throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescricao().toLowerCase() + ".");
             }
         }
-
-        Descritor descritor = new Descritor(Util.formatString(descricao));
-
-        descritores.put(Util.formatString(descricao),descritor);
+        
+        descritores.put(Util.formatString(descricao),new Descritor(Util.formatString(descricao)));
     }
 
     private int getIdItensIguais(Usuario usuario, String descricao, String tags) {
@@ -56,26 +59,23 @@ public class ItemController {
         validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
         validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
-        Descritor descritor = new Descritor(Util.formatString(descricao));
-
         if (!this.descritores.containsKey(Util.formatString(descricao))) {
             this.descritores.put(Util.formatString(descricao), new Descritor(Util.formatString(descricao)));
         }
 
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
-            usuario.cadastrarItem(this.idItem, descritor, quantidade, tags);
+            usuario.cadastrarItem(this.idItem, new Descritor(Util.formatString(descricao)), quantidade, tags);
         } else {
-            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), descritor, quantidade, tags);
+            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), new Descritor(Util.formatString(descricao)), quantidade, tags);
         }
+        
         this.idItem++;
-
         return (this.idItem - 1);
     }
 
     private void validarExistenciaItem(Usuario usuario, int id) {
         if (!usuario.containsItem(id)) {
             throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
-
         }
     }
 
@@ -85,8 +85,7 @@ public class ItemController {
      * @return String que representa o item a ser exibido
      */
     public String exibirItem(int idItem, Usuario usuario) {
-         this.validarExistenciaItem(usuario, idItem);
-
+    	this.validarExistenciaItem(usuario, idItem);
         return usuario.exibirItem(idItem);
     }
 
@@ -114,24 +113,26 @@ public class ItemController {
         if (usuario.getItens().size() == 0) {
             throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
         }
+        
         this.validarExistenciaItem(usuario, idItem);
-
         usuario.removerItem(idItem);
     }
 
-    public String listaDescritorDeItensParaDoacao(Map<String, Usuario> usuarios) {
-        this.atualizaQuantidadeDescritores(usuarios);
-        List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
+    public String listarDescritorDeItensParaDoacao(Map<String, Usuario> usuarios) {
+    	this.atualizarQuantidadeDescritores(usuarios);
+        
+    	List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
         String listaDescritores = "";
         for (Descritor descritor : descritorList) {
             listaDescritores += descritor.toString() + " | ";
         }
+        
         return listaDescritores.substring(0, listaDescritores.length() - 3);
     }
 
-    private void atualizaQuantidadeDescritores(Map<String, Usuario> usuarios) {
+    private void atualizarQuantidadeDescritores(Map<String, Usuario> usuarios) {
         List<Descritor> descritorList = new ArrayList<>(this.descritores.values());
         Collections.sort(descritorList);
 
@@ -145,20 +146,20 @@ public class ItemController {
             }
         }
     }
-    public String listaItensParaDoacao(List<Item> itensCadastrados) {
+    
+    public String listarItensParaDoacao(List<Item> itensCadastrados) {
         Collections.sort(itensCadastrados, new ComparadorPelaQuantidadeEDescricaoDoItem());
 
         String itensListados = "";
         for (Item item2 : itensCadastrados) {
             itensListados += item2.toString() + ", doador: " + item2.getIdDoador() + " | ";
         }
-
+        
         return itensListados.substring(0, itensListados.length() -3);
-
     }
 
 
-    public String pesquisaItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
+    public String pesquisarItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
         validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 
         Collections.sort(itensCadastrados, new ComparadorPelaDescricaoItem());
@@ -169,6 +170,7 @@ public class ItemController {
                 saida += item.toString() + " | ";
             }
         }
+        
         return saida.substring(0, saida.length() -3);
     }
 }

@@ -3,6 +3,7 @@ package controllers;
 import easyaccept.EasyAccept;
 
 public class Facade {
+	
 	EdoeController edoeController;
 	
 	public Facade() {

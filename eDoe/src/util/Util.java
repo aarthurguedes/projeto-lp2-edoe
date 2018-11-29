@@ -9,7 +9,8 @@ package util;
  * @author Talita Galdino Gouveia
  */
 public class Util {
-    /**
+    
+	/**
      * Metodo criado para formatar uma String para um padrao unico. No caso, Em letras minusculas e sem espacos no inicio
      * e no fim.
      *

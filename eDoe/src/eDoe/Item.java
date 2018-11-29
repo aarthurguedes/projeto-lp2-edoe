@@ -15,36 +15,21 @@ import java.util.List;
 * @author Talita Galdino Gouveia
 */
 public class Item {
-	/**
-	 * Identificacao do item.
-	 */
+	
 	private int id;
-	/**
-	 * Descricao do item.
-	 */
 	private Descritor descricao;
-	/**
-	 * Quantidade do item.
-	 */
 	private int quantidade;
-	/**
-	 * Tags dos itens
-	 */
 	private String tags;
-	/**
-	 * Objeto validador.
-	 */
 	private Validador validador = new Validador();
-
 	private String idDoador;
 
 	/**
 	 * Constroi um item.
 	 *
-	 * @param id         representa a identificacao do item
-	 * @param descricao  representa a descricao do item
+	 * @param id representa a identificacao do item
+	 * @param descricao representa a descricao do item
 	 * @param quantidade representa a quantidade daquele item
-	 * @param tags       representa as tags do item
+	 * @param tags representa as tags do item
 	 */
 	public Item(int id, Descritor descricao, int quantidade, String tags, String idDoador) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
@@ -123,9 +108,11 @@ public class Item {
 	 */
 	private List<String> listaTags(String tags) {
 		List<String> listaTags = new ArrayList<String>();
+		
 		for (String s : tags.split(",")) {
 			listaTags.add(s);
 		}
+		
 		return listaTags;
 	}
 
@@ -180,5 +167,4 @@ public class Item {
 			return false;
 		return true;
 	}
-
 }
