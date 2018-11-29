@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import controllers.ItemController;
 import controllers.UsuarioController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class ItemControllerTest {
 
 	private ItemController itemController;
@@ -17,6 +20,18 @@ class ItemControllerTest {
 		this.usuarioController = new UsuarioController();
 		usuarioController.cadastrarDoador("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA");
 		itemController.cadastrarItem(usuarioController.getUsuario("70513372911"), "cadeira de rodas", 5, "roda grande,cadeira");
+	}
+
+	private List<Item> getTodosItensCadastrados() {
+		List<Item> itensCadastrados = new ArrayList<>();
+
+		for (Usuario usuario : this.usuarioController.getUsuarios().values()) {
+			for (Item item : usuario.getItens().values()) {
+				itensCadastrados.add(item);
+			}
+		}
+
+		return itensCadastrados;
 	}
 	
 	@BeforeEach
@@ -62,6 +77,6 @@ class ItemControllerTest {
 	public void testListarDescritorDeItensParaDoacao() {
 		itemController.adicionarDescritor("curso de programacao");
 		itemController.adicionarDescritor("Cobertor");
-//		assertEquals("5 - cadeira de rodas | 0 - cobertor | 0 - curso de programacao", itemController.listarDescritorDeItensParaDoacao(usuarioController.getUsuarios()));
+		assertEquals("5 - cadeira de rodas | 0 - cobertor | 0 - curso de programacao", itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastrados()));
 	}
 }
