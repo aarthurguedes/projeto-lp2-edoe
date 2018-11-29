@@ -133,12 +133,12 @@ public class EdoeController {
     	return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idReceptor),descricao, quantidade, tags);
     }
     
-    public String atualizaItemNecessario(int idItem, String idReceptor, int quantidade, String tags) {
+    public String atualizaItemNecessario(String idReceptor, int idItem, int quantidade, String tags) {
     	this.validarReceptor(idReceptor);
         return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idReceptor), quantidade, tags);
     }
     
-    public void removeItemNecessario(int idItem, String idReceptor) {
+    public void removeItemNecessario(String idReceptor, int idItem) {
     	this.validarReceptor(idReceptor);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }

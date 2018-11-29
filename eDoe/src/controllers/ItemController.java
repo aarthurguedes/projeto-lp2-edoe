@@ -1,7 +1,7 @@
 package controllers;
 
-import Comparators.ComparadorPelaDescricaoItem;
-import Comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
+import comparators.ComparadorPelaDescricaoItem;
+import comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
 import eDoe.Descritor;
 import eDoe.Item;
 import eDoe.Usuario;
@@ -11,17 +11,19 @@ import util.Validador;
 import java.util.*;
 
 public class ItemController {
-    
+
 	private Map<String, Descritor> descritores;
     private Validador validador;
     private int idItem;
-    
+    private int idItemNecessario;
+
     public ItemController() {
         this.descritores = new HashMap<>();
         this.validador = new Validador();
         this.idItem = 1;
+        this.idItemNecessario = 1;
     }
-    
+
     public Map<String, Descritor> getDescritores() {
     	return this.descritores;
     }
@@ -34,7 +36,7 @@ public class ItemController {
                 throw new IllegalArgumentException("Descritor de Item ja existente: " + descritor.getDescricao().toLowerCase() + ".");
             }
         }
-        
+
         descritores.put(Util.formatString(descricao),new Descritor(Util.formatString(descricao)));
     }
 
@@ -68,7 +70,7 @@ public class ItemController {
         } else {
             usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), new Descritor(Util.formatString(descricao)), quantidade, tags);
         }
-        
+
         this.idItem++;
         return (this.idItem - 1);
     }

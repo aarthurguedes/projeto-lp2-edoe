@@ -1,4 +1,4 @@
-package Comparators;
+package comparators;
 
 import eDoe.Item;
 import util.Util;

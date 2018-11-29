@@ -1,12 +1,12 @@
 package eDoe;
 
-import static org.junit.jupiter.api.Assertions.*; 
-
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controllers.ItemController;
 import controllers.UsuarioController;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,8 @@ class ItemControllerTest {
 	public void testAdicionarDescritorValido() {
 		assertTrue(itemController.getDescritores().containsKey("cadeira de rodas"));
 	}
-	
+
+
 	@Test
 	public void testAdicionarDescritorInvalido() {
 		assertThrows(IllegalArgumentException.class, () -> itemController.adicionarDescritor("cadeira de rodas"));

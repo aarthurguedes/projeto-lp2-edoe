@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="555.7451388888887" y="332.0">eDoe.Item</node>
+    <node x="595.6999999999999" y="736.0">eDoe.Usuario</node>
+    <node x="538.0" y="1382.0">controllers.UsuarioController</node>
+    <node x="357.87499999999994" y="2254.0">controllers.Facade</node>
+    <node x="369.30972222222215" y="0.0">eDoe.Descritor</node>
+    <node x="0.0" y="1370.0">controllers.ItemController</node>
+    <node x="357.87499999999994" y="1716.0">controllers.EdoeController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="controllers.ItemController" target="eDoe.Usuario">
+      <point x="206.79999999999984" y="-148.0" />
+      <point x="465.29999999999984" y="1340.0" />
+      <point x="640.5999999999999" y="1340.0" />
+      <point x="-179.6" y="292.0" />
+    </edge>
+    <edge source="controllers.ItemController" target="eDoe.Item">
+      <point x="103.39999999999986" y="-148.0" />
+      <point x="361.89999999999986" y="1350.0" />
+      <point x="315.96388888888873" y="1350.0" />
+      <point x="315.96388888888873" y="696.0" />
+      <point x="588.4451388888888" y="696.0" />
+      <point x="-130.8" y="172.0" />
+    </edge>
+    <edge source="controllers.ItemController" target="eDoe.Descritor">
+      <point x="-206.80000000000007" y="-148.0" />
+      <point x="51.69999999999993" y="1340.0" />
+      <point x="221.8951388888887" y="1340.0" />
+      <point x="221.8951388888887" y="292.0" />
+      <point x="389.4763888888888" y="292.0" />
+      <point x="-100.83333333333337" y="136.0" />
+    </edge>
+    <edge source="controllers.EdoeController" target="controllers.ItemController">
+      <point x="-196.66666666666669" y="-244.0" />
+      <point x="397.20833333333326" y="1696.0" />
+      <point x="129.25" y="1696.0" />
+      <point x="-129.25" y="148.0" />
+    </edge>
+    <edge source="eDoe.Usuario" target="eDoe.Item">
+      <point x="-56.125" y="-292.0" />
+      <point x="764.0749999999999" y="716.0" />
+      <point x="784.6451388888887" y="716.0" />
+      <point x="65.39999999999998" y="172.0" />
+    </edge>
+    <edge source="controllers.EdoeController" target="eDoe.Item">
+      <point x="-39.333333333333314" y="-244.0" />
+      <point x="554.5416666666666" y="1696.0" />
+      <point x="527.5" y="1696.0" />
+      <point x="527.5" y="706.0" />
+      <point x="653.8451388888888" y="706.0" />
+      <point x="-65.39999999999998" y="172.0" />
+    </edge>
+    <edge source="eDoe.Usuario" target="eDoe.Descritor">
+      <point x="168.375" y="-292.0" />
+      <point x="988.5749999999999" y="716.0" />
+      <point x="893.2451388888887" y="716.0" />
+      <point x="893.2451388888887" y="292.0" />
+      <point x="591.1430555555555" y="292.0" />
+      <point x="100.83333333333337" y="136.0" />
+    </edge>
+    <edge source="controllers.Facade" target="controllers.EdoeController">
+      <point x="-118.0" y="-256.0" />
+      <point x="-118.0" y="244.0" />
+    </edge>
+    <edge source="controllers.UsuarioController" target="eDoe.Usuario">
+      <point x="0.0" y="-136.0" />
+      <point x="782.5" y="1350.0" />
+      <point x="820.1999999999999" y="1350.0" />
+      <point x="2.8421709430404007E-14" y="292.0" />
+    </edge>
+    <edge source="controllers.EdoeController" target="controllers.UsuarioController">
+      <point x="39.33333333333337" y="-244.0" />
+      <point x="633.2083333333333" y="1696.0" />
+      <point x="660.25" y="1696.0" />
+      <point x="-122.25" y="136.0" />
+    </edge>
+    <edge source="eDoe.Item" target="eDoe.Descritor">
+      <point x="-81.75" y="-172.0" />
+      <point x="637.4951388888887" y="312.0" />
+      <point x="510.4763888888888" y="312.0" />
+      <point x="20.16666666666663" y="136.0" />
+    </edge>
+    <edge source="controllers.EdoeController" target="eDoe.Usuario">
+      <point x="196.66666666666663" y="-244.0" />
+      <point x="790.5416666666665" y="1696.0" />
+      <point x="1037.5" y="1696.0" />
+      <point x="1037.5" y="1350.0" />
+      <point x="999.8" y="1350.0" />
+      <point x="179.60000000000008" y="292.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.40853658536585363" x="929.462686567164" y="1254.0597014925372" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

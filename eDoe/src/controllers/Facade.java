@@ -3,7 +3,6 @@ package controllers;
 import easyaccept.EasyAccept;
 
 public class Facade {
-	
 	EdoeController edoeController;
 	
 	public Facade() {
@@ -70,13 +69,14 @@ public class Facade {
         return this.edoeController.adicionaItemNecessario(idReceptor, descricao, quantidade, tags);
     }
 
-    public String atualizaItemNecessario(int idItem, String idReceptor, int quantidade, String tags) {
-        return this.edoeController.atualizaItemNecessario(idItem, idReceptor, quantidade, tags);
-    }
+    public String atualizaItemNecessario(String idReceptor,int idItem, int quantidade, String tags) {
+        return this.edoeController.atualizaItemNecessario(idReceptor, idItem, quantidade, tags);
 
-    public void removeItemNecessario(int idItem, String idReceptor) {
-        this.edoeController.removeItemNecessario(idItem, idReceptor);
-    }
+	}
+
+    public void removeItemNecessario(String idReceptor, int idItem) {
+        this.edoeController.removeItemNecessario(idReceptor, idItem);
+	}
 
     public String listaItensNecessarios() {
 	    return edoeController.listaItensNecessarios();
