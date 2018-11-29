@@ -43,9 +43,23 @@ public class EdoeController {
     public void adicionaDescritor(String descricao) {
         this.itemController.adicionarDescritor(descricao);
     }
+    
+    private boolean isDoador(String idDoador) {
+    	if (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador")) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    private void validarDoador(String idDoador) {
+    	if (!this.isDoador(idDoador)) {
+        	throw new IllegalArgumentException("Entrada invalida: id passado nao pertence a um doador.");
+        }
+    }
 
     public int adicionaItemParaDoacao(String idDoador, String descricao, int quantidade, String tags) {
-        return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idDoador),descricao, quantidade, tags);
+        this.validarDoador(idDoador);
+    	return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idDoador),descricao, quantidade, tags);
     }
 
     public String exibeItem(int idItem, String idDoador) {
@@ -53,10 +67,12 @@ public class EdoeController {
     }
 
     public String atualizaItemParaDoacao(int idItem, String idDoador, int quantidade, String tags) {
+    	this.validarDoador(idDoador);
         return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idDoador), quantidade, tags);
     }
 
     public void removeItemParaDoacao(int idItem, String idDoador) {
+    	this.validarDoador(idDoador);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idDoador));
     }
 
@@ -97,5 +113,33 @@ public class EdoeController {
 
     public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
         return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastradosEmDoador());
+    }
+    
+    private boolean isReceptor(String idReceptor) {
+    	if (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor")) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    private void validarReceptor(String idReceptor) {
+    	if (!this.isReceptor(idReceptor)) {
+        	throw new IllegalArgumentException("Entrada invalida: id passado nao pertence a um receptor.");
+        }
+    }
+    
+    public int adicionaItemNecessario(String idReceptor, String descricao, int quantidade, String tags) {
+        this.validarReceptor(idReceptor);
+    	return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idReceptor),descricao, quantidade, tags);
+    }
+    
+    public String atualizaItemNecessario(int idItem, String idReceptor, int quantidade, String tags) {
+    	this.validarReceptor(idReceptor);
+        return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idReceptor), quantidade, tags);
+    }
+    
+    public void removeItemNecessario(int idItem, String idReceptor) {
+    	this.validarReceptor(idReceptor);
+        this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }
 }

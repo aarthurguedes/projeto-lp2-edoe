@@ -15,7 +15,7 @@ public class ItemController {
 	private Map<String, Descritor> descritores;
     private Validador validador;
     private int idItem;
-
+    
     public ItemController() {
         this.descritores = new HashMap<>();
         this.validador = new Validador();
@@ -150,7 +150,7 @@ public class ItemController {
 
         String itensListados = "";
         for (Item item2 : itensCadastrados) {
-            itensListados += item2.toString() + ", doador: " + item2.getIdDoador() + " | ";
+            itensListados += item2.toString() + ", doador: " + item2.getIdUsuario() + " | ";
         }
         
         return itensListados.substring(0, itensListados.length() -3);

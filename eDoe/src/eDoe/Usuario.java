@@ -100,6 +100,10 @@ public class Usuario implements Comparable <Usuario> {
 		return classe.getClasse();
 	}
 	
+	public String getStatus() {
+		return this.status;
+	}
+	
 	/**
 	 * @return a ordem do cadastro do usuario
 	 */
@@ -121,10 +125,6 @@ public class Usuario implements Comparable <Usuario> {
 	public Map<Integer, Item> getItens() {
 		return this.itens;
 	}
-
-	public String getStatus() {
-	    return this.status;
-    }
 	
 	/**
 	 * Cadastra um item para o usuario.
@@ -206,7 +206,7 @@ public class Usuario implements Comparable <Usuario> {
 
 		this.itens.remove(id);
 	}
-
+	
 	/**
 	 * Método usado para comparar os usuarios com base no idOrdem.
 	 *

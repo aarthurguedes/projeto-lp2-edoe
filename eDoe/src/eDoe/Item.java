@@ -21,7 +21,7 @@ public class Item {
 	private int quantidade;
 	private String tags;
 	private Validador validador = new Validador();
-	private String idDoador;
+	private String idUsuario;
 
 	/**
 	 * Constroi um item.
@@ -40,7 +40,7 @@ public class Item {
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.tags = tags;
-		this.idDoador = idDoador;
+		this.idUsuario = idDoador;
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class Item {
 		return id;
 	}
 
-	public String getIdDoador() {
-		return this.idDoador;
+	public String getIdUsuario() {
+		return this.idUsuario;
 	}
 
 	/**
