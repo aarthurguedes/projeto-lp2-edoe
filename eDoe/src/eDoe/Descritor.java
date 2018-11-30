@@ -41,7 +41,14 @@ public class Descritor implements Comparable<Descritor> {
      * @param quantidade representa a nova quantidade
      */
     public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+        this.quantidade += quantidade;
+    }
+
+    /**
+     * Método criado para zerar a quantidade que esse descritor foi utilizado.
+     */
+    public void zeraQuantidade() {
+        this.quantidade = 0;
     }
 
     /**
@@ -65,7 +72,7 @@ public class Descritor implements Comparable<Descritor> {
      * @param descricao representa a nova descricao
      */
     public void setDescricao(String descricao) {
-        this.descricao += descricao;
+        this.descricao = descricao;
     }
 
     /**
@@ -81,7 +88,7 @@ public class Descritor implements Comparable<Descritor> {
     /**
 	* Retorna o boolean que representa se dois descrutores sao iguais, ou seja, se possuem a mesma descricao.
 	* 
-	* @param obj o objeto que representa o outro descritor
+	* @param o o objeto que representa o outro descritor
 	* @return o valor boolean da igualdade (ou nao) entre dois descritores
 	*/
     @Override

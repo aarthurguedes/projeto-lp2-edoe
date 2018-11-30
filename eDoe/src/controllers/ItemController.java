@@ -2,6 +2,7 @@ package controllers;
 
 import comparators.ComparadorPelaDescricaoItem;
 import comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
+import comparators.ComparadorPeloIDItem;
 import eDoe.Descritor;
 import eDoe.Item;
 import eDoe.Usuario;
@@ -19,7 +20,6 @@ import java.util.*;
 * @author Talita Galdino Gouveia
 */
 public class ItemController {
-
 	private Map<String, Descritor> descritores;
     private Validador validador;
     private int idItemDoacao;
@@ -91,6 +91,7 @@ public class ItemController {
         	return (this.idItemDoacao - 1);
         } else {
         	usuario.getItem(this.getIdItensIguais(usuario, descricao, tags)).setQuantidade(quantidade);
+
         	return this.getIdItensIguais(usuario, descricao, tags);
         }
     }
@@ -108,6 +109,7 @@ public class ItemController {
      */
     public String exibirItem(int idItem, Usuario usuario) {
     	this.validarExistenciaItem(usuario, idItem);
+
         return usuario.exibirItem(idItem);
     }
 
@@ -155,7 +157,8 @@ public class ItemController {
         for (Descritor descritor : descritorList) {
             listaDescritores += descritor.toString() + " | ";
         }
-        
+
+        this.zeraQuantidadeDescritores();
         return listaDescritores.substring(0, listaDescritores.length() - 3);
     }
 
@@ -169,6 +172,15 @@ public class ItemController {
                     descritor.setQuantidade(item.getQuantidade());
                 }
             }
+        }
+    }
+
+    /**
+     * Criado para zerar a quantidade que cada descritor foi utilizado.
+     */
+    private void zeraQuantidadeDescritores() {
+        for (Descritor descritor : this.descritores.values()) {
+            descritor.zeraQuantidade();
         }
     }
     
@@ -215,19 +227,13 @@ public class ItemController {
      * @return string que representa a lista de itens necessarios
      */
     public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
-    	List<String> listaItens = new ArrayList<>();
-    	
-    	for (Item item: itensCadastradosParaReceptor) {
-    		listaItens.add(item.toString() + ", Receptor: " + item.getIdUsuario() + " | ");
-    	}
-    	
-    	Collections.sort(listaItens);
-    	
-        String itensListados = "";
-        for (String item : listaItens) {
-            itensListados += item;
+        Collections.sort(itensCadastradosParaReceptor, new ComparadorPeloIDItem());
+
+    	String saida = "";
+    	for (Item item : itensCadastradosParaReceptor) {
+            saida += item.toString() + ", Receptor: " + item.getIdUsuario() + " | ";
         }
-        
-        return itensListados.substring(0, itensListados.length() -3);
+
+        return saida.substring(0, saida.length() -3);
     }
 }
