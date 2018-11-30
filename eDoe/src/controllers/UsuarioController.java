@@ -32,12 +32,18 @@ public class UsuarioController {
     }
 
     /**
+     * Metodo responsavel por retornar o valor atual do map de usuarios
      * @return o mapa de usuarios
      */
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
     }
 
+    /**
+     * Metodo responsavel por retornar um objeto do tipo usuario
+     * @param idUsuario representa a identificacao do usuario que sera retornado
+     * @return objeto do tipo usuario
+     */
     public Usuario getUsuario(String idUsuario) {
         validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(idUsuario);

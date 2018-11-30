@@ -52,20 +52,23 @@ public class Usuario implements Comparable <Usuario> {
 	}
 	
 	/**
-	 * @return o id do usuario
+	 * Metodo responsavel por retornar o atual valor do id.
+	 * @return o id atual do usuario
 	 */
 	public String getId() {
 		return id;
 	}
 	
 	/**
-	 * @return o nome do usuario
+	 * Metodo responsavel por retornar o valor atual de nome.
+	 * @return o atual nome do usuario
 	 */
 	public String getNome() {
 		return nome;
 	}
 	
 	/**
+	 * Metodo responsavel por atualizar o nome do usuario.
 	 * @param nome o novo nome do usuario
 	 */
 	public void setNome(String nome) {
@@ -73,6 +76,7 @@ public class Usuario implements Comparable <Usuario> {
 	}
 	
 	/**
+	 * Metodo responsavel por retornar o atual valor do email do usuario.
 	 * @return o email do usuario
 	 */
 	public String getEmail() {
@@ -80,6 +84,7 @@ public class Usuario implements Comparable <Usuario> {
 	}
 
 	/**
+	 * Metodo responsavel por atualizar o valor do email.
 	 * @param email o novo email do usuario
 	 */
 	public void setEmail(String email) {
@@ -87,6 +92,7 @@ public class Usuario implements Comparable <Usuario> {
 	}	
 	
 	/**
+	 * Metodo responsavel por retornar o valor atual do celular do usuario.
 	 * @return o celular do usuario
 	 */
 	public String getCelular() {
@@ -94,17 +100,23 @@ public class Usuario implements Comparable <Usuario> {
 	}
 	
 	/**
+	 * Metodo responsavel por retornar a classe do usuario.
 	 * @return a classe do usuario
 	 */
 	public String getClasse() {
 		return classe.getClasse();
 	}
 	
+	/**
+	 * Metodo responsavel por retornar o valor atual do status do usuario.
+	 * @return o atual status do usuario.
+	 */
 	public String getStatus() {
 		return this.status;
 	}
 	
 	/**
+	 * Metodo responsavel por retornar o valor atual da posicao que o usuario foi cadastrado
 	 * @return a ordem do cadastro do usuario
 	 */
 	public int getIdOrdem() {
@@ -112,16 +124,26 @@ public class Usuario implements Comparable <Usuario> {
 	}
 
 	/**
+	 * Metodo responsavel por atualizar o valor do celular do usuario.
 	 * @param celular o novo numero de celular do usuario
 	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
+	/**
+	 * Metodo responsavel por retornar um objeto do tipo Item.
+	 * @param idItem representa a identificacao do item que sera retornado
+	 * @return objeto do tipo Item
+	 */
 	public Item getItem(int idItem) {
 		return this.itens.get(idItem);
 	}
 	
+	/**
+	 * Metodo responsavel por retornar o valor atual do map de itens.
+	 * @return map de itens
+	 */
 	public Map<Integer, Item> getItens() {
 		return this.itens;
 	}
@@ -208,10 +230,10 @@ public class Usuario implements Comparable <Usuario> {
 	}
 	
 	/**
-	 * Método usado para comparar os usuarios com base no idOrdem.
+	 * Metodo usado para comparar os usuarios com base no idOrdem.
 	 *
-	 * @param usuario Objeto usuario para comparação
-	 * @return inteiro usado para comparação.
+	 * @param usuario Objeto usuario para comparacao
+	 * @return inteiro usado para comparacao.
 	 */
     public int compareTo(Usuario usuario) {
         return this.posicao - usuario.posicao;
@@ -228,6 +250,10 @@ public class Usuario implements Comparable <Usuario> {
 
 	}
 
+	/**
+	 * Metodo responsavel por retornar o nome e o id. Formatacao: nome/id
+	 * @return string que representa o nome e a identificacao do usuario
+	 */
 	public String getNomeEId() {
 		return this.nome + "/" + this.id;
 	}

@@ -24,7 +24,7 @@ public class Item {
 	private String idUsuario;
 
 	/**
-	 * Constroi um item.
+	 * Constroi um item a partir de sua descricao, quantidade, tags e do id do seu doador.
 	 *
 	 * @param id representa a identificacao do item
 	 * @param descricao representa a descricao do item
@@ -44,17 +44,23 @@ public class Item {
 	}
 
 	/**
+	 * Metodo responsavel por retornar o valor atual da identificacao do item
 	 * @return retorna o valor atual da identificacao do item
 	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Metodo responsavel por retornar o valor atual da identificacao do usuario.
+	 * @return identificacao atual do usuario
+	 */
 	public String getIdUsuario() {
 		return this.idUsuario;
 	}
 
 	/**
+	 * Metodo responsavel por retornar o valor atual de descricao.
 	 * @return valor atual da descricao do item
 	 */
 	public String getDescricao() {
@@ -62,6 +68,7 @@ public class Item {
 	}
 
 	/**
+	 * Metodo responsavel por atualizar a descricao.
 	 * @param descricao representa a nova descricao do item
 	 */
 	public void setDescricao(String descricao) {
@@ -69,6 +76,7 @@ public class Item {
 	}
 
 	/**
+	 * Metodo responsavel por exibir o valor atual de quantidade.
 	 * @return valor atualizado da quantidade de itens
 	 */
 	public int getQuantidade() {
@@ -76,6 +84,7 @@ public class Item {
 	}
 
 	/**
+	 * Metodo responsavel por atualizar o valor de quantidade.
 	 * @param quantidade representa a nova quantidade do item
 	 */
 	public void setQuantidade(int quantidade) {
@@ -83,29 +92,30 @@ public class Item {
 	}
 
 	/**
+	 * Metodo responsavel por exibibr o valor atual de tags.
 	 * @return o valor atualizado de tags
 	 */
 	public String getTags() {
 		return tags;
 	}
 
+	/**
+	 * Metodo responsavel por retornar um objeto do tipo descritor.
+	 * @return objeto do tipo descritor
+	 */
 	public Descritor getDescritor() {
 		return this.descricao;
 	}
 
 	/**
+	 * Metodo responsavel por atualizar o valor de tags.
 	 * @param tags representa as novas tags do item
 	 */
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
 
-	/**
-	 * Metodo responsavel por criar uma lista com as tags de um item
-	 *
-	 * @param tags representa as tags do item
-	 * @return lista com as tags
-	 */
+	
 	private List<String> listaTags(String tags) {
 		List<String> listaTags = new ArrayList<String>();
 		

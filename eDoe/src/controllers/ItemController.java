@@ -10,22 +10,41 @@ import util.Validador;
 
 import java.util.*;
 
+/**
+* Representacao de um controlador de itens. 
+*
+* @author Antonio Bertino de Vasconcelos Cabral Neto
+* @author Arthur Silva Lima Guedes
+* @author Danilo de Menezes Freitas
+* @author Talita Galdino Gouveia
+*/
 public class ItemController {
 
 	private Map<String, Descritor> descritores;
     private Validador validador;
     private int idItemDoacao;
 
+    /**
+    * Constroi um controlador de itens.
+    */
     public ItemController() {
         this.descritores = new HashMap<>();
         this.validador = new Validador();
         this.idItemDoacao = 1;
     }
 
+    /**
+     * Metodo responsavel por retornar o valor atual do map dos descritores.
+     * @return valor atual do map de descritores
+     */
     public Map<String, Descritor> getDescritores() {
     	return this.descritores;
     }
 
+    /**
+     * Metodo responsavel por validar e adicionar um descritor ao map de descricoes.
+     * @param descricao representa a descricao que sera adicionada
+     */
     public void adicionarDescritor(String descricao) {
         validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
 
@@ -121,6 +140,11 @@ public class ItemController {
         usuario.removerItem(idItem);
     }
 
+    /**
+     * Metodo responsavel por listar os descritores de itens para adocao.
+     * @param itensCadastrados representa a lista de itens cadastrados
+     * @return lista de descritores dos itens que estao para adocao.
+     */
     public String listarDescritorDeItensParaDoacao(List<Item> itensCadastrados) {
     	this.atualizarQuantidadeDescritores(itensCadastrados);
         
@@ -148,6 +172,11 @@ public class ItemController {
         }
     }
     
+    /**
+     * Metodo responsavel por listar os itens disponiveis para adocao.
+     * @param itensCadastrados representa a lista de itens cadastrados no eDoe
+     * @return string que representa os itens disponiveis para adocao
+     */
     public String listarItensParaDoacao(List<Item> itensCadastrados) {
         Collections.sort(itensCadastrados, new ComparadorPelaQuantidadeEDescricaoDoItem());
 
@@ -159,6 +188,12 @@ public class ItemController {
         return itensListados.substring(0, itensListados.length() -3);
     }
     
+    /**
+     * Metodo responsavel por pesquisar um item para adocao pela sua descricao.
+     * @param descricao representa a descricao do item
+     * @param itensCadastrados representa a lista de itens cadastrados
+     * @return string que representa o item que estava sendo pesquisado
+     */
     public String pesquisarItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
         validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 
@@ -174,6 +209,11 @@ public class ItemController {
         return saida.substring(0, saida.length() -3);
     }
 
+    /**
+     * Metodo responsavel por listar os itens necessarios.
+     * @param itensCadastradosParaReceptor representa a lista de itens cadastrados para o receptor
+     * @return string que representa a lista de itens necessarios
+     */
     public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
     	List<String> listaItens = new ArrayList<>();
     	
