@@ -1,6 +1,6 @@
 package controllers;
 
-import eDoe.Item; 
+import eDoe.Item;  
 import eDoe.Usuario;
 
 import java.util.ArrayList;
@@ -76,10 +76,6 @@ public class EdoeController {
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idDoador));
     }
 
-    public String listaDescritorDeItensParaDoacao() {
-        return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastradosEmDoador());
-    }
-
     private List<Item> getTodosItensCadastradosEmDoador() {
         List<Item> itensCadastrados = new ArrayList<>();
 
@@ -93,18 +89,9 @@ public class EdoeController {
 
         return itensCadastrados;
     }
-    private List<Item> getTodosItensCadastradosEmReceptor() {
-        List<Item> itensCadastrados = new ArrayList<>();
-
-        for (Usuario usuario : this.usuarioController.getUsuarios().values()) {
-            if (usuario.getStatus().equals("receptor")) {
-                for (Item item : usuario.getItens().values()) {
-                    itensCadastrados.add(item);
-                }
-            }
-        }
-
-        return itensCadastrados;
+    
+    public String listaDescritorDeItensParaDoacao() {
+        return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastradosEmDoador());
     }
 
     public String listaItensParaDoacao() {
@@ -133,6 +120,24 @@ public class EdoeController {
     	return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idReceptor),descricao, quantidade, tags);
     }
     
+    private List<Item> getTodosItensCadastradosEmReceptor() {
+        List<Item> itensCadastrados = new ArrayList<>();
+
+        for (Usuario usuario : this.usuarioController.getUsuarios().values()) {
+            if (usuario.getStatus().equals("receptor")) {
+                for (Item item : usuario.getItens().values()) {
+                    itensCadastrados.add(item);
+                }
+            }
+        }
+        
+        return itensCadastrados;
+    }
+    
+    public String listaItensNecessarios() {
+        return itemController.listarItensNecessarios(this.getTodosItensCadastradosEmReceptor());
+    }
+    
     public String atualizaItemNecessario(String idReceptor, int idItem, int quantidade, String tags) {
     	this.validarReceptor(idReceptor);
         return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idReceptor), quantidade, tags);
@@ -141,9 +146,5 @@ public class EdoeController {
     public void removeItemNecessario(String idReceptor, int idItem) {
     	this.validarReceptor(idReceptor);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
-    }
-
-    public String listaItensNecessarios() {
-        return itemController.listarItensNecessarios(this.getTodosItensCadastradosEmReceptor());
     }
 }

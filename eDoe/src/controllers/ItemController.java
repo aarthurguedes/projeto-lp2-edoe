@@ -14,14 +14,12 @@ public class ItemController {
 
 	private Map<String, Descritor> descritores;
     private Validador validador;
-    private int idItem;
-    private int idItemNecessario;
+    private int idItemDoacao;
 
     public ItemController() {
         this.descritores = new HashMap<>();
         this.validador = new Validador();
-        this.idItem = 1;
-        this.idItemNecessario = 1;
+        this.idItemDoacao = 1;
     }
 
     public Map<String, Descritor> getDescritores() {
@@ -41,8 +39,10 @@ public class ItemController {
     }
 
     private int getIdItensIguais(Usuario usuario, String descricao, String tags) {
-        for (Item i : usuario.getItens().values()) {
-            if (i.getDescricao().equals(descricao) && i.getTags().equals(tags)) {
+        Descritor d = new Descritor(Util.formatString(descricao));
+    	
+    	for (Item i : usuario.getItens().values()) {
+            if (i.getDescricao().equals(d.getDescricao()) && i.getTags().equals(tags)) {
                 return i.getId();
             }
         }
@@ -64,15 +64,16 @@ public class ItemController {
         if (!this.descritores.containsKey(Util.formatString(descricao))) {
             this.descritores.put(Util.formatString(descricao), new Descritor(Util.formatString(descricao)));
         }
-
+        
         if (this.getIdItensIguais(usuario, descricao, tags) == 0) {
-            usuario.cadastrarItem(this.idItem, new Descritor(Util.formatString(descricao)), quantidade, tags);
+        	usuario.cadastrarItem(this.idItemDoacao, new Descritor(Util.formatString(descricao)), quantidade, tags);
+        	
+        	this.idItemDoacao++;
+        	return (this.idItemDoacao - 1);
         } else {
-            usuario.cadastrarItem(this.getIdItensIguais(usuario, descricao, tags), new Descritor(Util.formatString(descricao)), quantidade, tags);
+        	usuario.getItem(this.getIdItensIguais(usuario, descricao, tags)).setQuantidade(quantidade);
+        	return this.getIdItensIguais(usuario, descricao, tags);
         }
-
-        this.idItem++;
-        return (this.idItem - 1);
     }
 
     private void validarExistenciaItem(Usuario usuario, int id) {
@@ -157,20 +158,7 @@ public class ItemController {
         
         return itensListados.substring(0, itensListados.length() -3);
     }
-
-
-    public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
-        Collections.sort(itensCadastradosParaReceptor, new ComparadorPelaQuantidadeEDescricaoDoItem());
-
-        String itensListados = "";
-        for (Item item2 : itensCadastradosParaReceptor) {
-            itensListados += item2.toString() + ", receptor: " + item2.getIdUsuario() + " | ";
-        }
-
-        return itensListados.substring(0, itensListados.length() -3);
-    }
-
-
+    
     public String pesquisarItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
         validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 
@@ -184,5 +172,22 @@ public class ItemController {
         }
         
         return saida.substring(0, saida.length() -3);
+    }
+
+    public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
+    	List<String> listaItens = new ArrayList<>();
+    	
+    	for (Item item: itensCadastradosParaReceptor) {
+    		listaItens.add(item.toString() + ", Receptor: " + item.getIdUsuario() + " | ");
+    	}
+    	
+    	Collections.sort(listaItens);
+    	
+        String itensListados = "";
+        for (String item : listaItens) {
+            itensListados += item;
+        }
+        
+        return itensListados.substring(0, itensListados.length() -3);
     }
 }

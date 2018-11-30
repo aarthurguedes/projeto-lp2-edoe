@@ -31,7 +31,7 @@ public class Item {
 	 * @param quantidade representa a quantidade daquele item
 	 * @param tags representa as tags do item
 	 */
-	public Item(int id, Descritor descricao, int quantidade, String tags, String idDoador) {
+	public Item(int id, Descritor descricao, int quantidade, String tags, String idUsuario) {
 		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
 		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
@@ -40,7 +40,7 @@ public class Item {
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.tags = tags;
-		this.idUsuario = idDoador;
+		this.idUsuario = idUsuario;
 	}
 
 	/**
