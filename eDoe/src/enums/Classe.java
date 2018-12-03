@@ -1,4 +1,6 @@
-package enums; 
+package enums;
+
+import util.Validador;
 
 /**
 * Representacao de um enum que possui as classes que um usuario pode ter 
@@ -24,12 +26,6 @@ public enum Classe {
     public String getClasse() {
     	return classeUsuario;
     }
-    
-    private static void validarClasse(String classe, String msgErro) {
-    	if (classe == null || classe.trim().equals("")) {
-    		throw new IllegalArgumentException(msgErro);
-    	}
-    }
    
     /**
      * Metodo responsavel por retornar a classe do usuario
@@ -37,7 +33,7 @@ public enum Classe {
      * @return valor atual da classe do usuario
      */
     public static Classe getClassePorString(String classeUsuario) {
-    	validarClasse(classeUsuario, "Entrada invalida: classe nao pode ser vazia ou nula.");
+    	Validador.validarString(classeUsuario, "Entrada invalida: classe nao pode ser vazia ou nula.");
     	
     	for (Classe classe : Classe.values()) {
         	if (classe.getClasse().equals(classeUsuario)) {

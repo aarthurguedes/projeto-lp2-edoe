@@ -19,7 +19,6 @@ import enums.Classe;
 public class UsuarioController {
 
     private Map<String, Usuario> usuarios;
-    private Validador validador;
     private int posicaoUsuario;
     
     /**
@@ -27,7 +26,6 @@ public class UsuarioController {
      */
     public UsuarioController() {
         this.usuarios = new HashMap<>();
-        this.validador = new Validador();
         this.posicaoUsuario = 1;
     }
 
@@ -45,7 +43,7 @@ public class UsuarioController {
      * @return objeto do tipo usuario
      */
     public Usuario getUsuario(String idUsuario) {
-        validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+        Validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(idUsuario);
 
         return this.usuarios.get(idUsuario);
@@ -58,11 +56,11 @@ public class UsuarioController {
     }
     
     private void validarCadastroUsuario(String id, String nome, String email, String celular, String classe) {
-    	validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-        validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
-        validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
-        validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
-        validador.validarString(classe, "Entrada invalida: classe nao pode ser vazia ou nula.");
+    	Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+    	Validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
+    	Validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
+    	Validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
+    	Validador.validarString(classe, "Entrada invalida: classe nao pode ser vazia ou nula.");
     }
 
     /**
@@ -120,7 +118,7 @@ public class UsuarioController {
      * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
      */
     public String pesquisarUsuarioPorId(String id) {
-        validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+    	Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(id);
         
         return this.usuarios.get(Util.formatString(id)).toString();
@@ -134,7 +132,7 @@ public class UsuarioController {
      * @return String no formato: "Nome/id, email, (xx) yyyy-zzzz, status: status"
      */
     public String pesquisarUsuarioPorNome(String nome) {
-        validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
+    	Validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
 
         List<Usuario> usuarioList = new ArrayList<>(this.usuarios.values());
         Collections.sort(usuarioList);
@@ -152,6 +150,20 @@ public class UsuarioController {
         return saida.substring(0, saida.length() - 3);
     }
 
+    private void setAtributosUsuario(String id, String nome, String email, String celular) {
+    	if (nome != null && !nome.trim().equals("")) {
+            usuarios.get(id).setNome(nome);
+        }
+       
+    	if (email != null && !email.trim().equals("")) {
+            usuarios.get(id).setEmail(email);
+        }
+        
+    	if (celular != null && !celular.trim().equals("")) {
+            usuarios.get(id).setCelular(celular);
+        }
+    }
+    
     /**
      * Metodo de atualizacao dos dados do usuario.
      *
@@ -162,19 +174,10 @@ public class UsuarioController {
      * @return o toString do usuario.
      */
     public String atualizarUsuario(String id, String nome, String email, String celular) {
-        validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+    	Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(id);
+        this.setAtributosUsuario(id, nome, email, celular);
 
-        if (nome != null && !nome.trim().equals("")) {
-            usuarios.get(id).setNome(nome);
-        }
-        if (email != null && !email.trim().equals("")) {
-            usuarios.get(id).setEmail(email);
-        }
-        if (celular != null && !celular.trim().equals("")) {
-            usuarios.get(id).setCelular(celular);
-        }
-        
         return usuarios.get(id).toString();
     }
 
@@ -184,7 +187,7 @@ public class UsuarioController {
      * @param id de identificacao do usuario.
      */
     public void removerUsuario(String id) {
-        validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+    	Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
         this.validarExistenciaUsuario(id);
         usuarios.remove(id);
     }

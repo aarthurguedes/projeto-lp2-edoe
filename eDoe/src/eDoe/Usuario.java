@@ -23,7 +23,6 @@ public class Usuario implements Comparable <Usuario> {
 	private Classe classe;
 	private Map<Integer, Item> itens;
 	private int posicao;
-	private Validador validador = new Validador();
 
 	/**
 	* Constroi o usuario a partir do seu id, nome, email, celular e classe.
@@ -35,11 +34,11 @@ public class Usuario implements Comparable <Usuario> {
 	* @param classe a classe do usuario
 	*/
 	public Usuario(String id, String nome, String email, String celular, Classe classe, String status, int idOrdem) {
-		validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-		validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
-		validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
-		validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
-		validador.validarString(classe.getClasse(), "Entrada invalida: classe nao pode ser vazia ou nula.");
+		Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		Validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
+		Validador.validarString(email, "Entrada invalida: email nao pode ser vazio ou nulo.");
+		Validador.validarString(celular, "Entrada invalida: celular nao pode ser vazio ou nulo.");
+		Validador.validarString(classe.getClasse(), "Entrada invalida: classe nao pode ser vazia ou nula.");
 
 		this.id = id;
 		this.nome = nome;
@@ -156,9 +155,9 @@ public class Usuario implements Comparable <Usuario> {
 	 * @param tags representa as tags do item
 	 */
 	public void cadastrarItem(int id, Descritor descricao, int quantidade, String tags) {
-		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
-		validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
-		validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
+		Validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		Validador.validarString(descricao.getDescricao(), "Entrada invalida: descricao nao pode ser vazia ou nula.");
+		Validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
 		Item item = new Item(id, descricao, quantidade, tags, this.nome+"/"+this.id);
 		itens.put(id, item);
@@ -182,7 +181,7 @@ public class Usuario implements Comparable <Usuario> {
 	 * @return string que representa o item
 	 */
 	public String exibirItem(int id) {
-		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		Validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 
 		if (!itens.containsKey(id)) {
 			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
@@ -199,7 +198,7 @@ public class Usuario implements Comparable <Usuario> {
 	 * @return string que representa o tem atualizado
 	 */
 	public String atualizarItem(int id, int quantidade, String tags) {
-		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		Validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 
 		if (!itens.containsKey(id)) {
 			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
@@ -220,7 +219,7 @@ public class Usuario implements Comparable <Usuario> {
 	 * @param id representa a identificacao do item
 	 */
 	public void removerItem(int id) {
-		validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
+		Validador.validarInteiro(id, "Entrada invalida: id do item nao pode ser negativo.");
 
 		if (!itens.containsKey(id)) {
 			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");

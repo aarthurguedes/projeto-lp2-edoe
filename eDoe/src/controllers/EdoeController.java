@@ -45,10 +45,7 @@ public class EdoeController {
     }
     
     private boolean isDoador(String idDoador) {
-    	if (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador")) {
-    		return true;
-    	}
-    	return false;
+    	return (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador"));
     }
     
     private void validarDoador(String idDoador) {
@@ -103,10 +100,7 @@ public class EdoeController {
     }
     
     private boolean isReceptor(String idReceptor) {
-    	if (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor")) {
-    		return true;
-    	}
-    	return false;
+    	return (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor"));
     }
     
     private void validarReceptor(String idReceptor) {

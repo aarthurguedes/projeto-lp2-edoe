@@ -14,7 +14,13 @@ public class Validador {
 		}
 	}
 	
-	public void validarString(String string, String msgErro) {
+	/**
+     * Valida uma String, verificando se a mesma é nula ou vazia, caso seja, lanca uma excecao.
+     *
+     * @param string a String a ser validada.
+     * @param msgErro a mensagem de erro a ser exibida caso a string seja vazia ou nula.
+     */
+	public static void validarString(String string, String msgErro) {
 		validarStringNaoNula(string, msgErro);
 		validarStringNaoVazia(string, msgErro);
 	}
@@ -25,7 +31,13 @@ public class Validador {
 		}
 	}
 	
-	public void validarInteiro(int inteiro, String msgErro) {
+	/**
+     * Valida um inteiro, verificando se o mesmo é menor ou igual a 0, caso seja, lanca uma excecao.
+     *
+     * @param inteiro o valor int a ser validado.
+     * @param msgErro a mensagem de erro a ser exibida caso o inteiro seja menor ou igual a 0.
+     */
+	public static void validarInteiro(int inteiro, String msgErro) {
 		validarInteiroPositivo(inteiro, msgErro);
 	}
 }

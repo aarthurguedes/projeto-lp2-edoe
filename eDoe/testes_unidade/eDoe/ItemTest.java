@@ -51,9 +51,12 @@ class ItemTest {
 	
 	@Test
 	public void testItensDiferentes() {
-		Item i2 = new Item(1, new Descritor("cadeiras de rodas"), 5, "roda grande,cadeira", "70513372911"); //Descricao diferente do Item item
-		Item i3 = new Item(1, new Descritor("cadeira de rodas"), 5, "roda grande,cadeiras", "70513372911"); // Tags diferentes do Item item
-		Item i4 = new Item(1, new Descritor("cadeiras de rodas"), 5, "roda grande,cadeiras", "70513372911"); // Descricao e Tags diferentes do Item item
+		//Descricao diferente do Item item
+		Item i2 = new Item(1, new Descritor("cadeiras de rodas"), 5, "roda grande,cadeira", "70513372911"); 
+		// Tags diferentes do Item item
+		Item i3 = new Item(1, new Descritor("cadeira de rodas"), 5, "roda grande,cadeiras", "70513372911"); 
+		// Descricao e Tags diferentes do Item item
+		Item i4 = new Item(1, new Descritor("cadeiras de rodas"), 5, "roda grande,cadeiras", "70513372911");
 		
 		assertFalse(item.equals(i2));
 		assertFalse(item.equals(i3));

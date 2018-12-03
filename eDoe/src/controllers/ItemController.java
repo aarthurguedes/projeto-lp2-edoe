@@ -21,7 +21,6 @@ import java.util.*;
 */
 public class ItemController {
 	private Map<String, Descritor> descritores;
-    private Validador validador;
     private int idItemDoacao;
 
     /**
@@ -29,7 +28,6 @@ public class ItemController {
     */
     public ItemController() {
         this.descritores = new HashMap<>();
-        this.validador = new Validador();
         this.idItemDoacao = 1;
     }
 
@@ -46,7 +44,7 @@ public class ItemController {
      * @param descricao representa a descricao que sera adicionada
      */
     public void adicionarDescritor(String descricao) {
-        validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+    	Validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
 
         for (Descritor descritor: this.descritores.values()) {
             if (descritor.getDescricao().toLowerCase().equals(descricao.toLowerCase())) {
@@ -77,8 +75,8 @@ public class ItemController {
      * @return inteiro que representa a identificacao do item
      */
     public int cadastrarItem(Usuario usuario, String descricao, int quantidade, String tags) {
-        validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
-        validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
+    	Validador.validarString(descricao, "Entrada invalida: descricao nao pode ser vazia ou nula.");
+    	Validador.validarInteiro(quantidade, "Entrada invalida: quantidade deve ser maior que zero.");
 
         if (!this.descritores.containsKey(Util.formatString(descricao))) {
             this.descritores.put(Util.formatString(descricao), new Descritor(Util.formatString(descricao)));
@@ -121,7 +119,7 @@ public class ItemController {
      * @return string que representa o item atualizado
      */
     public String atualizarItem(int idItem, Usuario usuario, int quantidade, String tags) {
-        validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
+    	Validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
         this.validarExistenciaItem(usuario, idItem);
 
         return usuario.atualizarItem(idItem, quantidade, tags);
@@ -132,7 +130,7 @@ public class ItemController {
      * @param idItem representa a identificacao do item
      */
     public void removerItem(int idItem, Usuario usuario) {
-        validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
+    	Validador.validarInteiro(idItem, "Entrada invalida: id do item nao pode ser negativo.");
 
         if (usuario.getItens().size() == 0) {
             throw new IllegalArgumentException("O Usuario nao possui itens cadastrados.");
@@ -207,7 +205,7 @@ public class ItemController {
      * @return string que representa o item que estava sendo pesquisado
      */
     public String pesquisarItemParaDoacaoPorDescricao(String descricao, List<Item> itensCadastrados) {
-        validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
+    	Validador.validarString(descricao, "Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 
         Collections.sort(itensCadastrados, new ComparadorPelaDescricaoItem());
 
