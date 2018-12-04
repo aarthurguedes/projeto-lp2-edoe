@@ -141,4 +141,10 @@ public class EdoeController {
     	this.validarReceptor(idReceptor);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }
+    
+    public String match(String idReceptor, int idItemNecessario) {
+    	this.validarReceptor(idReceptor);
+    	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
+    }
+    
 }

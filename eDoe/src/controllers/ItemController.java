@@ -1,6 +1,7 @@
 package controllers;
 
 import comparators.ComparadorPelaDescricaoItem;
+import comparators.ComparadorPelaPontuacaoMatchEDescricao;
 import comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
 import comparators.ComparadorPeloIDItem;
 import eDoe.Descritor;
@@ -233,5 +234,53 @@ public class ItemController {
         }
 
         return saida.substring(0, saida.length() -3);
+    }
+    
+    public String match(List<Item> itens, Item itemReceptor) {
+    	List<Item> itensMesmoDescritor = new ArrayList<>();
+    	
+    	for (Item item : itens) {
+    		if(Util.formatString(item.getDescricao()).equals(Util.formatString(itemReceptor.getDescricao()))) {
+    			itensMesmoDescritor.add(item);
+    		}
+    	}
+    	
+    	for (Item item : itensMesmoDescritor) {
+    		getPontuacao(item, itemReceptor);
+    	}
+    	
+    	Collections.sort(itensMesmoDescritor, new ComparadorPelaPontuacaoMatchEDescricao());
+    	
+    	String saida = "";
+    	
+    	for (Item item : itensMesmoDescritor) {
+    		saida += item.toString() + ", doador:" + item.getIdUsuario() + " | ";
+    	}
+    	
+    	for (Item item : itensMesmoDescritor) {
+    		item.setPontuacaoMatch(0);
+    	}
+    	 	
+    	return saida.substring(0, saida.length() - 3);
+    }
+    
+    private void getPontuacao(Item itemDoador, Item itemReceptor) {
+    	
+    	String[] itemDoadorTagsArray = itemDoador.getTags().split(",");
+    	String[] itemReceptorsArray = itemReceptor.getTags().split(",");
+    	List<String> itemDoadorList = Arrays.asList(itemDoadorTagsArray);
+    	List<String> itemReceptorList = Arrays.asList(itemReceptorsArray);
+    	
+    	
+    	for (String tagDoador : itemDoadorList) {
+    		for (String tagReceptor : itemReceptorList) {
+    			if (tagDoador.equals(tagReceptor)) {
+    				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 10);
+    			} else if (itemReceptorList.contains(tagDoador)) {
+    				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 5);
+    			}
+    		}
+    	}
+    
     }
 }

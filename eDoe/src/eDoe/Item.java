@@ -21,6 +21,7 @@ public class Item {
 	private int quantidade;
 	private String tags;
 	private String idUsuario;
+	private int pontuacaoMatch;
 
 	/**
 	 * Constroi um item a partir de sua descricao, quantidade, tags e do id do seu doador.
@@ -40,6 +41,7 @@ public class Item {
 		this.quantidade = quantidade;
 		this.tags = tags;
 		this.idUsuario = idUsuario;
+		this.pontuacaoMatch = 0;
 	}
 
 	/**
@@ -113,8 +115,15 @@ public class Item {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-
 	
+	public int getPontuacaoMatch() {
+		return pontuacaoMatch;
+	}
+
+	public void setPontuacaoMatch(int pontuacaoMatch) {
+		this.pontuacaoMatch += pontuacaoMatch;
+	}
+
 	private List<String> listaTags(String tags) {
 		List<String> listaTags = new ArrayList<String>();
 		

@@ -82,11 +82,15 @@ public class Facade {
 	public void removeItemNecessario(String idReceptor, int idItem) {
 		this.edoeController.removeItemNecessario(idReceptor, idItem);
 	}
+	
+	public String match(String idReceptor, int idItemNecessario) {
+		return this.edoeController.match(idReceptor, idItemNecessario);
+	}
 
 	public static void main(String[] args) {
 		args = new String[] { "controllers.Facade", "acceptance_tests/use_case_1.txt",
 				"acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt",
-				"acceptance_tests/use_case_4.txt" };
+				"acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt" };
 		EasyAccept.main(args);
 	}
 }
