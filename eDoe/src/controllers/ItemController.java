@@ -245,6 +245,10 @@ public class ItemController {
     		}
     	}
     	
+    	if (itensMesmoDescritor.size() == 0) {
+    		throw new IllegalArgumentException("Item nao tem nenhum match.");
+    	}
+    	
     	for (Item item : itensMesmoDescritor) {
     		getPontuacao(item, itemReceptor);
     	}
@@ -254,11 +258,7 @@ public class ItemController {
     	String saida = "";
     	
     	for (Item item : itensMesmoDescritor) {
-    		saida += item.toString() + ", doador:" + item.getIdUsuario() + " | ";
-    	}
-    	
-    	for (Item item : itensMesmoDescritor) {
-    		item.setPontuacaoMatch(0);
+    		saida += item.toString() + ", doador: " + item.getIdUsuario() + " | ";
     	}
     	 	
     	return saida.substring(0, saida.length() - 3);
@@ -267,16 +267,15 @@ public class ItemController {
     private void getPontuacao(Item itemDoador, Item itemReceptor) {
     	List<String> tagDoadorList = Arrays.asList(itemDoador.getTags().split(","));
     	List<String> tagReceptorList = Arrays.asList(itemReceptor.getTags().split(","));
-
-    	for (String tagReceptor : tagReceptorList) {
-    		for (String tagDoador : tagDoadorList) {
-    			if (Util.formatString(tagReceptor).equals(Util.formatString(tagDoador))) {
+    	
+    	for (String tagReceptor: tagReceptorList) {
+    		for (String tagDoador: tagDoadorList) {
+    			if (tagReceptor.equals(tagDoador) && tagReceptorList.indexOf(tagReceptor) == tagDoadorList.indexOf(tagDoador)) {
     				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 10);
-    			} else if (tagReceptorList.contains(tagDoador)) {
+    			} else if (tagDoadorList.contains(tagReceptor)) {
     				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 5);
     			}
     		}
     	}
-    
     }
 }

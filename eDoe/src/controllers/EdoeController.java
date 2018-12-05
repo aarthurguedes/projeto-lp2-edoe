@@ -2,6 +2,7 @@ package controllers;
 
 import eDoe.Item;  
 import eDoe.Usuario;
+import util.Validador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class EdoeController {
     
     private void validarDoador(String idDoador) {
     	if (!this.isDoador(idDoador)) {
-        	throw new IllegalArgumentException("Entrada invalida: id passado nao pertence a um doador.");
+        	throw new IllegalArgumentException("O Usuario deve ser um doador: " + idDoador + ".");
         }
     }
 
@@ -105,7 +106,7 @@ public class EdoeController {
     
     private void validarReceptor(String idReceptor) {
     	if (!this.isReceptor(idReceptor)) {
-        	throw new IllegalArgumentException("Entrada invalida: id passado nao pertence a um receptor.");
+        	throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
         }
     }
     
@@ -144,7 +145,10 @@ public class EdoeController {
     
     public String match(String idReceptor, int idItemNecessario) {
     	this.validarReceptor(idReceptor);
+    	Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
+    	if (!usuarioController.getUsuario(idReceptor).containsItem(idItemNecessario)) {
+    		throw new IllegalArgumentException("Item nao encontrado: " + idItemNecessario + ".");
+    	}
     	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
     }
-    
 }
