@@ -117,11 +117,11 @@ public class Item {
 	}
 	
 	public int getPontuacaoMatch() {
-		return pontuacaoMatch;
+		return this.pontuacaoMatch;
 	}
 
 	public void setPontuacaoMatch(int pontuacaoMatch) {
-		this.pontuacaoMatch += pontuacaoMatch;
+		this.pontuacaoMatch = pontuacaoMatch;
 	}
 
 	private List<String> listaTags(String tags) {

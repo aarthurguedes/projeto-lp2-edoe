@@ -265,18 +265,14 @@ public class ItemController {
     }
     
     private void getPontuacao(Item itemDoador, Item itemReceptor) {
-    	
-    	String[] itemDoadorTagsArray = itemDoador.getTags().split(",");
-    	String[] itemReceptorsArray = itemReceptor.getTags().split(",");
-    	List<String> itemDoadorList = Arrays.asList(itemDoadorTagsArray);
-    	List<String> itemReceptorList = Arrays.asList(itemReceptorsArray);
-    	
-    	
-    	for (String tagDoador : itemDoadorList) {
-    		for (String tagReceptor : itemReceptorList) {
-    			if (tagDoador.equals(tagReceptor)) {
+    	List<String> tagDoadorList = Arrays.asList(itemDoador.getTags().split(","));
+    	List<String> tagReceptorList = Arrays.asList(itemReceptor.getTags().split(","));
+
+    	for (String tagReceptor : tagReceptorList) {
+    		for (String tagDoador : tagDoadorList) {
+    			if (Util.formatString(tagReceptor).equals(Util.formatString(tagDoador))) {
     				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 10);
-    			} else if (itemReceptorList.contains(tagDoador)) {
+    			} else if (tagReceptorList.contains(tagDoador)) {
     				itemDoador.setPontuacaoMatch(itemDoador.getPontuacaoMatch() + 5);
     			}
     		}
