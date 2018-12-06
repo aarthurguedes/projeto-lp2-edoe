@@ -1,9 +1,9 @@
 package controllers;
 
 import comparators.ComparadorPelaDescricaoItem;
-import comparators.ComparadorPelaPontuacaoMatchEDescricao;
+import comparators.ComparadorPelaPontuacaoMatchEId;
 import comparators.ComparadorPelaQuantidadeEDescricaoDoItem;
-import comparators.ComparadorPeloIDItem;
+import comparators.ComparadorPeloIdItem;
 import eDoe.Descritor;
 import eDoe.Item;
 import eDoe.Usuario;
@@ -21,6 +21,7 @@ import java.util.*;
 * @author Talita Galdino Gouveia
 */
 public class ItemController {
+	
 	private Map<String, Descritor> descritores;
     private int idItemDoacao;
 
@@ -226,7 +227,7 @@ public class ItemController {
      * @return string que representa a lista de itens necessarios
      */
     public String listarItensNecessarios(List<Item> itensCadastradosParaReceptor) {
-        Collections.sort(itensCadastradosParaReceptor, new ComparadorPeloIDItem());
+        Collections.sort(itensCadastradosParaReceptor, new ComparadorPeloIdItem());
 
     	String saida = "";
     	for (Item item : itensCadastradosParaReceptor) {
@@ -236,9 +237,7 @@ public class ItemController {
         return saida.substring(0, saida.length() -3);
     }
     
-    public String match(List<Item> itens, Item itemReceptor) {
-    	List<Item> itensMesmoDescritor = new ArrayList<>();
-    	
+    private void adicionaItensComDescritoresIguaisEmLista(List<Item> itens, Item itemReceptor, List<Item> itensMesmoDescritor) {
     	for (Item item : itens) {
     		if(Util.formatString(item.getDescricao()).equals(Util.formatString(itemReceptor.getDescricao()))) {
     			itensMesmoDescritor.add(item);
@@ -248,20 +247,6 @@ public class ItemController {
     	if (itensMesmoDescritor.size() == 0) {
     		throw new IllegalArgumentException("Item nao tem nenhum match.");
     	}
-    	
-    	for (Item item : itensMesmoDescritor) {
-    		getPontuacao(item, itemReceptor);
-    	}
-    	
-    	Collections.sort(itensMesmoDescritor, new ComparadorPelaPontuacaoMatchEDescricao());
-    	
-    	String saida = "";
-    	
-    	for (Item item : itensMesmoDescritor) {
-    		saida += item.toString() + ", doador: " + item.getIdUsuario() + " | ";
-    	}
-    	 	
-    	return saida.substring(0, saida.length() - 3);
     }
     
     private void getPontuacao(Item itemDoador, Item itemReceptor) {
@@ -277,5 +262,28 @@ public class ItemController {
     			}
     		}
     	}
+    }
+    
+    /**
+     * Metodo responsavel por identificar possiveis matches entre os itens para doacao e os necessarios.
+     * @param itens representa a lista de itens cadastrados para doacao
+     * @param itemReceptor o item necessario do receptor
+     * @return string que representa a lista dos matches
+     */
+    public String match(List<Item> itens, Item itemReceptor) {
+    	List<Item> itensMesmoDescritor = new ArrayList<>();
+    	adicionaItensComDescritoresIguaisEmLista(itens, itemReceptor, itensMesmoDescritor);
+    	
+    	for (Item item : itensMesmoDescritor) {
+    		getPontuacao(item, itemReceptor);
+    	}
+    	Collections.sort(itensMesmoDescritor, new ComparadorPelaPontuacaoMatchEId());
+    	
+    	String saida = "";
+    	for (Item item : itensMesmoDescritor) {
+    		saida += item.toString() + ", doador: " + item.getIdUsuario() + " | ";
+    	}
+    	 	
+    	return saida.substring(0, saida.length() - 3);
     }
 }

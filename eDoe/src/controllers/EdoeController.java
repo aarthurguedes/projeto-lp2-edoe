@@ -143,12 +143,20 @@ public class EdoeController {
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }
     
-    public String match(String idReceptor, int idItemNecessario) {
-    	this.validarReceptor(idReceptor);
-    	Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
+    private void validarExistenciaItem(String idReceptor, int idItemNecessario) {
     	if (!usuarioController.getUsuario(idReceptor).containsItem(idItemNecessario)) {
     		throw new IllegalArgumentException("Item nao encontrado: " + idItemNecessario + ".");
     	}
+    }
+    
+    private void validarMatch(String idReceptor, int idItemNecessario) {
+    	this.validarReceptor(idReceptor);
+    	Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
+    	this.validarExistenciaItem(idReceptor, idItemNecessario);
+    }
+    
+    public String match(String idReceptor, int idItemNecessario) {
+    	this.validarMatch(idReceptor, idItemNecessario);
     	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
     }
 }

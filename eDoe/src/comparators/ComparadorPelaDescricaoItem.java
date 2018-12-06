@@ -1,9 +1,11 @@
 package comparators;
 
 import eDoe.Item;
+
 import util.Util;
 
 import java.util.Comparator;
+
 /**
 * Representacao de um comparador de itens pela descricao.
 *

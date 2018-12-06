@@ -76,7 +76,6 @@ public class Facade {
 
 	public String atualizaItemNecessario(String idReceptor, int idItem, int quantidade, String tags) {
 		return this.edoeController.atualizaItemNecessario(idReceptor, idItem, quantidade, tags);
-
 	}
 
 	public void removeItemNecessario(String idReceptor, int idItem) {
