@@ -168,5 +168,4 @@ public class EdoeController {
     	this.validarMatch(idReceptor, idItemNecessario);
     	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
     }
-
 }

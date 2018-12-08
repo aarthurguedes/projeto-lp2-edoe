@@ -296,6 +296,18 @@ public class ItemController {
     	 	
     	return saida.substring(0, saida.length() - 3);
     }
+    
+    private void escreverArquivos() {
+        ObjectOutputStream oosDescritores = null;
+
+        try {
+            oosDescritores = new ObjectOutputStream(new FileOutputStream( "saves" + File.separator + "itemController.dat"));
+            oosDescritores.writeObject(this.descritores);
+
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+    }
 
     private void lerArquivos() {
         ObjectInputStream oisDescritores = null;
@@ -313,17 +325,5 @@ public class ItemController {
             e.printStackTrace();
         }
 
-    }
-
-    private void escreverArquivos() {
-        ObjectOutputStream oosDescritores = null;
-
-        try {
-            oosDescritores = new ObjectOutputStream(new FileOutputStream( "saves" + File.separator + "itemController.dat"));
-            oosDescritores.writeObject(this.descritores);
-
-        } catch (IOException e2) {
-            e2.printStackTrace();
-        }
     }
 }

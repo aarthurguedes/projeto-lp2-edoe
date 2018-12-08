@@ -33,7 +33,8 @@ class ItemControllerTest {
 		itemController.cadastrarItem(usuarioController.getUsuario("84473712044"), "Toalha de Banho", 2,
 				"Adulto,TAM G,Azul");
 		itemController.cadastrarItem(usuarioController.getUsuario("84473712044"), "Frauda", 15, "Higiene,Infantil,P");
-
+		itemController.cadastrarItem(usuarioController.getUsuario("84473712044"), "colchao", 5,
+				"colchao kingsize, conforto, dormir");
 	}
 
 	@BeforeEach
@@ -134,7 +135,29 @@ class ItemControllerTest {
 		assertEquals(
 				"4 - livro, tags: [Infantil, Matematica, Didatico], quantidade: 1, Receptor: Murilo Luiz Brito/84473712044 | "
 				+ "5 - toalha de banho, tags: [Adulto, TAM G, Azul], quantidade: 2, Receptor: Murilo Luiz Brito/84473712044 | "
-				+ "6 - frauda, tags: [Higiene, Infantil, P], quantidade: 15, Receptor: Murilo Luiz Brito/84473712044",
+				+ "6 - frauda, tags: [Higiene, Infantil, P], quantidade: 15, Receptor: Murilo Luiz Brito/84473712044 | "
+				+ "7 - colchao, tags: [colchao kingsize,  conforto,  dormir], quantidade: 5, Receptor: "
+				+ "Murilo Luiz Brito/84473712044",
 				itemController.listarItensNecessarios(getTodosItensCadastradosEmReceptor()));
+	}
+
+	private void cadastrarNovosItensParaDoacao() {
+		itemController.cadastrarItem(usuarioController.getUsuario("70513372911"), "colchao", 5,
+				"colchao kingsize, conforto, dormir");
+		itemController.cadastrarItem(usuarioController.getUsuario("70513372911"), "colchao", 7, "dormir, conforto");
+		itemController.cadastrarItem(usuarioController.getUsuario("70513372911"), "colchao", 3,
+				"colchao kingsize, dormir");
+	}
+	
+	@Test
+	public void testMatch() {
+		this.cadastrarNovosItensParaDoacao();
+		Item item = this.usuarioController.getUsuario("84473712044").getItem(7);
+		assertEquals(
+				"8 - colchao, tags: [colchao kingsize,  conforto,  dormir], quantidade: 5, doador: Elizabeth Ashe/70513372911 | "
+						+ "10 - colchao, tags: [colchao kingsize,  dormir], quantidade: 3, doador: Elizabeth Ashe/70513372911 | "
+						+ "2 - colchao, tags: [colchao kingsize, conforto, dormir], quantidade: 5, doador: Elizabeth Ashe/70513372911 | "
+						+ "9 - colchao, tags: [dormir,  conforto], quantidade: 7, doador: Elizabeth Ashe/70513372911",
+				this.itemController.match(getTodosItensCadastradosEmDoador(), item));
 	}
 }

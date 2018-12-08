@@ -233,24 +233,6 @@ public class UsuarioController {
         }
     }
 
-    private void lerArquivos() {
-        ObjectInputStream oisUsuarios = null;
-
-        try {
-            oisUsuarios = new ObjectInputStream(new FileInputStream( "saves"+ File.separator + "usuarioController.dat"));
-            Map<String, Usuario> usuariosCadastros = (HashMap<String, Usuario>) oisUsuarios.readObject();
-            this.usuarios = usuariosCadastros;
-
-        } catch (IOException e) {
-            this.escreverArquivos();
-            this.inicializaSistema();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void escreverArquivos() {
         ObjectOutputStream oosUsuariosI = null;
 
@@ -260,6 +242,23 @@ public class UsuarioController {
 
         } catch (IOException e2) {
             e2.printStackTrace();
+        }
+    }
+    
+    private void lerArquivos() {
+        ObjectInputStream oisUsuarios = null;
+
+        try {
+            oisUsuarios = new ObjectInputStream(new FileInputStream( "saves"+ File.separator + "usuarioController.dat"));
+            Map<String, Usuario> usuariosCadastros = (HashMap<String, Usuario>) oisUsuarios.readObject();
+            this.usuarios = usuariosCadastros;
+        
+        } catch (IOException e) {
+            this.escreverArquivos();
+            this.inicializaSistema();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
