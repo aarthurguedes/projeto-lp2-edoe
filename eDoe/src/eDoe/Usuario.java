@@ -2,6 +2,8 @@ package eDoe;
 
 import enums.Classe;
 import util.Validador;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +15,9 @@ import java.util.Map;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public class Usuario implements Comparable <Usuario> {
-	
+public class Usuario implements Comparable <Usuario>, Serializable {
+
+	public static final long serialVersionUID = 3536817023363986264L;
 	private String id;
 	private String nome;
 	private String email;

@@ -10,6 +10,7 @@ import eDoe.Usuario;
 import util.Util;
 import util.Validador;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -31,6 +32,14 @@ public class ItemController {
     public ItemController() {
         this.descritores = new HashMap<>();
         this.idItemDoacao = 1;
+    }
+
+    public void inicializaSistema() {
+        this.lerArquivos();
+    }
+
+    public void finalizaSistema() {
+        this.escreverArquivos();
     }
 
     /**
@@ -189,7 +198,7 @@ public class ItemController {
      * @param itensCadastrados representa a lista de itens cadastrados no eDoe
      * @return string que representa os itens disponiveis para adocao
      */
-    public String listarItensParaDoacao(List<Item> itensCadastrados) {
+    public String  listarItensParaDoacao(List<Item> itensCadastrados) {
         Collections.sort(itensCadastrados, new ComparadorPelaQuantidadeEDescricaoDoItem());
 
         String itensListados = "";
@@ -277,6 +286,7 @@ public class ItemController {
     	for (Item item : itensMesmoDescritor) {
     		getPontuacao(item, itemReceptor);
     	}
+
     	Collections.sort(itensMesmoDescritor, new ComparadorPelaPontuacaoMatchEId());
     	
     	String saida = "";
@@ -285,5 +295,35 @@ public class ItemController {
     	}
     	 	
     	return saida.substring(0, saida.length() - 3);
+    }
+
+    private void lerArquivos() {
+        ObjectInputStream oisDescritores = null;
+
+        try {
+            oisDescritores = new ObjectInputStream(new FileInputStream("saves" + File.separator + "itemController.dat"));
+            Map<String, Descritor> descritores = (HashMap<String, Descritor>) oisDescritores.readObject();
+            this.descritores = descritores;
+
+        } catch (IOException e) {
+            this.escreverArquivos();
+            this.inicializaSistema();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void escreverArquivos() {
+        ObjectOutputStream oosDescritores = null;
+
+        try {
+            oosDescritores = new ObjectOutputStream(new FileOutputStream( "saves" + File.separator + "itemController.dat"));
+            oosDescritores.writeObject(this.descritores);
+
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
     }
 }

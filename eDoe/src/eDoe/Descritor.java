@@ -2,6 +2,7 @@ package eDoe;
 
 import util.Util;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,9 +13,10 @@ import java.util.Objects;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public class Descritor implements Comparable<Descritor> {
-   
-	private String descricao;
+public class Descritor implements Comparable<Descritor>, Serializable {
+
+    public static final long serialVersionUID = 3412184169915407379L;
+    private String descricao;
     private int quantidade;
 
     /**

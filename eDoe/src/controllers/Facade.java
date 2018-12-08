@@ -10,6 +10,14 @@ public class Facade {
 		this.edoeController = new EdoeController();
 	}
 
+	public void iniciaSistema() {
+		this.edoeController.iniciaSistema();
+	}
+
+	public void finalizaSistema() {
+		this.edoeController.finalizaSistema();
+	}
+
 	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
 		return this.edoeController.adicionaDoador(id, nome, email, celular, classe);
 	}
@@ -89,7 +97,8 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "controllers.Facade", "acceptance_tests/use_case_1.txt",
 				"acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt",
-				"acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt" };
+				"acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
+				"acceptance_tests/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 }

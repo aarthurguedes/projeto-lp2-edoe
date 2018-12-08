@@ -17,6 +17,16 @@ public class EdoeController {
         this.usuarioController = new UsuarioController();
     }
 
+    public void iniciaSistema() {
+        this.usuarioController.inicializaSistema();
+        this.itemController.inicializaSistema();
+    }
+
+    public void finalizaSistema() {
+        this.usuarioController.finalizaSistema();
+        this.itemController.finalizaSistema();
+    }
+
     public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
         return this.usuarioController.cadastrarDoador(id, nome, email, celular, classe);
     }
@@ -44,13 +54,13 @@ public class EdoeController {
     public void adicionaDescritor(String descricao) {
         this.itemController.adicionarDescritor(descricao);
     }
-    
+
     private boolean isDoador(String idDoador) {
-    	return (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador"));
+        return (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador"));
     }
-    
+
     private void validarDoador(String idDoador) {
-    	if (!this.isDoador(idDoador)) {
+        if (!this.isDoador(idDoador)) {
         	throw new IllegalArgumentException("O Usuario deve ser um doador: " + idDoador + ".");
         }
     }
@@ -65,12 +75,12 @@ public class EdoeController {
     }
 
     public String atualizaItemParaDoacao(int idItem, String idDoador, int quantidade, String tags) {
-    	this.validarDoador(idDoador);
+        this.validarDoador(idDoador);
         return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idDoador), quantidade, tags);
     }
 
     public void removeItemParaDoacao(int idItem, String idDoador) {
-    	this.validarDoador(idDoador);
+        this.validarDoador(idDoador);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idDoador));
     }
 
@@ -87,7 +97,7 @@ public class EdoeController {
 
         return itensCadastrados;
     }
-    
+
     public String listaDescritorDeItensParaDoacao() {
         return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastradosEmDoador());
     }
@@ -99,22 +109,22 @@ public class EdoeController {
     public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
         return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastradosEmDoador());
     }
-    
+
     private boolean isReceptor(String idReceptor) {
     	return (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor"));
     }
-    
+
     private void validarReceptor(String idReceptor) {
     	if (!this.isReceptor(idReceptor)) {
         	throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
         }
     }
-    
+
     public int adicionaItemNecessario(String idReceptor, String descricao, int quantidade, String tags) {
         this.validarReceptor(idReceptor);
     	return this.itemController.cadastrarItem(this.usuarioController.getUsuario(idReceptor),descricao, quantidade, tags);
     }
-    
+
     private List<Item> getTodosItensCadastradosEmReceptor() {
         List<Item> itensCadastrados = new ArrayList<>();
 
@@ -125,38 +135,38 @@ public class EdoeController {
                 }
             }
         }
-        
+
         return itensCadastrados;
     }
-    
+
     public String listaItensNecessarios() {
         return itemController.listarItensNecessarios(this.getTodosItensCadastradosEmReceptor());
     }
-    
+
     public String atualizaItemNecessario(String idReceptor, int idItem, int quantidade, String tags) {
-    	this.validarReceptor(idReceptor);
         return this.itemController.atualizarItem(idItem, this.usuarioController.getUsuario(idReceptor), quantidade, tags);
     }
-    
+
     public void removeItemNecessario(String idReceptor, int idItem) {
-    	this.validarReceptor(idReceptor);
+        this.validarReceptor(idReceptor);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idReceptor));
     }
-    
+
     private void validarExistenciaItem(String idReceptor, int idItemNecessario) {
     	if (!usuarioController.getUsuario(idReceptor).containsItem(idItemNecessario)) {
     		throw new IllegalArgumentException("Item nao encontrado: " + idItemNecessario + ".");
     	}
     }
-    
+
     private void validarMatch(String idReceptor, int idItemNecessario) {
-    	this.validarReceptor(idReceptor);
+        this.validarReceptor(idReceptor);
     	Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
     	this.validarExistenciaItem(idReceptor, idItemNecessario);
     }
-    
+
     public String match(String idReceptor, int idItemNecessario) {
     	this.validarMatch(idReceptor, idItemNecessario);
     	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
     }
+
 }

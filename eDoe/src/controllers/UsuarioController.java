@@ -1,7 +1,6 @@
 package controllers;
 
-import java.io.File;   
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 import eDoe.Usuario;
 import util.Validador;
@@ -27,6 +26,14 @@ public class UsuarioController {
     public UsuarioController() {
         this.usuarios = new HashMap<>();
         this.posicaoUsuario = 1;
+    }
+
+    public void inicializaSistema() {
+        this.lerArquivos();
+    }
+
+    public void finalizaSistema() {
+        this.escreverArquivos();
     }
 
     /**
@@ -223,6 +230,36 @@ public class UsuarioController {
             sc.close();
         } catch (FileNotFoundException e) {
             System.err.println("Arquivo nao encontrado");
+        }
+    }
+
+    private void lerArquivos() {
+        ObjectInputStream oisUsuarios = null;
+
+        try {
+            oisUsuarios = new ObjectInputStream(new FileInputStream( "saves"+ File.separator + "usuarioController.dat"));
+            Map<String, Usuario> usuariosCadastros = (HashMap<String, Usuario>) oisUsuarios.readObject();
+            this.usuarios = usuariosCadastros;
+
+        } catch (IOException e) {
+            this.escreverArquivos();
+            this.inicializaSistema();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void escreverArquivos() {
+        ObjectOutputStream oosUsuariosI = null;
+
+        try {
+            oosUsuariosI = new ObjectOutputStream(new FileOutputStream("saves"+ File.separator + "usuarioController.dat"));
+            oosUsuariosI.writeObject(this.usuarios);
+
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
 }

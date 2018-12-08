@@ -3,6 +3,7 @@ package eDoe;
 import util.Util;
 import util.Validador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,9 @@ import java.util.List;
 * @author Danilo de Menezes Freitas
 * @author Talita Galdino Gouveia
 */
-public class Item {
-	
+public class Item implements Serializable {
+
+	public static final long serialVersionUID = 1147231641906472989L;
 	private int id;
 	private Descritor descricao;
 	private int quantidade;
