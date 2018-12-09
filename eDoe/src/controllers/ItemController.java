@@ -252,10 +252,6 @@ public class ItemController {
     			itensMesmoDescritor.add(item);
     		}
     	}
-    	
-    	if (itensMesmoDescritor.size() == 0) {
-    		throw new IllegalArgumentException("Item nao tem nenhum match.");
-    	}
     }
     
     private void getPontuacao(Item itemDoador, Item itemReceptor) {
@@ -293,8 +289,12 @@ public class ItemController {
     	for (Item item : itensMesmoDescritor) {
     		saida += item.toString() + ", doador: " + item.getIdUsuario() + " | ";
     	}
-    	 	
-    	return saida.substring(0, saida.length() - 3);
+
+    	if (saida.length() > 0) {
+            return saida.substring(0, saida.length() - 3);
+        } else {
+    	    return saida;
+        }
     }
     
     private void escreverArquivos() {
