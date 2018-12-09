@@ -245,7 +245,8 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		this.validarExistenciaItem(id);
 		this.itens.remove(id);
 	}
-
+	
+	/*
 	private void validarDoacao(int idItemNecessario, int idItemDoado, String data) {
 		Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
 		Validador.validarInteiro(idItemDoado, "Entrada invalida: id do item nao pode ser negativo.");
@@ -255,7 +256,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		if (!itens.get(idItemNecessario).getDescricao().equals(itens.get(idItemDoado).getDescricao())) {
 			throw new IllegalArgumentException("Os itens nao tem descricoes iguais.");
 		}
-
+ 
 		Validador.validarString(data, "Entrada invalida: data nao pode ser vazia ou nula.");
 	}
 
@@ -276,6 +277,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		
 		return qtdDoacao;	
 	}
+	*/
 	
 	public void removeItensQtd0() {
 		int idParaSerRemovido = 0;
@@ -283,7 +285,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 			if (item.getQuantidade() == 0) {
 				idParaSerRemovido = item.getId();
 			}
-		}
+		} 
 		itens.remove(idParaSerRemovido);
 	}
 
@@ -296,7 +298,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	public int compareTo(Usuario usuario) {
 		return this.posicao - usuario.posicao;
 	}
-
+ 
 	/**
 	 * Retorna a String que representa o usuario. Formato: Nome/Id, email, celular,
 	 * status.

@@ -3,6 +3,8 @@ package eDoe;
 import java.io.Serializable;
 import java.util.Objects;
 
+import util.Validador;
+
 public class Doacao implements Serializable {
 
     public static final long serialVersionUID = 2076231716948746056L;
@@ -13,21 +15,23 @@ public class Doacao implements Serializable {
     private String receptor;
 
     public Doacao(String data, String doador, String item, int quantidade, String receptor) {
-        this.data = data;
+        Validador.validarString(data, "Entrada invalida: data nao pode ser vazia ou nula.");
+    	
+    	this.data = data;
         this.doador = doador;
         this.item = item;
         this.quantidade = quantidade;
         this.receptor = receptor;
     }
-
+ 
     @Override
     public String toString() {
         return this.data + " - doador: " + this.doador + ", item: " + this.item + ", quantidade: " + this.quantidade + ", receptor: " + this.receptor;
     }
-
+ 
     public String getData() {
         return this.data;
-    }
+    } 
 
     @Override
     public boolean equals(Object o) {
@@ -39,8 +43,8 @@ public class Doacao implements Serializable {
                 Objects.equals(doador, doacao.doador) &&
                 Objects.equals(item, doacao.item) &&
                 Objects.equals(receptor, doacao.receptor);
-    }
-
+    } 
+ 
     @Override
     public int hashCode() {
         return Objects.hash(data, doador, item, quantidade, receptor);

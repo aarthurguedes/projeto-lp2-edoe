@@ -99,7 +99,7 @@ public class Descritor implements Comparable<Descritor>, Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Descritor descritor1 = (Descritor) o;
         return descricao.equals(descritor1.descricao);
-    }
+    } 
 
     /**
 	* Retorna o inteiro que representa a posicao do descritor na memoria.
@@ -109,7 +109,7 @@ public class Descritor implements Comparable<Descritor>, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(descricao);
-    }
+    } 
 
 	/**
 	 * Metodo usado para comparar os descritores com base na descricao.
@@ -120,5 +120,5 @@ public class Descritor implements Comparable<Descritor>, Serializable {
     @Override
     public int compareTo(Descritor o) {
         return Util.formatString(this.descricao).compareTo(Util.formatString(o.descricao));
-    }
+    } 
 }

@@ -14,7 +14,7 @@ public class Validador {
 		}
 	}
 	
-	/**
+	/** 
      * Valida uma String, verificando se a mesma é nula ou vazia, caso seja, lanca uma excecao.
      *
      * @param string a String a ser validada.
@@ -27,12 +27,6 @@ public class Validador {
 	
 	private static void validarInteiroPositivo(int inteiro, String msgErro) {
 		if (inteiro <= 0 ) {
-			throw new IllegalArgumentException(msgErro);
-		}
-	}
-
-	public static void validaInteiroPositivo(int inteiro, String msgErro) {
-		if (inteiro < 0) {
 			throw new IllegalArgumentException(msgErro);
 		}
 	}

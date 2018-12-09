@@ -9,11 +9,12 @@ import java.io.*;
 import java.util.*;
 
 public class DoacaoController {
-    private Set<Doacao> doacoes;
+    
+	private Set<Doacao> doacoes;
 
     public DoacaoController() {
         this.doacoes = new HashSet<>();
-    }
+    } 
 
     public void inicializaSistema() {
         this.lerArquivos();
@@ -23,7 +24,7 @@ public class DoacaoController {
         this.escreverArquivos();
     }
 
-    public String realizaDoancao(Item itemNecessario, Item itemDoado, String data) {
+    public String realizaDoacao(Item itemNecessario, Item itemDoado, String data) {
         Doacao doacao = new Doacao(data, itemDoado.getIdUsuario(), itemNecessario.getDescricao(), this.getQuantidade(itemNecessario, itemDoado), itemNecessario.getIdUsuario());
         this.doacoes.add(doacao);
         return doacao.toString();
@@ -41,7 +42,7 @@ public class DoacaoController {
         } else if (qtdItemDoado == qtdItemNecessario) {
             qtdDoacao = qtdItemDoado;
             itemDoado.setQuantidade(0);
-            itemNecessario.setQuantidade(0);
+            itemNecessario.setQuantidade(0); 
         } else if (qtdItemNecessario > qtdItemDoado) {
             qtdDoacao = qtdItemDoado;
             itemNecessario.setQuantidade(itemNecessario.getQuantidade() - qtdItemDoado);
@@ -50,7 +51,7 @@ public class DoacaoController {
 
         return qtdDoacao;
     }
-
+ 
     public String listaDoacoes() {
         List<Doacao> doacaosList = new ArrayList<>(this.doacoes);
         Collections.sort(doacaosList, new ComparadorPelaDataDoacao());

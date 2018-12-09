@@ -19,7 +19,7 @@ public class UsuarioController {
 
     private Map<String, Usuario> usuarios;
     private int posicaoUsuario;
-    
+     
     /**
      * Constroi o controlador dos usuarios.
      */
@@ -30,7 +30,7 @@ public class UsuarioController {
 
     public void inicializaSistema() {
         this.lerArquivos();
-    }
+    } 
 
     public void finalizaSistema() {
         this.escreverArquivos();
@@ -61,7 +61,7 @@ public class UsuarioController {
             throw new IllegalArgumentException("Usuario ja existente: " + id + ".");
         }
     }
-    
+     
     private void validarCadastroUsuario(String id, String nome, String email, String celular, String classe) {
     	Validador.validarString(id, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
     	Validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
@@ -140,7 +140,7 @@ public class UsuarioController {
      */
     public String pesquisarUsuarioPorNome(String nome) {
     	Validador.validarString(nome, "Entrada invalida: nome nao pode ser vazio ou nulo.");
-
+    	
         List<Usuario> usuarioList = new ArrayList<>(this.usuarios.values());
         Collections.sort(usuarioList);
         
@@ -152,7 +152,7 @@ public class UsuarioController {
         }
         if (saida.equals("")) {
             throw new IllegalArgumentException("Usuario nao encontrado: " + nome + ".");
-        }
+        }  
         
         return saida.substring(0, saida.length() - 3);
     }
@@ -161,7 +161,7 @@ public class UsuarioController {
     	if (nome != null && !nome.trim().equals("")) {
             usuarios.get(id).setNome(nome);
         }
-       
+        
     	if (email != null && !email.trim().equals("")) {
             usuarios.get(id).setEmail(email);
         }
@@ -171,7 +171,7 @@ public class UsuarioController {
         }
     }
     
-    /**
+    /** 
      * Metodo de atualizacao dos dados do usuario.
      *
      * @param id identificao unica do usuario
@@ -260,5 +260,5 @@ public class UsuarioController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    } 
 }

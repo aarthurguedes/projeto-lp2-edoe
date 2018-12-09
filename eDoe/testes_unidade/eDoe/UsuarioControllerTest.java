@@ -27,38 +27,60 @@ class UsuarioControllerTest {
 		// Testando o retorno do método
 		assertEquals("59238650111", usuarioController.cadastrarDoador("59238650111", "Satya Vaswani",
 				"satya@vishkarcorp.com", "(83) 99221-2571", "PESSOA_FISICA"));
-
 	}
 
 	@Test
 	public void testCadastrarReceptor() {
 		// Testando a existencia do receptor cadastrado
-		assertTrue(usuarioController.getUsuarios().containsKey("84473712044")); 
+		assertTrue(usuarioController.getUsuarios().containsKey("84473712044"));
 		// Testando o retorno do método
 		assertEquals("80643201009", usuarioController.cadastrarReceptor("80643201009", "Tomás Otávio Lucas Teixeira",
-				"tomas@ipmmi.org.br", "(79) 98977-0397", "PESSOA_FISICA")); 
+				"tomas@ipmmi.org.br", "(79) 98977-0397", "PESSOA_FISICA"));
 	}
+
+	@Test
+	public void testCadastrarUsuarioInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> usuarioController.cadastrarDoador("70513372911",
+				"Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211", "PESSOA_FISICA"));
+	}
+
+	@Test
+	public void testGetUsuarioValido() {
+		Usuario u = usuarioController.getUsuario("70513372911");
+		assertEquals(u, usuarioController.getUsuario("70513372911"));
+	}
+
+	@Test
+	public void testGetUsuarioInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> usuarioController.getUsuario("-1"));
+		assertThrows(IllegalArgumentException.class, () -> usuarioController.getUsuario("705133729110"));
+	} 
 
 	@Test
 	public void testPesquisarUsuarioPorNome() {
 		// Pesquisando o doador cadastrado pelo nome
 		assertEquals("Elizabeth Ashe/70513372911, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador",
-				usuarioController.pesquisarUsuarioPorNome("Elizabeth Ashe")); 
+				usuarioController.pesquisarUsuarioPorNome("Elizabeth Ashe"));
 		// Pesquisando o receptor cadastrado pelo nome
 		assertEquals(
 				"Murilo Luiz Brito/84473712044, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor",
-				usuarioController.pesquisarUsuarioPorNome("Murilo Luiz Brito")); 
+				usuarioController.pesquisarUsuarioPorNome("Murilo Luiz Brito"));
+	}
+
+	@Test
+	public void testPesquisarUsuarioPorNomeInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> usuarioController.pesquisarUsuarioPorNome("Arthur"));
 	}
 
 	@Test
 	public void testPesquisarUsuarioPorId() {
 		// Pesquisando o doador cadastrado pelo id
 		assertEquals("Elizabeth Ashe/70513372911, elizabethcalamity@deadlock.com, (83) 92918-0211, status: doador",
-				usuarioController.pesquisarUsuarioPorId("70513372911")); 
+				usuarioController.pesquisarUsuarioPorId("70513372911"));
 		// Pesquisando o receptor cadastrado pelo id
 		assertEquals(
 				"Murilo Luiz Brito/84473712044, muriloluizbrito-81@ipmmi.org.br, (31) 99776-7434, status: receptor",
-				usuarioController.pesquisarUsuarioPorId("84473712044")); 
+				usuarioController.pesquisarUsuarioPorId("84473712044"));
 	}
 
 	@Test

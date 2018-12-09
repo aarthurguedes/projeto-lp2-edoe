@@ -13,7 +13,7 @@ public class UsuarioTest {
 	private Usuario usuario;
 
 	@BeforeEach
-	public void criaDoador() {
+	public void criaUsuario() {
 		usuario = new Usuario("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
 				Classe.getClassePorString("PESSOA_FISICA"), "doador", 1);
 	}
@@ -26,8 +26,9 @@ public class UsuarioTest {
 		assertEquals("(83) 92918-0211", usuario.getCelular());
 		assertEquals("PESSOA_FISICA", usuario.getClasse());
 		assertEquals(1, usuario.getIdOrdem());
+		assertEquals("doador", usuario.getStatus());
 	}
-
+ 
 	@Test
 	public void testIdInvalido() {
 		assertThrows(IllegalArgumentException.class,
@@ -46,6 +47,11 @@ public class UsuarioTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Usuario("70513372911", "", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
 						Classe.getClassePorString("PESSOA_FISICA"), "doador", 1));
+	}
+	
+	@Test
+	public void testGetNomeEId() {
+		assertEquals("Elizabeth Ashe/70513372911", usuario.getNomeEId());
 	}
 
 	@Test
@@ -79,17 +85,19 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void testDoadoresIguais() {
+	public void testUsuariossIguais() {
 		Usuario usuario2 = new Usuario("70513372911", "Satya Vaswani", "satya@vishkarcorp.com", "(83) 99221-2571",
 				Classe.getClassePorString("PESSOA_FISICA"), "doador", 1);
 		assertTrue(usuario.equals(usuario2));
+		assertTrue(usuario.equals(usuario));
 	}
 
 	@Test
-	public void testDoadoresDiferentes() {
+	public void testUsuariosDiferentes() {
 		Usuario usuario2 = new Usuario("70513372912", "Elizabeth Ashe", "elizabethcalamity@deadlock.com",
 				"(83) 92918-0211", Classe.getClassePorString("PESSOA_FISICA"), "doador", 1);
 		assertFalse(usuario.equals(usuario2));
+		assertFalse(usuario.equals(null));
 	}
 
 	@Test
@@ -97,13 +105,27 @@ public class UsuarioTest {
 		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
 		usuario.getItens().containsKey(1);
 	}
+	
+	@Test
+	public void testGetItem() {
+		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
+		Item i = usuario.getItem(1);
+		assertEquals(i, usuario.getItem(1));
+	}
+	
+	@Test
+	public void testContaisItem() {
+		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
+		assertTrue(usuario.containsItem(1));
+		assertFalse(usuario.containsItem(2));
+	}
 
 	@Test
 	public void testExibirItem() {
 		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
 		assertEquals("1 - cadeira de rodas, tags: [roda grande, cadeira], quantidade: 5", usuario.exibirItem(1));
 	}
-
+ 
 	@Test
 	public void testAtualizarItem() {
 		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
@@ -123,5 +145,27 @@ public class UsuarioTest {
 		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
 		usuario.removerItem(1);
 		assertFalse(usuario.getItens().containsKey(1));
+	}
+	
+	@Test
+	public void testRemoveItensQtd0() {
+		usuario.cadastrarItem(1, new Descritor(Util.formatString("cadeira de rodas")), 5, "roda grande,cadeira");
+		usuario.getItem(1).setQuantidade(0);
+		usuario.removeItensQtd0();
+		assertFalse(usuario.containsItem(1));
+	}
+	
+	@Test
+	public void testCompareTo() {
+		// Comparacao por posicoes iguais
+		assertEquals(0, usuario.compareTo(new Usuario("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
+				Classe.getClassePorString("PESSOA_FISICA"), "doador", 1)));
+		// Comparacao por posicoes diferentes
+		assertEquals(-1, usuario.compareTo(new Usuario("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
+				Classe.getClassePorString("PESSOA_FISICA"), "doador", 2)));
+		usuario = new Usuario("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
+				Classe.getClassePorString("PESSOA_FISICA"), "doador", 2);
+		assertEquals(1, usuario.compareTo(new Usuario("70513372911", "Elizabeth Ashe", "elizabethcalamity@deadlock.com", "(83) 92918-0211",
+				Classe.getClassePorString("PESSOA_FISICA"), "doador", 1)));
 	}
 }

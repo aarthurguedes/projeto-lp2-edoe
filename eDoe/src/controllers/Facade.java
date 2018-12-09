@@ -8,15 +8,11 @@ public class Facade {
 
 	public Facade() {
 		this.edoeController = new EdoeController();
-	}
+	} 
 
 	public void iniciaSistema() {
 		this.edoeController.iniciaSistema();
-	}
-
-	public void finalizaSistema() {
-		this.edoeController.finalizaSistema();
-	}
+	} 
 
 	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
 		return this.edoeController.adicionaDoador(id, nome, email, celular, classe);
@@ -101,8 +97,10 @@ public class Facade {
 	public String listaDoacoes() {
 		return this.edoeController.listaDoacoes();
 	}
-
-
+	
+	public void finalizaSistema() {
+		this.edoeController.finalizaSistema();
+	}
 
 	public static void main(String[] args) {
 		args = new String[] { "controllers.Facade", "acceptance_tests/use_case_1.txt",

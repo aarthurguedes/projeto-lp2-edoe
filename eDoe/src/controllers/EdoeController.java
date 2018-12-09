@@ -17,7 +17,7 @@ public class EdoeController {
         this.itemController = new ItemController();
         this.usuarioController = new UsuarioController();
         this.doacaoController = new DoacaoController();
-    }
+    } 
 
     public void iniciaSistema() {
         this.usuarioController.inicializaSistema();
@@ -110,15 +110,15 @@ public class EdoeController {
 
     public String realizaDoacao(int idItemNecessario, int idItemDoado, String data) {
         Validador.validarString(data,"Entrada invalida: data nao pode ser vazia ou nula.");
-        Validador.validaInteiroPositivo(idItemDoado, "Entrada invalida: id do item nao pode ser negativo.");
-        Validador.validaInteiroPositivo(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
+        Validador.validarInteiro(idItemDoado, "Entrada invalida: id do item nao pode ser negativo.");
+        Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
 
         Item itemNecessario = this.getItemNecessario(idItemNecessario);
         Item itemDoado = this.getItemDoado(idItemDoado);
         this.validaItensDoacao(itemNecessario, itemDoado);
 
 
-        String saida = this.doacaoController.realizaDoancao(itemNecessario, itemDoado, data);
+        String saida = this.doacaoController.realizaDoacao(itemNecessario, itemDoado, data);
         this.removeItensQuantidade0(idItemNecessario, idItemDoado);
         return saida;
     }
