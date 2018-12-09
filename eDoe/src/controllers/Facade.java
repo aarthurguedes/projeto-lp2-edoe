@@ -94,11 +94,21 @@ public class Facade {
 		return this.edoeController.match(idReceptor, idItemNecessario);
 	}
 
+	public String realizaDoacao(int idItemNecessario, int idItemDoado, String data) {
+		return this.edoeController.realizaDoacao(idItemNecessario, idItemDoado, data);
+	}
+
+	public String listaDoacoes() {
+		return this.edoeController.listaDoacoes();
+	}
+
+
+
 	public static void main(String[] args) {
 		args = new String[] { "controllers.Facade", "acceptance_tests/use_case_1.txt",
 				"acceptance_tests/use_case_2.txt", "acceptance_tests/use_case_3.txt",
 				"acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
-				"acceptance_tests/use_case_7.txt"};
+				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 }

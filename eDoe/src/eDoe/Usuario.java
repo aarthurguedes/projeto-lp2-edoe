@@ -277,30 +277,14 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		return qtdDoacao;	
 	}
 	
-	private void removeItensQtd0(int idItemNecessario, int idItemDoado) {
-		int qtdItemNecessario = itens.get(idItemNecessario).getQuantidade();
-		int qtdItemDoado = itens.get(idItemDoado).getQuantidade();
-		
-		if (qtdItemDoado == 0) {
-			itens.remove(idItemDoado);
+	public void removeItensQtd0() {
+		int idParaSerRemovido = 0;
+		for (Item item : this.itens.values()) {
+			if (item.getQuantidade() == 0) {
+				idParaSerRemovido = item.getId();
+			}
 		}
-		
-		if (qtdItemNecessario == 0) {
-			itens.remove(idItemNecessario);
-		}
-	}
-	
-	public String realizarDoacao(int idItemNecessario, int idItemDoado, String data) {
-		this.validarDoacao(idItemNecessario, idItemDoado, data);
-		int qtdDoacao = getQtdDoacao(idItemNecessario, idItemDoado);
-
-		String retorno = data + " - " + "doador: " + itens.get(idItemDoado).getIdUsuario() + ", " + "item: "
-				+ itens.get(idItemDoado).getDescricao() + ", quantidade: " + qtdDoacao + ", receptor: "
-				+ itens.get(idItemNecessario).getIdUsuario();
-		
-		removeItensQtd0(idItemNecessario, idItemDoado);
-		
-		return retorno;
+		itens.remove(idParaSerRemovido);
 	}
 
 	/**

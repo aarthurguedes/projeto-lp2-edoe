@@ -30,6 +30,12 @@ public class Validador {
 			throw new IllegalArgumentException(msgErro);
 		}
 	}
+
+	public static void validaInteiroPositivo(int inteiro, String msgErro) {
+		if (inteiro < 0) {
+			throw new IllegalArgumentException(msgErro);
+		}
+	}
 	
 	/**
      * Valida um inteiro, verificando se o mesmo é menor ou igual a 0, caso seja, lanca uma excecao.
