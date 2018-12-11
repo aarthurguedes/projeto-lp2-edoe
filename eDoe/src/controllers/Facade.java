@@ -4,10 +4,10 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 
-	EdoeController edoeController;
+	EDoeController edoeController;
 
 	public Facade() {
-		this.edoeController = new EdoeController();
+		this.edoeController = new EDoeController();
 	} 
 
 	public void iniciaSistema() {

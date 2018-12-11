@@ -149,7 +149,7 @@ public class ItemController {
         
         this.validarExistenciaItem(usuario, idItem);
         usuario.removerItem(idItem);
-    }
+    } 
 
     /**
      * Metodo responsavel por listar os descritores de itens para adocao.
@@ -282,7 +282,7 @@ public class ItemController {
     	for (Item item : itensMesmoDescritor) {
     		getPontuacao(item, itemReceptor);
     	}
-
+ 
     	Collections.sort(itensMesmoDescritor, new ComparadorPelaPontuacaoMatchEId());
     	
     	String saida = "";

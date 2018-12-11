@@ -7,13 +7,13 @@ import util.Validador;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EdoeController {
+public class EDoeController {
 	
     private ItemController itemController;
     private UsuarioController usuarioController;
     private DoacaoController doacaoController;
 
-    public EdoeController() {
+    public EDoeController() {
         this.itemController = new ItemController();
         this.usuarioController = new UsuarioController();
         this.doacaoController = new DoacaoController();
@@ -58,6 +58,16 @@ public class EdoeController {
     public void adicionaDescritor(String descricao) {
         this.itemController.adicionarDescritor(descricao);
     }
+    
+    private boolean isDoador(String idDoador) {
+        return (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador"));
+    }
+
+    private void validarDoador(String idDoador) {
+        if (!this.isDoador(idDoador)) {
+            throw new IllegalArgumentException("O Usuario deve ser um doador: " + idDoador + ".");
+        }
+    }
 
     public int adicionaItemParaDoacao(String idDoador, String descricao, int quantidade, String tags) {
         this.validarDoador(idDoador);
@@ -76,7 +86,7 @@ public class EdoeController {
     public void removeItemParaDoacao(int idItem, String idDoador) {
         this.validarDoador(idDoador);
         this.itemController.removerItem(idItem, this.usuarioController.getUsuario(idDoador));
-    }
+    } 
 
     public String listaDescritorDeItensParaDoacao() {
         return this.itemController.listarDescritorDeItensParaDoacao(this.getTodosItensCadastradosEmDoador());
@@ -88,6 +98,16 @@ public class EdoeController {
 
     public String pesquisaItemParaDoacaoPorDescricao(String descricao) {
         return this.itemController.pesquisarItemParaDoacaoPorDescricao(descricao, this.getTodosItensCadastradosEmDoador());
+    }
+    
+    private boolean isReceptor(String idReceptor) {
+        return (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor"));
+    }
+    
+    private void validarReceptor(String idReceptor) {
+        if (!this.isReceptor(idReceptor)) {
+            throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
+        }
     }
 
     public int adicionaItemNecessario(String idReceptor, String descricao, int quantidade, String tags) {
@@ -117,7 +137,6 @@ public class EdoeController {
         Item itemDoado = this.getItemDoado(idItemDoado);
         this.validaItensDoacao(itemNecessario, itemDoado);
 
-
         String saida = this.doacaoController.realizaDoacao(itemNecessario, itemDoado, data);
         this.removeItensQuantidade0(idItemNecessario, idItemDoado);
         return saida;
@@ -130,7 +149,7 @@ public class EdoeController {
     }
 
     public String listaDoacoes() {
-        return this.doacaoController.listaDoacoes();
+        return this.doacaoController.listaDoacoes(); 
     }
 
     private void removeItensQuantidade0(int idItemNecessario, int idItemDoado) {
@@ -144,29 +163,22 @@ public class EdoeController {
         this.usuarioController.getUsuario(idDoador).removeItensQtd0();
     }
 
-
+    private void validarMatch(String idReceptor, int idItemNecessario) {
+        this.validarReceptor(idReceptor);
+        Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
+        this.validarExistenciaItem(idReceptor, idItemNecessario);
+    }
+    
     public String match(String idReceptor, int idItemNecessario) {
     	this.validarMatch(idReceptor, idItemNecessario);
     	return this.itemController.match(this.getTodosItensCadastradosEmDoador(), this.usuarioController.getUsuario(idReceptor).getItem(idItemNecessario));
-    }
-
-    private void validarReceptor(String idReceptor) {
-        if (!this.isReceptor(idReceptor)) {
-            throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
-        }
-    }
-
-    private void validarDoador(String idDoador) {
-        if (!this.isDoador(idDoador)) {
-            throw new IllegalArgumentException("O Usuario deve ser um doador: " + idDoador + ".");
-        }
     }
 
     private void validarExistenciaItem(String idReceptor, int idItemNecessario) {
         if (!usuarioController.getUsuario(idReceptor).containsItem(idItemNecessario)) {
             throw new IllegalArgumentException("Item nao encontrado: " + idItemNecessario + ".");
         }
-    }
+    } 
 
     private List<Item> getTodosItensCadastradosEmDoador() {
         List<Item> itensCadastrados = new ArrayList<>();
@@ -211,19 +223,5 @@ public class EdoeController {
             }
         }
         throw new IllegalArgumentException("Item nao encontrado: " + idItemDoado  + ".");
-    }
-
-    private boolean isDoador(String idDoador) {
-        return (this.usuarioController.getUsuario(idDoador).getStatus().equals("doador"));
-    }
-
-    private boolean isReceptor(String idReceptor) {
-        return (this.usuarioController.getUsuario(idReceptor).getStatus().equals("receptor"));
-    }
-
-    private void validarMatch(String idReceptor, int idItemNecessario) {
-        this.validarReceptor(idReceptor);
-        Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
-        this.validarExistenciaItem(idReceptor, idItemNecessario);
     }
 }

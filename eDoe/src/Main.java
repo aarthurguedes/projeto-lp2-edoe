@@ -1,7 +1,7 @@
-import controllers.EdoeController;
+import controllers.EDoeController;
 
 public class Main {
     public static void main(String[] args) {
-        EdoeController ec = new EdoeController();
+        EDoeController ec = new EDoeController();
     }
 }

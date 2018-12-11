@@ -43,18 +43,6 @@ public class UsuarioController {
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
     }
-
-    /**
-     * Metodo responsavel por retornar um objeto do tipo usuario
-     * @param idUsuario representa a identificacao do usuario que sera retornado
-     * @return objeto do tipo usuario
-     */
-    public Usuario getUsuario(String idUsuario) {
-        Validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
-        this.validarExistenciaUsuario(idUsuario);
-
-        return this.usuarios.get(idUsuario);
-    }
     
     private void validarInexistenciaUsuario(String id) {
     	if (usuarios.containsKey(id)) {
@@ -90,7 +78,7 @@ public class UsuarioController {
         
         return this.usuarios.get(id).getId();
     }
-
+ 
     /**
      * Metodo criado para cadastro de um receptor no sistema.
      *
@@ -116,6 +104,18 @@ public class UsuarioController {
     	if (!usuarios.containsKey(id)) {
             throw new IllegalArgumentException("Usuario nao encontrado: " + id + ".");
         }
+    }
+    
+    /**
+     * Metodo responsavel por retornar um objeto do tipo usuario
+     * @param idUsuario representa a identificacao do usuario que sera retornado
+     * @return objeto do tipo usuario
+     */
+    public Usuario getUsuario(String idUsuario) {
+        Validador.validarString(idUsuario, "Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+        this.validarExistenciaUsuario(idUsuario);
+
+        return this.usuarios.get(idUsuario);
     }
     
     /**
