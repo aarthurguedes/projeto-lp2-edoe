@@ -246,39 +246,9 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		this.itens.remove(id);
 	}
 	
-	/*
-	private void validarDoacao(int idItemNecessario, int idItemDoado, String data) {
-		Validador.validarInteiro(idItemNecessario, "Entrada invalida: id do item nao pode ser negativo.");
-		Validador.validarInteiro(idItemDoado, "Entrada invalida: id do item nao pode ser negativo.");
-		this.validarExistenciaItem(idItemNecessario);
-		this.validarExistenciaItem(idItemDoado);
-
-		if (!itens.get(idItemNecessario).getDescricao().equals(itens.get(idItemDoado).getDescricao())) {
-			throw new IllegalArgumentException("Os itens nao tem descricoes iguais.");
-		}
- 
-		Validador.validarString(data, "Entrada invalida: data nao pode ser vazia ou nula.");
-	}
-
-	private int getQtdDoacao(int idItemNecessario, int idItemDoado) {
-		int qtdItemNecessario = itens.get(idItemNecessario).getQuantidade();
-		int qtdItemDoado = itens.get(idItemDoado).getQuantidade();
-		int qtdDoacao = 0;
-		
-		if (qtdItemDoado > qtdItemNecessario) {
-			qtdDoacao = qtdItemNecessario;
-			itens.get(idItemDoado).setQuantidade(itens.get(idItemDoado).getQuantidade() - qtdItemNecessario);
-		} else if (qtdItemDoado == qtdItemNecessario) {
-			qtdDoacao = qtdItemDoado;
-		} else if (qtdItemNecessario > qtdItemDoado) {
-			qtdDoacao = qtdItemDoado;
-			itens.get(idItemNecessario).setQuantidade(itens.get(idItemNecessario).getQuantidade() - qtdItemDoado); 
-		}
-		
-		return qtdDoacao;	
-	}
-	*/
-	
+	/**
+	 * Metodo responsavel por remover um item que a quantidade seja 0
+	 */
 	public void removeItensQtd0() {
 		int idParaSerRemovido = 0;
 		for (Item item : this.itens.values()) {

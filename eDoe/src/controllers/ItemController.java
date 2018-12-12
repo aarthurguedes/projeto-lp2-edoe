@@ -34,10 +34,16 @@ public class ItemController {
         this.idItemDoacao = 1;
     }
 
+    /**
+     * Metodo responsavel por inicializar o sistema fazendo a leitura do arquivo.
+     */
     public void inicializaSistema() {
         this.lerArquivos();
     }
 
+    /**
+     * Metodo responsavel por finalizar o sistema escrevendo no arquivos.
+     */
     public void finalizaSistema() {
         this.escreverArquivos();
     }
@@ -184,9 +190,6 @@ public class ItemController {
         }
     }
 
-    /**
-     * Criado para zerar a quantidade que cada descritor foi utilizado.
-     */
     private void zeraQuantidadeDescritores() {
         for (Descritor descritor : this.descritores.values()) {
             descritor.zeraQuantidade();

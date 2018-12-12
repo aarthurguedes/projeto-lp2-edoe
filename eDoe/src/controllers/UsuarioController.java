@@ -28,10 +28,16 @@ public class UsuarioController {
         this.posicaoUsuario = 1;
     }
 
+    /**
+     * Metodo responsavel por inicializar o sistema fazendo a leitura do arquivo.
+     */
     public void inicializaSistema() {
         this.lerArquivos();
     } 
 
+    /**
+     * Metodo responsavel por finalizar o sistema escrevendo no arquivos.
+     */
     public void finalizaSistema() {
         this.escreverArquivos();
     }

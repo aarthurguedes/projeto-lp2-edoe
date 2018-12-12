@@ -8,22 +8,46 @@ import eDoe.Item;
 import java.io.*;
 import java.util.*;
 
+/**
+* Representacao de um controlador de doacoes. 
+*
+* @author Antonio Bertino de Vasconcelos Cabral Neto
+* @author Arthur Silva Lima Guedes
+* @author Danilo de Menezes Freitas
+* @author Talita Galdino Gouveia
+*/
 public class DoacaoController {
     
 	private Set<Doacao> doacoes;
 
+	/**
+	 * Constroi um controlador de doacoes.
+	 */
     public DoacaoController() {
         this.doacoes = new HashSet<>();
     } 
 
+    /**
+     * Metodo responsavel por inicializar o sistema chamando o metodo de ler os arquivos.
+     */
     public void inicializaSistema() {
         this.lerArquivos();
     }
 
+    /**
+     * Metodo responsavel por finalizar o sistema chamando o metodo de escrever os arquivos.
+     */
     public void finalizaSistema() {
         this.escreverArquivos();
     }
 
+    /**
+     * Metodo responsavel por realizar uma doacao.
+     * @param itemNecessario representa o item necessario para doacao
+     * @param itemDoado representa o item que sera doado
+     * @param data representa a data que a doacao esta sendo realizada
+     * @return String que representa a doacao que foi feita.
+     */
     public String realizaDoacao(Item itemNecessario, Item itemDoado, String data) {
         Doacao doacao = new Doacao(data, itemDoado.getIdUsuario(), itemNecessario.getDescricao(), this.getQuantidade(itemNecessario, itemDoado), itemNecessario.getIdUsuario());
         this.doacoes.add(doacao);
@@ -52,6 +76,10 @@ public class DoacaoController {
         return qtdDoacao;
     }
  
+    /**
+     * Metodo responsavel por listar as doacoes existentes no sistema.
+     * @return String que representa as doacoes (ordenadas) que existem no sistema.
+     */
     public String listaDoacoes() {
         List<Doacao> doacaosList = new ArrayList<>(this.doacoes);
         Collections.sort(doacaosList, new ComparadorPelaDataDoacao());

@@ -118,10 +118,18 @@ public class Item implements Serializable {
 		this.tags = tags;
 	}
 	
+	/**
+	 * Metodo responsavel por retornar a atual pontuacao
+	 * @return inteiro que representa a pontuacao mais atual
+	 */
 	public int getPontuacaoMatch() {
 		return this.pontuacaoMatch;
 	}
 
+	/**
+	 * Metodo responsavel por atualizar uma pontuacao
+	 * @param pontuacaoMatch representa a nova pontuacao
+	 */
 	public void setPontuacaoMatch(int pontuacaoMatch) {
 		this.pontuacaoMatch = pontuacaoMatch;
 	}
@@ -139,7 +147,7 @@ public class Item implements Serializable {
 	/**
 	 * Retorna a String que representa o item. Formato: Id - descricao, tags, quantidade.
 	 *
-	 * @return a representacao em String do usuario.
+	 * @return a representacao em String do item.
 	 */
 	@Override
 	public String toString() {

@@ -47,7 +47,7 @@ public class Descritor implements Comparable<Descritor>, Serializable {
     }
 
     /**
-     * Método criado para zerar a quantidade que esse descritor foi utilizado.
+     * Metodo criado para zerar a quantidade que esse descritor foi utilizado.
      */
     public void zeraQuantidade() {
         this.quantidade = 0;
